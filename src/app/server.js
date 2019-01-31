@@ -41,7 +41,7 @@ let cassandraCP = envHelper.PORTAL_CASSANDRA_URLS
 const oneDayMS = 86400000;
 const request = require('request');
 const ejs = require('ejs');
-const packageObj = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+const packageObj = JSON.parse(fs.readFileSync(path.join(__dirname,'package.json'), 'utf8'));
 const MobileDetect = require('mobile-detect');
 let memoryStore = null
 let defaultTenantIndexStatus = 'false';
@@ -115,6 +115,9 @@ app.use(express.static(path.join(__dirname, 'dist'), { extensions: ['ejs'], inde
 // Announcement routing
 app.use('/announcement/v1', bodyParser.urlencoded({ extended: false }),
   bodyParser.json({ limit: '10mb' }), require('./helpers/announcement')(keycloak))
+
+  app.use('/discussions/v1', bodyParser.urlencoded({ extended: false }),
+  bodyParser.json({ limit: '10mb' }), require('./helpers/discussion')(keycloak))
 
 app.all('/logoff', endSession, function (req, res) {
   res.cookie('connect.sid', '', { expires: new Date() })
@@ -469,7 +472,7 @@ function endSession(request, response, next) {
   delete request.session['orgs']
   if (request.session) {
     if (_.get(request, 'kauth.grant.access_token.content.sub')) { telemetryHelper.logSessionEnd(request) }
-    
+
       request.session.sessionEvents = request.session.sessionEvents || []
       delete request.session.sessionEvents
       delete request.session['deviceId']
