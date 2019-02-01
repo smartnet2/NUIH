@@ -249,8 +249,11 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     this.discussionThread[i].show = !this.discussionThread[i].show
     this.getReplies(id)
   }
-  reply() {
-    this.replyEditor = !this.replyEditor;
+  cancel(i) {
+    this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
+  }
+  reply(i) {
+    this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
   }
   replyToThread(id) {
     let body = {
@@ -259,6 +262,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     }
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
       this.retreiveThread(this.batchId)
+      this.getReplies(id)
     })
   }
   private parseChildContent() {
