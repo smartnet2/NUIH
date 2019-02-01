@@ -212,7 +212,7 @@ class ThreadService {
         let threadConfig = await (this.groupService.getThreadConfig(threadId.toString()))
         console.log("::::::::::::::::::", threadConfig, threadId);
 
-        threadDetails.config = JSON.parse(threadConfig.config.toString())
+        // threadDetails.config = JSON.parse(threadConfig.config.toString())
         resolve(threadDetails)
       } catch (error) {
         reject(error)

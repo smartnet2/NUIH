@@ -248,8 +248,8 @@ class DiscourseAdapter {
         // Title:threadData.body,
         topic_id: threadData.threadId,
         // topic_id: threadData.threadId,
-        nested_post: true,
-        reply_to_post_number: 2
+        // nested_post: true,
+        // reply_to_post_number: 2
       }
 
       let options = {
@@ -447,6 +447,8 @@ class DiscourseAdapter {
    *
    */
   getThreadById(threadId, user) {
+    console.log('========================getThreadById Called===============================');
+
     this.userName = user.userName
     return new Promise((resolve, reject) => {
       this.createUserIfNotExists(user).then((success) => {
@@ -464,7 +466,7 @@ class DiscourseAdapter {
           if (data.response.statusCode == HttpStatus.OK && data.body) {
             let res = JSON.parse(data.body)
             var aaa = this.extractThreadData(res)
-            console.log(aaa)
+            console.log('aaa',aaa)
             return resolve(aaa)
           } else {
             console.log("error0", data.response.statusCode)
