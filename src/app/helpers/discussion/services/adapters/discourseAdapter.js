@@ -249,9 +249,11 @@ class DiscourseAdapter {
         topic_id: threadData.threadId,
         // topic_id: threadData.threadId,
         nested_post: true,
-        reply_to_post_number: 2
+        // reply_to_post_number: 2
       }
-
+      if (threadData.reply_to_post_number) {
+        formData.reply_to_post_number = threadData.reply_to_post_number
+      }
       let options = {
         method: 'POST',
         uri: this.discourseEndPoint + this.discourseUris.postThread,
@@ -464,7 +466,7 @@ class DiscourseAdapter {
           if (data.response.statusCode == HttpStatus.OK && data.body) {
             let res = JSON.parse(data.body)
             var aaa = this.extractThreadData(res)
-            console.log(aaa)
+            console.log('aaa', aaa)
             return resolve(aaa)
           } else {
             console.log("error0", data.response.statusCode)
