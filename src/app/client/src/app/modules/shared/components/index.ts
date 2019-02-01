@@ -2,6 +2,7 @@ export * from './announcement-inbox-card/announcement-inbox-card.component';
 export * from './app-loader/app-loader.component';
 export * from './no-result/no-result.component';
 export * from './page-section/page-section.component';
+export * from './page-footer/page-footer.component';
 export * from './player/player.component';
 export * from './collection-tree/collection-tree.component';
 export * from './fancy-tree/fancy-tree.component';

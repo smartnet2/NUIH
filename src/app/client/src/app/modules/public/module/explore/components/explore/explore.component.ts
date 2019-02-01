@@ -23,6 +23,8 @@ export class ExploreComponent implements OnInit, OnDestroy {
    */
   private toasterService: ToasterService;
   /**
+   * 
+   * 
    * To call resource service which helps to use language constant
    */
   public resourceService: ResourceService;

@@ -2362,6 +2362,7 @@ i.trash.outline.icon.trashIcon-fontSize {
 }
 .wmd-input {
   height: 150px !important;
+  width: 100%;
 }
 .ui.items > .item > .image.userSearchImage > img {
   min-height: 80px;
@@ -2769,4 +2770,37 @@ iframe.iziModal-iframe {
   display: inline-block;
   font-size: 1.4em;
   line-height: 1.35;
+}
+.container1 {
+  animation-duration: 2s;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  padding: 25px;
+  margin: 0 auto;
+  width: 58%;
+  background-color: rgba(0,0,0,0.7);
+}
+.p-text {
+  font-size: 4rem;
+  line-height: 1.1;
+  margin-top: 0;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 1px 1px 7px rgba(0, 0, 0, 1)
+}
+.h-text {
+  font-family: "metropolis-light", sans-serif;
+  font-size: 2rem;
+  line-height: 1.421;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 2.4rem;
+  position: relative;
+  text-align: center;
+}
+.testimonials__avatar {
+  width: 10.8rem;
+  height: 10.8rem;
+  border-radius: 100%;
+  left: 0;
+  outline: none;
 }

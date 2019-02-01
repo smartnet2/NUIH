@@ -7,11 +7,12 @@ import { SuiModule } from 'ng2-semantic-ui/dist';
 import { SlickModule } from 'ngx-slick';
 import { NgInviewModule } from 'angular-inport';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillEditorModule } from 'ngx-quill-editor';
 import {
   LearnPageComponent, CoursePlayerComponent, CourseConsumptionHeaderComponent,
   CourseConsumptionPageComponent, BatchDetailsComponent, EnrollBatchComponent, CreateBatchComponent,
   UpdateCourseBatchComponent, CarriculumCardComponent } from './components';
-import { CourseConsumptionService, CourseBatchService, CourseProgressService } from './services';
+import { CourseConsumptionService, CourseBatchService, CourseProgressService,CourseDiscussionsService } from './services';
 import { CoreModule } from '@sunbird/core';
 import { NotesModule } from '@sunbird/notes';
 import { DashboardModule } from '@sunbird/dashboard';
@@ -29,9 +30,10 @@ import { DashboardModule } from '@sunbird/dashboard';
     ReactiveFormsModule,
     NotesModule,
     TelemetryModule,
+    QuillEditorModule,
     NgInviewModule
   ],
-  providers: [CourseConsumptionService, CourseBatchService, CourseProgressService],
+  providers: [CourseConsumptionService, CourseBatchService, CourseProgressService,CourseDiscussionsService],
   declarations: [LearnPageComponent, CoursePlayerComponent, CourseConsumptionHeaderComponent,
     CourseConsumptionPageComponent, BatchDetailsComponent, EnrollBatchComponent, CreateBatchComponent,
     UpdateCourseBatchComponent, CarriculumCardComponent]

@@ -171,7 +171,6 @@ class GroupService {
   }
 
   getThreadConfig(threadId) {
-    console.log("getThreadConfig called ");
     return new Promise((resolve, reject) => {
       this.cassandraModel.instance.ThreadConfig.findOne({
         threadid: threadId
@@ -180,14 +179,14 @@ class GroupService {
         allow_filtering: true
       }, function (err, thread) {
         if (err) {
-          console.log("error in getThreadConfig",err);
+          console.log(err);
           reject(err)
         }
-        console.log("ThreadConfig",thread,threadId)
         resolve(thread)
       })
     }).catch(err => {
-      console.log("err1 in getThreadConfig", err);
+      console.log("err1", err);
+
       throw err;
     })
 

@@ -116,7 +116,7 @@ app.use(express.static(path.join(__dirname, 'dist'), { extensions: ['ejs'], inde
 app.use('/announcement/v1', bodyParser.urlencoded({ extended: false }),
   bodyParser.json({ limit: '10mb' }), require('./helpers/announcement')(keycloak))
 
-  app.use('/discussions/v1', bodyParser.urlencoded({ extended: false }),
+app.use('/content/discussions/v1', bodyParser.urlencoded({ extended: false }),
   bodyParser.json({ limit: '10mb' }), require('./helpers/discussion')(keycloak))
 
 app.all('/logoff', endSession, function (req, res) {
@@ -145,15 +145,15 @@ function getLocals(req) {
 }
 
 function indexPage(req, res) {
-  if(defaultTenant && req.path === '/'){
+  if (defaultTenant && req.path === '/') {
     tenantId = defaultTenant
-    renderTenantPage(req,res)
-  }else{
-    renderDefaultIndexPage(req,res)
+    renderTenantPage(req, res)
+  } else {
+    renderDefaultIndexPage(req, res)
   }
 }
 
-function renderDefaultIndexPage(req,res){
+function renderDefaultIndexPage(req, res) {
   const mobileDetect = new MobileDetect(req.headers['user-agent']);
   if ((req.path === '/get' || req.path === '/' + req.params.slug + '/get')
     && mobileDetect.os() === 'AndroidOS') {
@@ -257,10 +257,10 @@ app.post('/learner/content/v1/media/upload',
     }
   }))
 
-app.post('/learner/user/v1/create', function(req, res, next){
-  if(envHelper.ENABLE_SIGNUP === 'false'){
+app.post('/learner/user/v1/create', function (req, res, next) {
+  if (envHelper.ENABLE_SIGNUP === 'false') {
     res.sendStatus(403);
-  } else{
+  } else {
     next();
   }
 });
@@ -308,7 +308,7 @@ function addCorsHeaders(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE,OPTIONS')
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization,' +
-                                              'cid, user-id, x-auth, Cache-Control, X-Requested-With, *')
+    'cid, user-id, x-auth, Cache-Control, X-Requested-With, *')
 
   if (req.method === 'OPTIONS') {
     res.sendStatus(200)
@@ -378,30 +378,30 @@ app.all('/:tenantName', function (req, res) {
     tenantId = _.lowerCase(tenantId)
   }
   if (tenantId) {
-    renderTenantPage(req,res)
+    renderTenantPage(req, res)
   } else if (defaultTenant) {
-    renderTenantPage(req,res)
+    renderTenantPage(req, res)
   } else {
     res.redirect('/')
   }
 })
 
 // renders tenant page from cdn or from local files based on tenantCdnUrl exists
-function renderTenantPage (req,res) {
-  try{
-    if(tenantCdnUrl){
-      request(tenantCdnUrl + '/' + tenantId + '/' +  'index.html' , function (error, response, body) {
-        if(error || !body || response.statusCode !== 200){
-            loadTenantFromLocal(req,res)
-        }else{
+function renderTenantPage(req, res) {
+  try {
+    if (tenantCdnUrl) {
+      request(tenantCdnUrl + '/' + tenantId + '/' + 'index.html', function (error, response, body) {
+        if (error || !body || response.statusCode !== 200) {
+          loadTenantFromLocal(req, res)
+        } else {
           res.send(body)
         }
       });
-    }else {
-      loadTenantFromLocal(req,res)
+    } else {
+      loadTenantFromLocal(req, res)
     }
-  }catch(e){
-    loadTenantFromLocal(req,res)
+  } catch (e) {
+    loadTenantFromLocal(req, res)
   }
 }
 
@@ -412,22 +412,22 @@ if (defaultTenant) {
 }
 
 //in fallback option check always for localtenant folder and redirect to / if not exists
-function loadTenantFromLocal (req,res) {
- if(tenantId){
-   if (fs.existsSync(path.join(__dirname, 'tenant', tenantId, 'index.html'))){
-     res.sendFile(path.join(__dirname, 'tenant', tenantId, 'index.html'))
-   }else{
-     // renderDefaultIndexPage only if there is no local default tenant else redirect
-     if(defaultTenant && req.path === '/'){
-       renderDefaultIndexPage(req,res)
-     }else{
-     //this will be executed only if user is typed invalid tenant in url
-       res.redirect('/')
-     }
-   }
- }else{
-   renderDefaultIndexPage(req,res)
- }
+function loadTenantFromLocal(req, res) {
+  if (tenantId) {
+    if (fs.existsSync(path.join(__dirname, 'tenant', tenantId, 'index.html'))) {
+      res.sendFile(path.join(__dirname, 'tenant', tenantId, 'index.html'))
+    } else {
+      // renderDefaultIndexPage only if there is no local default tenant else redirect
+      if (defaultTenant && req.path === '/') {
+        renderDefaultIndexPage(req, res)
+      } else {
+        //this will be executed only if user is typed invalid tenant in url
+        res.redirect('/')
+      }
+    }
+  } else {
+    renderDefaultIndexPage(req, res)
+  }
 }
 
 // Handle content share request
@@ -501,8 +501,8 @@ if (!process.env.sunbird_environment || !process.env.sunbird_instance) {
 }
 
 portal.server = app.listen(port, function () {
-  if(envHelper.PORTAL_CDN_URL){
-    request(envHelper.PORTAL_CDN_URL + 'index_'+packageObj.version+'.'+packageObj.buildNumber+'.ejs' ).pipe(fs.createWriteStream(path.join(__dirname, 'dist', 'index.ejs')));
+  if (envHelper.PORTAL_CDN_URL) {
+    request(envHelper.PORTAL_CDN_URL + 'index_' + packageObj.version + '.' + packageObj.buildNumber + '.ejs').pipe(fs.createWriteStream(path.join(__dirname, 'dist', 'index.ejs')));
   }
   defaultTenantIndexStatus = tenantHelper.getDefaultTenantIndexState();
   console.log('app running on port ' + port)

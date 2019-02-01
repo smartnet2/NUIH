@@ -95,6 +95,7 @@ export class GenericEditorComponent implements OnInit, AfterViewInit, OnDestroy 
     /**
      * Call User service to get user data
      */
+    console.log("welcome to editor")
     this.userService.userData$.subscribe(
       (user: IUserData) => {
         if (user && !user.err) {

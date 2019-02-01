@@ -3,7 +3,7 @@ import { SlickModule } from 'ngx-slick';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
    AnnouncementInboxCardComponent,
-  PageSectionComponent, NoResultComponent, AppLoaderComponent, PlayerComponent,
+  PageSectionComponent, PageFooterComponent,NoResultComponent, AppLoaderComponent, PlayerComponent,
   CollectionTreeComponent, FancyTreeComponent, CardComponent, ShareLinkComponent, CollectionPlayerMetadataComponent,
   BrowserCompatibilityComponent, QrCodeModalComponent, RedirectComponent, CustomMultiSelectComponent
 } from './components';
@@ -31,12 +31,12 @@ import { CdnprefixPipe } from './pipes/cdnprefix.pipe';
     NgInviewModule
   ],
   declarations: [AppLoaderComponent, AnnouncementInboxCardComponent,
-    DateFormatPipe, PageSectionComponent, NoResultComponent, DateFilterXtimeAgoPipe,
+    DateFormatPipe, PageSectionComponent, PageFooterComponent,NoResultComponent, DateFilterXtimeAgoPipe,
     CollectionTreeComponent, FancyTreeComponent, PlayerComponent, CardComponent, FilterPipe, InterpolatePipe,
     ShareLinkComponent, CollectionPlayerMetadataComponent, BrowserCompatibilityComponent, QrCodeModalComponent, CdnprefixPipe,
     RedirectComponent, CustomMultiSelectComponent],
   exports: [AppLoaderComponent, AnnouncementInboxCardComponent, DateFormatPipe, DateFilterXtimeAgoPipe,
-    PageSectionComponent, NoResultComponent, CollectionTreeComponent, FancyTreeComponent,
+    PageSectionComponent, PageFooterComponent,NoResultComponent, CollectionTreeComponent, FancyTreeComponent,
     PlayerComponent, CardComponent, FilterPipe, ShareLinkComponent, CollectionPlayerMetadataComponent, BrowserCompatibilityComponent,
     QrCodeModalComponent, CdnprefixPipe, InterpolatePipe, RedirectComponent, CustomMultiSelectComponent]
 })

@@ -10,7 +10,7 @@ import {
   WindowScrollService, ILoaderMessage, ConfigService, ICollectionTreeOptions, NavigationHelperService,
   ToasterService, ResourceService, ExternalUrlPreviewService
 } from '@sunbird/shared';
-import { CourseConsumptionService, CourseBatchService } from './../../../services';
+import { CourseConsumptionService, CourseBatchService, CourseDiscussionsService } from './../../../services';
 import { INoteData } from '@sunbird/notes';
 import {
   IImpressionEventInput, IEndEventInput, IStartEventInput, IInteractEventObject, IInteractEventEdata
@@ -60,6 +60,12 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   showError = false;
 
   private activatedRouteSubscription: Subscription;
+
+  public editor;
+  public editorContent: any;
+  public editorOptions = {
+    placeholder: "insert content..."
+  };
 
   enableContentPlayer = false;
 
@@ -117,7 +123,11 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   noContentToPlay = 'No content to play';
 
   showExtContentMsg = false;
-
+  show: boolean = false;
+  replyEditor: boolean = false;
+  discussionThread: any;
+  replyContent: any;
+  repliesContent: any;
   public loaderMessage: ILoaderMessage = {
     headerMessage: 'Please wait...',
     loaderMessage: 'Fetching content details!'
@@ -131,7 +141,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     private courseConsumptionService: CourseConsumptionService, windowScrollService: WindowScrollService,
     router: Router, public navigationHelperService: NavigationHelperService, private userService: UserService,
     private toasterService: ToasterService, private resourceService: ResourceService, public breadcrumbsService: BreadcrumbsService,
-    private cdr: ChangeDetectorRef, public courseBatchService: CourseBatchService, public permissionService: PermissionService,
+    private cdr: ChangeDetectorRef, public courseBatchService: CourseBatchService, public courseDiscussionsService: CourseDiscussionsService, public permissionService: PermissionService,
     public externalUrlPreviewService: ExternalUrlPreviewService, public coursesService: CoursesService) {
     this.contentService = contentService;
     this.activatedRoute = activatedRoute;
@@ -140,6 +150,24 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     this.router.onSameUrlNavigation = 'ignore';
     this.collectionTreeOptions = this.configService.appConfig.collectionTreeOptions;
   }
+  // onEditorBlured(quill) {
+  //   console.log('editor blur!', quill);
+  // }
+
+  // onEditorFocused(quill) {
+  //   console.log('editor focus!', quill);
+  // }
+
+  // onEditorCreated(quill) {
+  //   this.editor = quill;
+  //   console.log('quill is ready! this is current quill instance object', quill);
+  // }
+
+  // onContentChanged({ quill, html, text }) {
+  //   this.editorContent = html;
+  //   //console.log('quill content is changed!', this.editorContent);
+  // }
+
   ngOnInit() {
     this.activatedRouteSubscription = this.activatedRoute.params.pipe(first(),
       mergeMap((params) => {
@@ -171,6 +199,11 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
           this.enrolledCourse = true;
           this.setTelemetryStartEndData();
           this.parseChildContent();
+          this.retreiveThread(this.batchId)
+          // this.courseDiscussionsService.retrieveDiscussion(this.batchId).subscribe((res) => {
+          //   console.log("retirve", res,this.batchId)
+          //   this.discussionThread = res.result.threads;
+          // })
           if (this.enrolledBatchInfo.status > 0 && this.contentIds.length > 0) {
             this.getContentState();
             this.subscribeToQueryParam();
@@ -188,6 +221,45 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         this.loader = false;
         this.toasterService.error(this.resourceService.messages.emsg.m0005); // need to change message
       });
+
+  }
+  postComment() {
+    let req = {
+      "title": this.editorContent,
+      "body": this.editorContent,
+      "contextId": this.batchId,
+    }
+    this.courseDiscussionsService.postDiscussion(req).subscribe((res: any) => {
+      this.retreiveThread(this.batchId)
+      this.editorContent = '';
+    })
+  }
+  getReplies(id) {
+    this.courseDiscussionsService.getReplies(id).subscribe((res: any) => {
+      this.repliesContent = res.result.thread.replies;
+      console.log("res", this.repliesContent)
+    })
+  }
+  retreiveThread(id) {
+    this.courseDiscussionsService.retrieveDiscussion(id).subscribe((res: any) => {
+      this.discussionThread = res.result.threads;
+    })
+  }
+  collapse(i, id) {
+    this.discussionThread[i].show = !this.discussionThread[i].show
+    this.getReplies(id)
+  }
+  reply() {
+    this.replyEditor = !this.replyEditor;
+  }
+  replyToThread(id) {
+    let body = {
+      "body": this.replyContent,
+      "threadId": id
+    }
+    this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
+      this.retreiveThread(this.batchId)
+    })
   }
   private parseChildContent() {
     const model = new TreeModel();

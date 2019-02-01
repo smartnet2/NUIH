@@ -120,6 +120,7 @@ export class WorkSpaceService {
    * @param {string}  state - Present state
   */
   openGenericEditor(content, state) {
+    console.log("state",content,state)
     if (this.config.appConfig.WORKSPACE.states.includes(state)) {
       this.route.navigate(['/workspace/content/edit/generic/', content.identifier, state, content.framework]);
     } else {
