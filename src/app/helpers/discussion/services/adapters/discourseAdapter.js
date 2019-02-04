@@ -199,8 +199,8 @@ class DiscourseAdapter {
     console.log("create thread Called ===============================================================", threadData);
     return new Promise((resolve, reject) => {
       let formData = {
-        api_key: this.apiAuth.apiKey,
-        api_username: user.userName,
+        api_key:this.apiAuth.apiKey,
+        api_username: this.apiAuth.apiUserName,
         title: threadData.title,
         raw: threadData.body,
         // category: "5",
@@ -243,7 +243,7 @@ class DiscourseAdapter {
     return new Promise((resolve, reject) => {
       let formData = {
         api_key: this.apiAuth.apiKey,
-        api_username: user.userName,
+        api_username:this.userName,
         raw: threadData.body,
         // Title:threadData.body,
         topic_id: threadData.threadId,
