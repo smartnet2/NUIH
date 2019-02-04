@@ -9,17 +9,8 @@ const packageObj = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 
 let envVariables = {
-<<<<<<< HEAD
+
   CONTENT_CHANNEL_FILTER_TYPE: "all",
-  LEARNER_URL:  'https://dev.sunbirded.org/api/',
- CONTENT_URL: 'https://dev.sunbirded.org/api/',
-  CONTENT_PROXY_URL: "https://dev.sunbirded.org",
-  PORTAL_REALM: "sunbird",
-  PORTAL_AUTH_SERVER_URL: "https://dev.sunbirded.org/auth",
-  PORTAL_AUTH_SERVER_CLIENT: "portal",
-  APPID: "sunbird.portal",
-  DEFAULT_CHANNEL: "sunbird",
-=======
 
   LEARNER_URL: env.sunbird_learner_player_url || 'https://dev.sunbirded.org/api/',
 
@@ -37,7 +28,7 @@ let envVariables = {
 
   DEFAULT_CHANNEL: env.sunbird_default_channel,
 
->>>>>>> 875737066b9cc9c89868a945da341509f0c30d2c
+
   EKSTEP_ENV: env.ekstep_env || 'qa',
   PORTAL_PORT: 3000,
   PORTAL_API_AUTH_TOKEN:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkMTc1MDIwNDdlODc0ODZjOTM0ZDQ1ODdlYTQ4MmM3MyJ9.7LWocwCn5rrCScFQYOne8_Op2EOo-xTCK5JCFarHKSs",
