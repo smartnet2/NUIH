@@ -89,7 +89,7 @@ class ThreadService {
 
 
   editReply(postData, user) {
-    console.log("addasdasddddddddddddddddddddddd");
+    // console.log("addasdasddddddddddddddddddddddd");
 
     return new Promise((resolve, reject) => {
       try {
@@ -209,8 +209,9 @@ class ThreadService {
     return new Promise((resolve, reject) => {
       try {
         let threadDetails = await (this.discussionAdapter.getThreadById(threadId, user))
+        console.log("::::::::::::::::::", threadId, threadDetails)
         let threadConfig = await (this.groupService.getThreadConfig(threadId.toString()))
-        console.log("::::::::::::::::::", threadConfig, threadId);
+        console.log("::::::::::::::::::", threadConfig, threadId, threadDetails);
 
         threadDetails.config = JSON.parse(threadConfig.config.toString())
         resolve(threadDetails)
@@ -218,6 +219,19 @@ class ThreadService {
         reject(error)
       }
     })
+  }
+
+
+  fileService(threadData, user) {
+    // let actionData = {
+    //   postId: threadData.type
+    // }
+    switch (threadData.type) {
+      case 'upload':
+        return this.discussionAdapter.uploadFile(actionData, user)
+      case 'download':
+        return this.discussionAdapter.downloadFile(actionData, user)
+    }
   }
 
   voteThread(threadData, user) {

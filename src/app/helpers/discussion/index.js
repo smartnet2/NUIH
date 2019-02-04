@@ -25,11 +25,15 @@ const API_IDS = {
   editThread: 'edit-thread'
 }
 
-let threadController = new ThreadController({threadModel, replyModel, actionsModel})
+let threadController = new ThreadController({
+  threadModel,
+  replyModel,
+  actionsModel
+})
 
 const API_VERSION = '1.0'
 
-function sendSuccessResponse (res, id, result, code = HttpStatus.OK) {
+function sendSuccessResponse(res, id, result, code = HttpStatus.OK) {
   res.status(code)
   res.send({
     'id': API_ID_BASE + '.' + id,
@@ -48,7 +52,7 @@ function sendSuccessResponse (res, id, result, code = HttpStatus.OK) {
   res.end()
 }
 
-function getErrorCode (httpCode) {
+function getErrorCode(httpCode) {
   let responseCode = 'UNKNOWN_ERROR'
 
   if (httpCode >= 500) {
@@ -66,7 +70,7 @@ function getErrorCode (httpCode) {
   return responseCode
 }
 
-function sendErrorResponse (res, id, message, httpCode = HttpStatus.BAD_REQUEST) {
+function sendErrorResponse(res, id, message, httpCode = HttpStatus.BAD_REQUEST) {
   let responseCode = getErrorCode(httpCode)
 
   res.status(httpCode)
@@ -100,12 +104,12 @@ module.exports = function (keycloak) {
   router.get('/thread/:id/', (requestObj, responseObj, next) => {
     threadController.getThreadById(requestObj)
       .then((data) => {
-        console.log('thread data',data);
+        console.log('thread data', data);
 
         sendSuccessResponse(responseObj, API_IDS.getthreadbyid, data, HttpStatus.OK)
       })
       .catch((err) => {
-        console.log('thread data error',err);
+        console.log('thread data error', err);
         sendErrorResponse(responseObj, API_IDS.getthreadbyid, err.message, err.status)
       })
   })
@@ -204,7 +208,15 @@ module.exports = function (keycloak) {
         sendErrorResponse(responseObj, API_IDS.archiveThread, err.message, err.status)
       })
   })
-
+  router.post('/thread/files', (requestObj, responseObj, next) => {
+    threadController.fileService(requestObj)
+      .then((data) => {
+        sendSuccessResponse(responseObj, API_IDS.archiveThread, data, HttpStatus.OK)
+      })
+      .catch((err) => {
+        sendErrorResponse(responseObj, API_IDS.archiveThread, err.message, err.status)
+      })
+  })
   return router
 }
 // module.exports = router

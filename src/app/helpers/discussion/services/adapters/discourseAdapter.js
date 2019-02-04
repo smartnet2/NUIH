@@ -251,14 +251,19 @@ class DiscourseAdapter {
         nested_post: true,
         // reply_to_post_number: 2
       }
-      if (threadData.reply_to_post_number) {
-        formData.reply_to_post_number = threadData.reply_to_post_number
+
+      console.log('threadData.replyPostNumber', threadData);
+
+      if (threadData.replyPostNumber) {
+        formData.reply_to_post_number = threadData.replyPostNumber
       }
       let options = {
         method: 'POST',
         uri: this.discourseEndPoint + this.discourseUris.postThread,
         form: formData
       }
+      console.log(options);
+
       this.httpService.call(options).then((data) => {
         let res = JSON.parse(data.body)
         // console.log("Success in reply thread", data.response.statusCode,res.post.topic_id);
@@ -510,6 +515,8 @@ class DiscourseAdapter {
 
       this.httpService.call(options).then((data) => {
         let res = JSON.parse(data.body)
+        console.log(res,data.response.statusCode);
+
         if (res && data.response.statusCode == HttpStatus.OK) {
           resolve('done')
         } else {
@@ -519,6 +526,8 @@ class DiscourseAdapter {
           })
         }
       }, (error) => {
+        console.log("Error1",error);
+
         reject(error)
       })
     })
@@ -722,6 +731,40 @@ class DiscourseAdapter {
       })
     })
 
+  }
+
+  // Upload files
+  uploadFile(fileData, user) {
+    this.httpService.call(options).then((data) => {
+      let res = JSON.parse(data.body)
+      if (res.post && res.post.id && data.response.statusCode == HttpStatus.OK) {
+        resolve('done')
+      } else {
+        reject({
+          message: res.errors[0] || 'Error in editing reply',
+          status: data.response.statusCode
+        })
+      }
+    }, (error) => {
+      reject(error)
+    })
+  }
+
+  // Downlod Files
+  downloadFile(fileData, user) {
+    this.httpService.call(options).then((data) => {
+      let res = JSON.parse(data.body)
+      if (res.post && res.post.id && data.response.statusCode == HttpStatus.OK) {
+        resolve('done')
+      } else {
+        reject({
+          message: res.errors[0] || 'Error in editing reply',
+          status: data.response.statusCode
+        })
+      }
+    }, (error) => {
+      reject(error)
+    })
   }
 
 }

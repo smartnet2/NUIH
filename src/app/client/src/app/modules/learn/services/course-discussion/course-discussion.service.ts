@@ -125,6 +125,17 @@ export class CourseDiscussionsService {
 
   }
 
+  public likeReply(body) {
+    const channelOptions = {
+      url: this.configService.urlConFig.URLS.COURSE.LIKE_POST,
+      data: body
+    };
+    return this.contentService.post(channelOptions).pipe(map((res: ServerResponse) => {
+      return res;
+    }), catchError((err) => {
+      return err;
+    }));
 
+  }
 
 }

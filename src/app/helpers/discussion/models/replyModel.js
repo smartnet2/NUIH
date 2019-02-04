@@ -22,7 +22,8 @@ let modelSchema = Joi.object().keys({
 let replyThreadApiSchema = Joi.object().keys({
   request: Joi.object().keys({
     threadId: Joi.number().required(),
-    body: Joi.string().min(15).max(1200).required()
+    body: Joi.string().min(15).max(1200).required(),
+    replyPostNumber:Joi.number()
   }).required()
 })
 /*

@@ -40,7 +40,8 @@
       "COURSE_DISCUSSIONS_POST":"discussions/v1/thread/create",
       "RETRIEVE_DISCUSSION":"discussions/v1/list",
       "REPLY_TO_THREAD":"discussions/v1/thread/reply",
-      "RETRIEVE_REPLIES":"discussions/v1/thread/"
+      "RETRIEVE_REPLIES":"discussions/v1/thread/",
+      "LIKE_POST":  "discussions/v1/thread/vote"
     },
     "CONTENT": {
       "SEARCH": "content/v1/search",
