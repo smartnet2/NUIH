@@ -104,6 +104,11 @@ class ThreadController {
   checkModeration(requestObj) {
     return this.__checkModeration()(requestObj)
   }
+  fileService(requestObj) {
+    return this._fileService()(requestObj)
+  }
+
+
 
   __checkModeration(requestObj) {
     return async ((requestObj) => {
@@ -459,6 +464,8 @@ class ThreadController {
         let userProfile = await (this.userService.getUserProfile(authUserToken))
         let validation = this.actionsModel.validateVoteApi(requestObj.body)
         let voteThreadRequest = requestObj.body.request
+        console.log("validation=================", validation);
+
         if (!validation.isValid) throw {
           message: validation.error,
           status: HttpStatus.BAD_REQUEST,
@@ -520,7 +527,8 @@ class ThreadController {
           return new Promise((resolve, reject) => {
             let threadData = {
               threadId: replyThreadRequest.threadId,
-              body: replyThreadRequest.body
+              body: replyThreadRequest.body,
+              replyPostNumber: _.get(replyThreadRequest, 'replyPostNumber') || null
             }
             let user = {
               userName: userProfile.userName,
@@ -679,7 +687,7 @@ class ThreadController {
         // validate request
         let userProfile = await (this.userService.getUserProfile(authUserToken))
 
-        console.log("User data",authUserToken, userProfile);
+        console.log("User data", authUserToken, userProfile);
 
         if (userProfile && userProfile.userId) {
           return new Promise((resolve, reject) => {
@@ -714,7 +722,53 @@ class ThreadController {
       }
     })
   }
+  _fileService() {
+    return async ((requestObj) => {
+      // try {
 
+      //   let authUserToken = await (this.userService.getToken(requestObj))
+
+      //   let userProfile = await (this.userService.getUserProfile(authUserToken))
+      //   let validation = this.actionsModel.validateVoteApi(requestObj.body)
+      //   let voteThreadRequest = requestObj.body.request
+      //   if (!validation.isValid) throw {
+      //     message: validation.error,
+      //     status: HttpStatus.BAD_REQUEST,
+      //     isCustom: true
+      //   }
+      //   if (userProfile) {
+      //     return new Promise((resolve, reject) => {
+      //       let user = {
+      //         userName: userProfile.userName
+      //       }
+      //       let threadData = {
+      //         postId: voteThreadRequest.postId,
+      //         value: voteThreadRequest.value,
+      //         undo: voteThreadRequest.undo
+      //       }
+      //       this.threadService.voteThread(threadData, user).then((threadResponse) => {
+      //         resolve({
+      //           status: threadResponse
+      //         })
+      //       }, function (error) {
+      //         reject(error)
+      //       })
+      //     })
+      //   } else {
+      //     throw {
+      //       message: 'Unauthorized User',
+      //       status: HttpStatus.UNAUTHORIZED
+      //     }
+      //   }
+      // } catch (error) {
+
+        throw {
+          message: error.message || 'Error in files thread',
+          status: error.status || HttpStatus.INTERNAL_SERVER_ERROR
+        }
+      // }
+    })
+  }
   /**
    * Which is used to create a custom error object
    * @param  {Object} error  - Error object it should contain message and status attribute
