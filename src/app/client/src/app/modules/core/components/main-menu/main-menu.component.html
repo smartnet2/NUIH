@@ -8,6 +8,9 @@
 	<a class="item" [class.active]="router.isActive('/search/Library') || router.isActive('/resources')" routerLink="/resources">
 		{{resourceService?.frmelmnts?.tab?.resources}}
 	</a>
+	<a class="item" [class.active]="router.isActive('/search/Challenge') || router.isActive('/challenge')" routerLink="/challenge">
+		{{resourceService?.frmelmnts?.tab?.challenge}}
+	</a>
 
 	<extension-point name="header-menu-item"></extension-point>
 </div>

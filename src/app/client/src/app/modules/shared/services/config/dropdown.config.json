@@ -275,6 +275,7 @@
                 "resources": "/search/Library",
                 "Library": "/search/Library",
                 "Users": "/search/Users",
+                "Challenge":"/search/Challenge",
                 "profile": "/search/Users",
                 "Organisations": "/search/Organisations"
             },
@@ -282,14 +283,16 @@
                 "home": "All",
                 "learn": "Courses",
                 "resources": "Library",
-                "profile": "Users"
+                "profile": "Users",
+                "challenge":"Challenge"
             },
             "searchEnabled": [
                 "home",
                 "learn",
                 "resources",
                 "profile",
-                "search"
+                "search",
+                "challenge"
             ],
             "All": {
                 "DROPDOWN": {

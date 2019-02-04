@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component,  Input, EventEmitter, Output } from '@angular/core';
 import {ICaraouselData} from '../../interfaces/caraouselData';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -14,6 +14,7 @@ import { IInteractEventObject, IInteractEventEdata, IImpressionEventInput } from
   styleUrls: ['./page-section.component.css']
 })
 export class PageSectionComponent implements OnInit {
+  showChallengeHeading = false;
   inviewLogs = [];
   cardIntractEdata: IInteractEventEdata;
   /**
@@ -32,7 +33,7 @@ export class PageSectionComponent implements OnInit {
   * This is slider setting
   */
   slideConfig = { 'slidesToShow': 4, 'slidesToScroll': 4 , infinite: false };
-  constructor(public activatedRoute: ActivatedRoute) {
+  constructor(public activatedRoute: ActivatedRoute, public router:Router) {
   }
   playContent(event) {
     this.playEvent.emit(event);
@@ -47,6 +48,7 @@ export class PageSectionComponent implements OnInit {
         pageid: pageid
       };
     }
+    this.showChallengeHeading = (this.router.url==="/challenge")
   }
   /**
    * get inview  Data
