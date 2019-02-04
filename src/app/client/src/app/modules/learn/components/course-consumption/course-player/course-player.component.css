@@ -25,7 +25,9 @@
     font-weight: 500;
     padding-right: 20px;
 }
-
+.cursor_pointer {
+    cursor: pointer;
+}
 .userInfo {
     min-width: 200px;
     margin-bottom: 30px;

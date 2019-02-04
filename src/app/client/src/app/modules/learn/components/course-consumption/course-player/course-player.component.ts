@@ -123,11 +123,18 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   noContentToPlay = 'No content to play';
 
   showExtContentMsg = false;
+
   show: boolean = false;
+
   replyEditor: boolean = false;
+
   discussionThread: any;
+
   replyContent: any;
+
   repliesContent: any;
+
+  threadId: any;
   public loaderMessage: ILoaderMessage = {
     headerMessage: 'Please wait...',
     loaderMessage: 'Fetching content details!'
@@ -225,14 +232,17 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   }
   postComment() {
     let req = {
-      "title": this.editorContent,
-      "body": this.editorContent,
+      "title": "Discussion for batch" + "-" + this.batchId,
+      "body": "Discussion for batch",
       "contextId": this.batchId,
     }
     this.courseDiscussionsService.postDiscussion(req).subscribe((res: any) => {
       this.retreiveThread(this.batchId)
       this.editorContent = '';
     })
+  }
+  startNewConversionClick() {
+    this.postComment();
   }
   getReplies(id) {
     this.courseDiscussionsService.getReplies(id).subscribe((res: any) => {
@@ -243,26 +253,46 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   retreiveThread(id) {
     this.courseDiscussionsService.retrieveDiscussion(id).subscribe((res: any) => {
       this.discussionThread = res.result.threads;
+      this.threadId = this.discussionThread[0].id;
+      this.getReplies(this.discussionThread[0].id)
     })
   }
   collapse(i, id) {
     this.discussionThread[i].show = !this.discussionThread[i].show
-    this.getReplies(id)
+    //   this.getReplies(id)
   }
   cancel(i) {
     this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
+  }
+  postCancel() {
+    this.editorContent = '';
   }
   reply(i) {
     this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
   }
   replyToThread(id) {
     let body = {
-      "body": this.replyContent,
-      "threadId": id
+      "body": this.editorContent,
+      "threadId": this.threadId
     }
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
+      this.editorContent = ''
       this.retreiveThread(this.batchId)
-      this.getReplies(id)
+      this.getReplies(this.threadId)
+    })
+  }
+
+  likePostClick(id) {
+    let body = {
+      "request": {
+        "postId": id.toString(),
+        "value": "up"
+      }
+    }
+    this.courseDiscussionsService.likeReply(body).subscribe((res) => {
+      this.editorContent = ''
+      this.retreiveThread(this.batchId)
+      this.getReplies(this.threadId)
     })
   }
   private parseChildContent() {
