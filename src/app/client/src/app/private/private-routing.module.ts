@@ -17,7 +17,15 @@ const appRoutes: Routes = [
   {
     path: 'workspace',
     loadChildren: 'app/modules/workspace/workspace.module#WorkspaceModule'
-  }
+  },
+  {  
+    path: 'challenge', 
+    loadChildren: 'app/modules/challenge/challenge.module#ChallengeModule'
+  },
+  {  
+    path: 'grafana', 
+    loadChildren: ''
+  } 
 ];
 
 @NgModule({

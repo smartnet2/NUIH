@@ -38,13 +38,20 @@
                     </div>
                 </div>
             </div>
+            <div class="ui grid">
+                <div *ngIf="showCertificateBtn" class="eleven wide column padding-top-none">
+                    <button  class="ui primary right floated button" (click)="downloadCertificate()">
+                        Download Certificate
+                      </button>
+                </div>
+            </div>
         </div>
         <div class="one wide column "></div>
     </div>
 </div>
 <div class="ui grid progress-bar-margin" *ngIf="enrolledCourse">
     <div class="twelve wide column padding-none ">
-        <sui-progress class="ui tiny progress orange" [value]="progress" [maximum]="100"></sui-progress>
+        <sui-progress class="ui tiny progress orange" [value]="progress" [maximum]="100"></sui-progress>  
     </div>
 </div>
 <app-share-link [shareLink]="shareLink" [telemetryShareData]="telemetryShareData" *ngIf="sharelinkModal" (close)="sharelinkModal = false">

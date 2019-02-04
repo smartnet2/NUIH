@@ -57,6 +57,17 @@
        "metaData": {"metaData": ["identifier", "mimeType", "framework", "contentType"]},
        "dynamicFields": {"ribbon.right.name": "contentType", "ribbon.left.image": "badgeAssertions[0].badgeClassImage"}
   },
+  "Challenge": {
+    "constantData":{
+      "action": {
+          "onImage": {"eventName": "onImage" }
+        },
+        "ribbon": {"right":{"class": "ui black right ribbon label"},
+        "left": {"class":  "ui circular label  card-badges-image"} }
+       },
+       "metaData": {"metaData": ["identifier", "mimeType", "framework", "contentType"]},
+       "dynamicFields": {"ribbon.right.name": "contentType", "ribbon.left.image": "badgeAssertions[0].badgeClassImage"}
+  },
   "ExplorePage": {
     "constantData":{
       "action": {
@@ -481,6 +492,11 @@
     "filterType": "library",
     "inPageredirectUrl": "/resources",
     "searchPageredirectUrl": "/search/Library/1"
+  },
+  "challenge": {
+    "filterType": "challenge",
+    "inPageredirectUrl": "/challenge",
+    "searchPageredirectUrl": "/search/challenge/1"
   },
   "upForReview": {
     "filterType": "upforreview",

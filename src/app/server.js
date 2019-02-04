@@ -116,8 +116,7 @@ app.use(express.static(path.join(__dirname, 'dist'), { extensions: ['ejs'], inde
 app.use('/announcement/v1', bodyParser.urlencoded({ extended: false }),
   bodyParser.json({ limit: '10mb' }), require('./helpers/announcement')(keycloak))
 
-app.use('/content/discussions/v1', bodyParser.urlencoded({ extended: false }),
-  bodyParser.json({ limit: '10mb' }), require('./helpers/discussion')(keycloak))
+
 
 app.all('/logoff', endSession, function (req, res) {
   res.cookie('connect.sid', '', { expires: new Date() })
@@ -204,6 +203,7 @@ app.all('/play/*', indexPage)
 
 // Mobile redirection to app
 require('./helpers/mobileAppHelper.js')(app)
+require('./helpers/pdfCreator/pdfCreator.js')(app)
 
 app.all('/content-editor/telemetry', bodyParser.urlencoded({ extended: false }),
   bodyParser.json({ limit: reqDataLimitOfContentEditor }), keycloak.protect(), telemetryHelper.logSessionEvents)

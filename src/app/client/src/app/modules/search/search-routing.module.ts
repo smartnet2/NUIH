@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import {
   UserSearchComponent, UserEditComponent, UserProfileComponent, HomeSearchComponent,
-  UserDeleteComponent, OrgSearchComponent, CourseSearchComponent, LibrarySearchComponent
+  UserDeleteComponent, OrgSearchComponent, CourseSearchComponent, LibrarySearchComponent, ChallengeSearchComponent
 } from './components';
 const routes: Routes = [
   {
@@ -32,6 +32,16 @@ const routes: Routes = [
       breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Search', url: '' }],
       telemetry: {
         env: 'library', pageid: 'library-search', type: 'view', subtype: 'paginate'
+      }
+    }
+
+  },
+  {
+    path: 'Challenge/:pageNumber', component: ChallengeSearchComponent,
+    data: {
+      breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Search', url: '' }],
+      telemetry: {
+        env: 'challenge', pageid: 'challenge-search', type: 'view', subtype: 'paginate'
       }
     }
 
