@@ -281,7 +281,13 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       this.getReplies(this.threadId)
     })
   }
-
+  isDisabled() {
+    if(this.editorContent && this.editorContent !== '' && this.editorContent.length >= 15) {
+      return false;
+    } else {
+      return true
+    }
+  }
   likePostClick(id) {
     let body = {
       "request": {
