@@ -13,7 +13,7 @@ const multer = require('multer')
 const crypto = require("crypto")
 let path = require("path")
 let fs = require("fs")
-var multiparty = require("multiparty");
+// var multiparty = require("multiparty");
 // var storage = multer.memoryStorage()
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
