@@ -28,6 +28,9 @@
 .cursor_pointer {
     cursor: pointer;
 }
+.disabled_cursor {
+    cursor: not-allowed 
+}
 .userInfo {
     min-width: 200px;
     margin-bottom: 30px;

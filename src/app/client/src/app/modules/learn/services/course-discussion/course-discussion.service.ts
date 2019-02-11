@@ -2,7 +2,7 @@ import { of as observableOf } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable, EventEmitter } from '@angular/core';
 import { ConfigService, ServerResponse } from '@sunbird/shared';
-import { ContentService, UserService, CoursesService } from '@sunbird/core';
+import { ContentService, UserService, CoursesService,DiscussionService } from '@sunbird/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
@@ -12,6 +12,7 @@ export class CourseDiscussionsService {
  * Reference of content service.
  */
   public contentService: ContentService;
+  public discussionService: DiscussionService;
 
   /**
    * Reference of config service
@@ -28,9 +29,10 @@ export class CourseDiscussionsService {
   courseProgressData: EventEmitter<any> = new EventEmitter();
 
 
-  constructor(contentService: ContentService, configService: ConfigService,
+  constructor(contentService: ContentService,discussionService: DiscussionService, configService: ConfigService,
     userService: UserService, public coursesService: CoursesService) {
     this.contentService = contentService;
+    this.discussionService = discussionService;
     this.configService = configService;
     this.userService = userService;
   }
@@ -59,7 +61,7 @@ export class CourseDiscussionsService {
       url: this.configService.urlConFig.URLS.COURSE.COURSE_DISCUSSIONS_POST,
       data: requestBody
     };
-    return this.contentService.post(channelOptions).pipe(map((res: ServerResponse) => {
+    return this.discussionService.post(channelOptions).pipe(map((res: ServerResponse) => {
       return res;
     }), catchError((err) => {
       return err;
@@ -83,7 +85,7 @@ export class CourseDiscussionsService {
       url: this.configService.urlConFig.URLS.COURSE.RETRIEVE_DISCUSSION,
       data: requestBody
     };
-    return this.contentService.post(channelOptions).pipe(map((res: ServerResponse) => {
+    return this.discussionService.post(channelOptions).pipe(map((res: ServerResponse) => {
       return res;
     }), catchError((err) => {
       return err;
@@ -105,7 +107,7 @@ export class CourseDiscussionsService {
       url: this.configService.urlConFig.URLS.COURSE.REPLY_TO_THREAD,
       data: requestBody
     };
-    return this.contentService.post(channelOptions).pipe(map((res: ServerResponse) => {
+    return this.discussionService.post(channelOptions).pipe(map((res: ServerResponse) => {
       return res;
     }), catchError((err) => {
       return err;
@@ -117,7 +119,7 @@ export class CourseDiscussionsService {
     const channelOptions = {
       url: this.configService.urlConFig.URLS.COURSE.RETRIEVE_REPLIES + id
     };
-    return this.contentService.get(channelOptions).pipe(map((res: ServerResponse) => {
+    return this.discussionService.get(channelOptions).pipe(map((res: ServerResponse) => {
       return res;
     }), catchError((err) => {
       return err;
@@ -130,7 +132,7 @@ export class CourseDiscussionsService {
       url: this.configService.urlConFig.URLS.COURSE.LIKE_POST,
       data: body
     };
-    return this.contentService.post(channelOptions).pipe(map((res: ServerResponse) => {
+    return this.discussionService.post(channelOptions).pipe(map((res: ServerResponse) => {
       return res;
     }), catchError((err) => {
       return err;

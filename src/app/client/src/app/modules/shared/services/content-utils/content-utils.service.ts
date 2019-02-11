@@ -14,6 +14,7 @@ export class ContentUtilsServiceService {
   contentShare: ISharelink;
   constructor(public configService: ConfigService) {
     this.baseUrl = document.location.origin + '/';
+    console.log("contentUrl", this.baseUrl)
   }
   /**
    * getBase64Url
