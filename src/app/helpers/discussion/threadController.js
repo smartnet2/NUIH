@@ -571,11 +571,14 @@ class ThreadController {
         let validation = this.threadModel.validateApi(requestObj.body)
         let createThreadRequest = requestObj.body.request
         console.log('requestObj', validation, createThreadRequest);
-        if (!validation.isValid) throw {
+        if (!validation.isValid) {
+          console.log("validation",validation);
+
+          throw {
           message: validation.error,
           status: HttpStatus.BAD_REQUEST,
           isCustom: true
-        }
+        }}
 
         let authUserToken = await (this.userService.getToken(requestObj))
         // validate request
@@ -611,12 +614,14 @@ class ThreadController {
             })
           })
         } else {
+          console.log("error____________Else",)
           throw ({
             message: 'Unauthorized User',
             status: HttpStatus.UNAUTHORIZED
           })
         }
       } catch (error) {
+        console.log("error____________", error)
         throw ({
           message: error.message || 'Error in creating thread',
           status: error.status || HttpStatus.INTERNAL_SERVER_ERROR
@@ -635,14 +640,19 @@ class ThreadController {
         let authUserToken = await (this.userService.getToken(requestObj))
         // validate request
         let userProfile = await (this.userService.getUserProfile(authUserToken))
+        console.log("====================================================")
+        console.log(authUserToken, userProfile);
 
         let validation = this.threadModel.validateListThreadApi(requestObj.body)
         let listThreadRequest = requestObj.body.request
-        if (!validation.isValid) throw {
+        if (!validation.isValid) {
+          console.log("validation", validation);
+          throw {
           message: validation.error,
           status: HttpStatus.BAD_REQUEST,
           isCustom: true
         }
+      }
         if (userProfile && userProfile.userId) {
           return new Promise((resolve, reject) => {
             let threadFilters = {
@@ -658,16 +668,21 @@ class ThreadController {
                 threads: threadResponse
               })
             }, function (error) {
+              console.log("Internal", error);
               reject(error)
             })
           })
         } else {
+          console.log("Else---------------------");
+
           throw ({
             message: 'Unauthorized User',
             status: HttpStatus.UNAUTHORIZED
           })
         }
       } catch (error) {
+        console.log("Internal", error);
+
         throw ({
           message: error.message || 'Error in getting threads',
           status: error.status || HttpStatus.INTERNAL_SERVER_ERROR
