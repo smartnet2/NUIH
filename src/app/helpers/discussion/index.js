@@ -1,4 +1,5 @@
 let express = require('express')
+const bodyParser = require('body-parser')
 let router = express.Router()
 let HttpStatus = require('http-status-codes')
 let ThreadController = require('./threadController.js')
@@ -8,6 +9,35 @@ let actionsModel = require('./models/actionsModel.js')
 let httpService = require('./services/httpWrapper.js')
 let dateFormat = require('dateformat')
 let uuidv1 = require('uuid/v1')
+const multer = require('multer')
+const crypto = require("crypto")
+let path = require("path")
+let fs = require("fs")
+// var multiparty = require("multiparty");
+// var storage = multer.memoryStorage()
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+
+  filename: function (req, file, cb) {
+    // console.log(req)
+    // console.log(req, cb);
+    console.log("====================================================");
+
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+      cb(null, raw.toString('hex') + path.extname(file.originalname))
+    })
+    // cb(null, file.fieldname + '-' + Date.now(), file)
+  }
+})
+const upload = multer({
+  storage: storage
+}).single('files')
+
+
+
 const API_ID_BASE = 'api.plugin.discussions'
 const API_IDS = {
   createthread: 'create-thread',
@@ -92,6 +122,25 @@ function sendErrorResponse(res, id, message, httpCode = HttpStatus.BAD_REQUEST) 
 }
 
 module.exports = function (keycloak) {
+  router.post('/files/service', (requestObj, responseObj, next) => {
+    // console.log(requestObj, responseObj, next)
+    console.log("file service Called!!")
+    // responseObj.send({});
+    return upload(requestObj, responseObj, function (r, q) {
+      // console.log(requestObj.body, requestObj.file, requestObj.files)
+      console.log("++++", requestObj.file)
+      console.log("++++", requestObj.body)
+      threadController.fileService(requestObj)
+        .then((data) => {
+          sendSuccessResponse(responseObj, API_IDS.archiveThread, data, HttpStatus.OK)
+        })
+        .catch((err) => {
+          sendErrorResponse(responseObj, API_IDS.archiveThread, err.message, err.status)
+        })
+    })
+
+  })
+
   router.post('/list', (requestObj, responseObj, next) => {
     threadController.getThreads(requestObj)
       .then((data) => {
@@ -208,15 +257,11 @@ module.exports = function (keycloak) {
         sendErrorResponse(responseObj, API_IDS.archiveThread, err.message, err.status)
       })
   })
-  router.post('/thread/files', (requestObj, responseObj, next) => {
-    threadController.fileService(requestObj)
-      .then((data) => {
-        sendSuccessResponse(responseObj, API_IDS.archiveThread, data, HttpStatus.OK)
-      })
-      .catch((err) => {
-        sendErrorResponse(responseObj, API_IDS.archiveThread, err.message, err.status)
-      })
-  })
+
+
+
+
+
   return router
 }
 // module.exports = router

@@ -4,10 +4,14 @@
 
 let httpWrapper = require('../httpWrapper.js')
 const _ = require('lodash')
+let fs = require('fs')
 let queryString = require('querystring')
 let async = require('asyncawait/async')
 let await = require('asyncawait/await')
 let HttpStatus = require('http-status-codes')
+var Path = require('path');
+var fm = require("form-data")
+let webService = require('request')
 /**
  * Class provides services for thread related requests */
 
@@ -44,7 +48,9 @@ class DiscourseAdapter {
       retort: '/retorts',
       adminUsers: '/admin/users/',
       grantModeration: '/grant_moderation',
-      revokeModeration: '/revoke_moderation'
+      revokeModeration: '/revoke_moderation',
+      filePath: 'uploads.json',
+      downloadFilePath: 'uploads/default/original/1X'
     }
 
     this.userName = userName
@@ -171,7 +177,7 @@ class DiscourseAdapter {
       }
       console.log('options:', options);
       this.httpService.call(options).then((data) => {
-        // console.log('data::::::::::::::::::::::::::::',data);
+        console.log('User::::::::::::::::::::::::::::', data);
         let res = JSON.parse(data.body)
         if (data.response.statusCode == HttpStatus.OK && res.user) {
           resolve(true)
@@ -200,7 +206,7 @@ class DiscourseAdapter {
     return new Promise((resolve, reject) => {
       let formData = {
         api_key: this.apiAuth.apiKey,
-        api_username: user.userName,
+        api_username: this.apiAuth.apiUserName,
         title: threadData.title,
         raw: threadData.body,
         // category: "5",
@@ -243,7 +249,7 @@ class DiscourseAdapter {
     return new Promise((resolve, reject) => {
       let formData = {
         api_key: this.apiAuth.apiKey,
-        api_username: user.userName,
+        api_username: this.userName,
         raw: threadData.body,
         // Title:threadData.body,
         topic_id: threadData.threadId,
@@ -465,6 +471,7 @@ class DiscourseAdapter {
           method: 'GET',
           uri: this.discourseEndPoint + this.discourseUris.getOne + '/' + threadId + '.json?' + queryString.stringify(filters)
         }
+        console.log(options)
         this.httpService.call(options).then((data) => {
 
           console.log('data/httpcall====================================================', data.response.statusCode);
@@ -515,7 +522,7 @@ class DiscourseAdapter {
 
       this.httpService.call(options).then((data) => {
         let res = JSON.parse(data.body)
-        console.log(res,data.response.statusCode);
+        console.log(res, data.response.statusCode);
 
         if (res && data.response.statusCode == HttpStatus.OK) {
           resolve('done')
@@ -526,7 +533,7 @@ class DiscourseAdapter {
           })
         }
       }, (error) => {
-        console.log("Error1",error);
+        console.log("Error1", error);
 
         reject(error)
       })
@@ -734,37 +741,80 @@ class DiscourseAdapter {
   }
 
   // Upload files
-  uploadFile(fileData, user) {
-    this.httpService.call(options).then((data) => {
-      let res = JSON.parse(data.body)
-      if (res.post && res.post.id && data.response.statusCode == HttpStatus.OK) {
-        resolve('done')
-      } else {
-        reject({
-          message: res.errors[0] || 'Error in editing reply',
-          status: data.response.statusCode
-        })
+  uploadFile(file, user) {
+    console.log('uploadFile called');
+    this.userName = user.userName
+    return new Promise((resolve, reject) => {
+      // console.log(file);
+      let options = {
+          'api_key': this.apiAuth.apiKey,
+          'api_username': this.userName, //this.apiAuth.apiUserName
+          'type': 'upload',
+          'file': fs.createReadStream("./" + file.file.path),//fs.createReadStream("./"+file.file.path,'utf8'),
+
       }
-    }, (error) => {
-      reject(error)
-    })
+      console.log(JSON.stringify(options));
+
+      webService.post({url: this.discourseEndPoint + this.discourseUris.filePath, formData: options}, function (err,data,body) {
+        console.log(err,data.statusCode,body);
+
+        if(err){
+          console.log("uploadFile: Error in catch block", error)
+            // error.reqObj = options
+            return reject(error)
+        }
+        //  let res = JSON.parse(body)
+        console.log("==================================================================================");
+        // console.log(res, data.response.statusCode);
+        if (data.statusCode == HttpStatus.OK) {
+          return resolve(JSON.parse(data.body))
+        } else {
+          return reject({
+            message: res.message || 'Error in uploadFile',
+            status: data.response.statusCode,
+            // reqObject: options
+          })
+        }
+        // return resolve({err,data,body})
+      })
+
+
+      // this.httpService.call(options).then((data) => {
+      //   let res = JSON.parse(data.body)
+      //   console.log("==================================================================================");
+      //   console.log(res, data.response.statusCode);
+      //   if (data.response.statusCode == HttpStatus.OK) {
+      //     return resolve(data.response)
+      //   } else {
+      //     return reject({
+      //       message: res.message || 'Error in uploadFile',
+      //       status: data.response.statusCode,
+      //       // reqObject: options
+      //     })
+      //   }
+      // }).catch(function (error) {
+      //   console.log("uploadFile: Error in catch block", error)
+      //   error.reqObj = options
+      //   return reject(error)
+      // })
+    });
   }
 
   // Downlod Files
   downloadFile(fileData, user) {
-    this.httpService.call(options).then((data) => {
-      let res = JSON.parse(data.body)
-      if (res.post && res.post.id && data.response.statusCode == HttpStatus.OK) {
-        resolve('done')
+    console.log('downloadFile called');
+    console.log(fileData)
+    this.userName = user.userName
+    return new Promise((resolve, reject) => {
+      if (fileData.fileName) {
+        resolve(this.discourseEndPoint + this.discourseUris.downloadFilePath + fileData.fileName)
       } else {
         reject({
-          message: res.errors[0] || 'Error in editing reply',
-          status: data.response.statusCode
+          message: 'Error in downloadFile',
+          status: HttpStatus.NO_CONTENT
         })
       }
-    }, (error) => {
-      reject(error)
-    })
+    });
   }
 
 }

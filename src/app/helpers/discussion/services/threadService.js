@@ -223,15 +223,25 @@ class ThreadService {
 
 
   fileService(threadData, user) {
-    // let actionData = {
-    //   postId: threadData.type
-    // }
-    switch (threadData.type) {
-      case 'upload':
-        return this.discussionAdapter.uploadFile(actionData, user)
-      case 'download':
-        return this.discussionAdapter.downloadFile(actionData, user)
-    }
+    console.log('fileService called');
+  //  console.log(threadData, user);
+
+    return new Promise((resolve, reject) => {
+      // let actionData = {
+      //   postId: threadData.type
+      // }
+      switch (threadData.type) {
+        case 'upload':
+          return this.discussionAdapter.uploadFile(threadData, user).then(resolve).catch(reject)
+        case 'download':
+          return this.discussionAdapter.downloadFile(threadData, user).then(resolve).catch(reject)
+        default:
+        return reject({
+          message: 'error While calling FileService',
+          status: HttpStatus.FORBIDDEN
+        })
+      }
+    });
   }
 
   voteThread(threadData, user) {

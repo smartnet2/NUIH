@@ -571,11 +571,14 @@ class ThreadController {
         let validation = this.threadModel.validateApi(requestObj.body)
         let createThreadRequest = requestObj.body.request
         console.log('requestObj', validation, createThreadRequest);
-        if (!validation.isValid) throw {
+        if (!validation.isValid) {
+          console.log("validation",validation);
+
+          throw {
           message: validation.error,
           status: HttpStatus.BAD_REQUEST,
           isCustom: true
-        }
+        }}
 
         let authUserToken = await (this.userService.getToken(requestObj))
         // validate request
@@ -611,12 +614,14 @@ class ThreadController {
             })
           })
         } else {
+          console.log("error____________Else",)
           throw ({
             message: 'Unauthorized User',
             status: HttpStatus.UNAUTHORIZED
           })
         }
       } catch (error) {
+        console.log("error____________", error)
         throw ({
           message: error.message || 'Error in creating thread',
           status: error.status || HttpStatus.INTERNAL_SERVER_ERROR
@@ -635,14 +640,19 @@ class ThreadController {
         let authUserToken = await (this.userService.getToken(requestObj))
         // validate request
         let userProfile = await (this.userService.getUserProfile(authUserToken))
+        console.log("====================================================")
+        console.log(authUserToken, userProfile);
 
         let validation = this.threadModel.validateListThreadApi(requestObj.body)
         let listThreadRequest = requestObj.body.request
-        if (!validation.isValid) throw {
+        if (!validation.isValid) {
+          console.log("validation", validation);
+          throw {
           message: validation.error,
           status: HttpStatus.BAD_REQUEST,
           isCustom: true
         }
+      }
         if (userProfile && userProfile.userId) {
           return new Promise((resolve, reject) => {
             let threadFilters = {
@@ -658,16 +668,21 @@ class ThreadController {
                 threads: threadResponse
               })
             }, function (error) {
+              console.log("Internal", error);
               reject(error)
             })
           })
         } else {
+          console.log("Else---------------------");
+
           throw ({
             message: 'Unauthorized User',
             status: HttpStatus.UNAUTHORIZED
           })
         }
       } catch (error) {
+        console.log("Internal", error);
+
         throw ({
           message: error.message || 'Error in getting threads',
           status: error.status || HttpStatus.INTERNAL_SERVER_ERROR
@@ -698,8 +713,8 @@ class ThreadController {
               resolve({
                 thread: threadResponse
               })
-            }, function (error) {
-              console.log(error);
+            }).catch(function (error) {
+              console.log("Error in catch:", error);
 
               reject(error)
             })
@@ -713,7 +728,7 @@ class ThreadController {
           }
         }
       } catch (error) {
-        console.log("error Un1 user");
+        console.log("error Un1 user:", error);
         throw {
           message: error.message || 'Error in getting thread details',
           status: error.status || HttpStatus.INTERNAL_SERVER_ERROR,
@@ -723,50 +738,62 @@ class ThreadController {
     })
   }
   _fileService() {
+    console.log("_fileService Called");
+
     return async ((requestObj) => {
-      // try {
+      try {
+        let authUserToken = await (this.userService.getToken(requestObj))
+        // validate request
+        let userProfile = await (this.userService.getUserProfile(authUserToken))
 
-      //   let authUserToken = await (this.userService.getToken(requestObj))
+        // console.log("User data", authUserToken, userProfile);
 
-      //   let userProfile = await (this.userService.getUserProfile(authUserToken))
-      //   let validation = this.actionsModel.validateVoteApi(requestObj.body)
-      //   let voteThreadRequest = requestObj.body.request
-      //   if (!validation.isValid) throw {
-      //     message: validation.error,
-      //     status: HttpStatus.BAD_REQUEST,
-      //     isCustom: true
-      //   }
-      //   if (userProfile) {
-      //     return new Promise((resolve, reject) => {
-      //       let user = {
-      //         userName: userProfile.userName
-      //       }
-      //       let threadData = {
-      //         postId: voteThreadRequest.postId,
-      //         value: voteThreadRequest.value,
-      //         undo: voteThreadRequest.undo
-      //       }
-      //       this.threadService.voteThread(threadData, user).then((threadResponse) => {
-      //         resolve({
-      //           status: threadResponse
-      //         })
-      //       }, function (error) {
-      //         reject(error)
-      //       })
-      //     })
-      //   } else {
-      //     throw {
-      //       message: 'Unauthorized User',
-      //       status: HttpStatus.UNAUTHORIZED
-      //     }
-      //   }
-      // } catch (error) {
+        if (userProfile && userProfile.userId) {
+          let user = {
+            userName: userProfile.userName //'AmitSengar'
+          }
 
-        throw {
-          message: error.message || 'Error in files thread',
-          status: error.status || HttpStatus.INTERNAL_SERVER_ERROR
+          var newObject = {};
+          console.log('requestObj', requestObj.body.type);
+
+          if (requestObj.body.type === 'upload') {
+            newObject = {
+              file: requestObj.file,
+              type: requestObj.body.type
+            };
+          } else {
+            newObject = {
+              fileName: requestObj.body.fileName,
+              type: requestObj.body.type
+            };
+          }
+          return new Promise((resolve, reject) => {
+            this.threadService.fileService(newObject, user).then((threadResponse) => {
+              resolve({
+                response: threadResponse
+              })
+            }, function (error) {
+              console.log(error);
+              reject(error)
+            })
+          });
+        } else {
+          console.log("error In user");
+          throw {
+            message: 'Unauthorized User',
+            status: HttpStatus.UNAUTHORIZED,
+            isCustom: true
+          }
         }
-      // }
+
+      } catch (error) {
+        console.log("error Un1 user:::", error);
+        throw {
+          message: error.message || 'Error in getting thread details',
+          status: error.status || HttpStatus.INTERNAL_SERVER_ERROR,
+          isCustom: true
+        }
+      }
     })
   }
   /**
