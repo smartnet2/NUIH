@@ -72,7 +72,6 @@ export class CourseDiscussionsService {
 
   public retrieveDiscussion(req) {
     const batchId = req;
-    console.log("batch Id", batchId)
     let requestBody =
     {
       "request":
@@ -139,5 +138,27 @@ export class CourseDiscussionsService {
     }));
 
   }
+   public uploadFile(file) {
+    const formData = new FormData();
+    formData.append('files', file);
+    formData.append('type','upload')
+    // let requestBody =
+    // {
+    //   "request": {
+    //     "threadId": threadId,
+    //     "body": body
+    //   }
+    // }
+    console.log("formData", formData)
+    const channelOptions = {
+      url: this.configService.urlConFig.URLS.COURSE.UPLOAD_FILE,
+      data: formData
+    };
+    return this.discussionService.post(channelOptions).pipe(map((res: ServerResponse) => {
+      return res;
+    }), catchError((err) => {
+      return err;
+    }));
+   }
 
 }

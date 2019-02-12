@@ -65,6 +65,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   public editor;
   public editorContent: any;
+  public uploadedFile: any;
   public editorOptions = {
     placeholder: "insert content..."
   };
@@ -146,7 +147,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   public unsubscribe = new Subject<void>();
 
-  constructor(contentService: ContentService,discussionService: DiscussionService, activatedRoute: ActivatedRoute, private configService: ConfigService,
+  constructor(contentService: ContentService, discussionService: DiscussionService, activatedRoute: ActivatedRoute, private configService: ConfigService,
     private courseConsumptionService: CourseConsumptionService, windowScrollService: WindowScrollService,
     router: Router, public navigationHelperService: NavigationHelperService, private userService: UserService,
     private toasterService: ToasterService, private resourceService: ResourceService, public breadcrumbsService: BreadcrumbsService,
@@ -253,6 +254,13 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       console.log("res", this.repliesContent)
     })
   }
+  parseBody(body){
+    if(body.includes('</a>')) {
+      return true
+    } else {
+      return false
+    }
+  }
   retreiveThread(id) {
     this.courseDiscussionsService.retrieveDiscussion(id).subscribe((res: any) => {
       this.discussionThread = res.result.threads;
@@ -277,7 +285,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   }
   replyToThread(id) {
     let body = {
-      "body": this.editorContent,
+      "body": this.uploadedFile +'  ' +this.editorContent,
       "threadId": this.threadId
     }
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
@@ -315,6 +323,23 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       this.retreiveThread(this.batchId)
       this.getReplies(this.threadId)
     })
+  }
+
+  fileEvent(event) {
+    const file = event.target.files[0];
+    this.courseDiscussionsService.uploadFile(file).subscribe((res: any) => {
+      if(res && res.result.response) {
+        let url = res.result.response.url;
+        let fileName = res.result.response.original_filename
+        this.uploadedFile = '<a class="attachment" href=' + url +'>'+fileName+'</a>'
+        console.log("uploadedFile",this.uploadedFile)
+      }
+    })
+    // this.challengeService.batchUpload(file).subscribe((result: any) => {
+    //   if (this.utils.validatorMessage(result, KRONOS.MESSAGES.FILE_UPLOAD_SUCCESSFULLY)) {
+    //     this.getAllUsersByOrg();
+    //   }
+    // });
   }
   private parseChildContent() {
     const model = new TreeModel();

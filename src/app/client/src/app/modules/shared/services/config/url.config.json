@@ -42,7 +42,8 @@
       "RETRIEVE_DISCUSSION":"list",
       "REPLY_TO_THREAD":"thread/reply",
       "RETRIEVE_REPLIES":"thread/",
-      "LIKE_POST":  "thread/vote"
+      "LIKE_POST":  "thread/vote",
+      "UPLOAD_FILE": "files/service"
     },
     "CONTENT": {
       "SEARCH": "content/v1/search",
