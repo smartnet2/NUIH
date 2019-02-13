@@ -114,9 +114,9 @@ app.use(express.static(path.join(__dirname, 'dist'), { extensions: ['ejs'], inde
 
 // Announcement routing
 app.use('/announcement/v1', bodyParser.urlencoded({ extended: false }),
-  bodyParser.json({ limit: '10mb' }), require('./helpers/announcement')(keycloak))
+  bodyParser.json({ limit: '10mb' }),require('./helpers/announcement')(keycloak))
 
-  app.use('/content/discussions/v1', bodyParser.urlencoded({ extended: false }),
+  app.use('/discussions/v1', bodyParser.urlencoded({ extended: false }),
   bodyParser.json({ limit: '10mb' }), require('./helpers/discussion')(keycloak))
 
 

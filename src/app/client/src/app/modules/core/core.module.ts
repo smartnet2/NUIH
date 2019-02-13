@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { SharedModule } from '@sunbird/shared';
 import {
   UserService, LearnerService, PermissionService, AnnouncementService, ConceptPickerService,
-  BadgesService, ContentService, CoursesService, PageApiService,
+  BadgesService, ContentService, DiscussionService, CoursesService, PageApiService,
   TenantService, FrameworkService, FormService, PlayerService, SearchService,
   CopyContentService, BreadcrumbsService, OrgDetailsService
 } from './services';
@@ -43,7 +43,7 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [LearnerService, UserService, TenantService, SearchService, CopyContentService,
-        PermissionService, AnnouncementService, BadgesService, ContentService, CoursesService, PageApiService,
+        PermissionService, AnnouncementService, BadgesService, ContentService, DiscussionService, CoursesService, PageApiService,
         AuthGuard, FrameworkService, FormService, CacheService,
         ConceptPickerService, BreadcrumbsService, PlayerService, OrgDetailsService]
     };

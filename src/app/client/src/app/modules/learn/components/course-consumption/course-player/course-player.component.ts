@@ -2,7 +2,7 @@ import { combineLatest, Subscription, Subject } from 'rxjs';
 import { takeUntil, first, mergeMap, map } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import {
-  ContentService, UserService, BreadcrumbsService, PermissionService, CoursesService
+  ContentService, UserService, BreadcrumbsService, PermissionService, CoursesService, DiscussionService
 } from '@sunbird/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import * as _ from 'lodash';
@@ -41,6 +41,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   public courseStatus: string;
 
+  private discussionService: DiscussionService;
+
   private contentService: ContentService;
 
   public flaggedCourse = false;
@@ -63,6 +65,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   public editor;
   public editorContent: any;
+  public uploadedFile: any;
   public editorOptions = {
     placeholder: "insert content..."
   };
@@ -128,7 +131,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   replyEditor: boolean = false;
 
-  discussionThread: any;
+  discussionThread: any = [];
 
   replyContent: any;
 
@@ -144,13 +147,14 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   public unsubscribe = new Subject<void>();
 
-  constructor(contentService: ContentService, activatedRoute: ActivatedRoute, private configService: ConfigService,
+  constructor(contentService: ContentService, discussionService: DiscussionService, activatedRoute: ActivatedRoute, private configService: ConfigService,
     private courseConsumptionService: CourseConsumptionService, windowScrollService: WindowScrollService,
     router: Router, public navigationHelperService: NavigationHelperService, private userService: UserService,
     private toasterService: ToasterService, private resourceService: ResourceService, public breadcrumbsService: BreadcrumbsService,
     private cdr: ChangeDetectorRef, public courseBatchService: CourseBatchService, public courseDiscussionsService: CourseDiscussionsService, public permissionService: PermissionService,
     public externalUrlPreviewService: ExternalUrlPreviewService, public coursesService: CoursesService) {
     this.contentService = contentService;
+    this.discussionService = discussionService;
     this.activatedRoute = activatedRoute;
     this.windowScrollService = windowScrollService;
     this.router = router;
@@ -250,11 +254,20 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       console.log("res", this.repliesContent)
     })
   }
+  parseBody(body){
+    if(body.includes('</a>')) {
+      return true
+    } else {
+      return false
+    }
+  }
   retreiveThread(id) {
     this.courseDiscussionsService.retrieveDiscussion(id).subscribe((res: any) => {
       this.discussionThread = res.result.threads;
-      this.threadId = this.discussionThread[0].id;
-      this.getReplies(this.discussionThread[0].id)
+      if (this.discussionThread.length !== 0) {
+        this.threadId = this.discussionThread[0].id;
+        this.getReplies(this.discussionThread[0].id)
+      }
     })
   }
   collapse(i, id) {
@@ -272,7 +285,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   }
   replyToThread(id) {
     let body = {
-      "body": this.editorContent,
+      "body": this.uploadedFile +'  ' +this.editorContent,
       "threadId": this.threadId
     }
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
@@ -282,17 +295,27 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     })
   }
   isDisabled() {
-    if(this.editorContent && this.editorContent !== '' && this.editorContent.length >= 15) {
+    if (this.editorContent && this.editorContent !== '' && this.editorContent.length >= 15) {
       return false;
     } else {
       return true
     }
   }
-  likePostClick(id) {
-    let body = {
-      "request": {
-        "postId": id.toString(),
-        "value": "up"
+  likePostClick(id, value) {
+    let body = {};
+    if (value) {
+      body = {
+        "request": {
+          "postId": id.toString(),
+          "value": "up"
+        }
+      }
+    } else {
+      body = {
+        "request": {
+          "postId": id.toString(),
+          "value": "down"
+        }
       }
     }
     this.courseDiscussionsService.likeReply(body).subscribe((res) => {
@@ -300,6 +323,23 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       this.retreiveThread(this.batchId)
       this.getReplies(this.threadId)
     })
+  }
+
+  fileEvent(event) {
+    const file = event.target.files[0];
+    this.courseDiscussionsService.uploadFile(file).subscribe((res: any) => {
+      if(res && res.result.response) {
+        let url = res.result.response.url;
+        let fileName = res.result.response.original_filename
+        this.uploadedFile = '<a class="attachment" href=' + url +'>'+fileName+'</a>'
+        console.log("uploadedFile",this.uploadedFile)
+      }
+    })
+    // this.challengeService.batchUpload(file).subscribe((result: any) => {
+    //   if (this.utils.validatorMessage(result, KRONOS.MESSAGES.FILE_UPLOAD_SUCCESSFULLY)) {
+    //     this.getAllUsersByOrg();
+    //   }
+    // });
   }
   private parseChildContent() {
     const model = new TreeModel();
