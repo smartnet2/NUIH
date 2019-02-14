@@ -1,3 +1,4 @@
-<app-header></app-header>
+<!-- #NUIH change: Hided the main header for nuih module -->
+<app-header *ngIf="showMainHeader"></app-header>
 <app-breadcrumbs *ngIf="userService.loggedIn"></app-breadcrumbs>
 <router-outlet *ngIf="initApp"></router-outlet>
