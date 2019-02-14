@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
   */
   public config: ConfigService;
   public initApp = false;
+  public showMainHeader = false;
   private orgDetails: any;
   public version: string;
   /**
@@ -106,6 +107,13 @@ export class AppComponent implements OnInit {
         });
       });
     }
+    // #NUIH change: Hide main header for Nuih Page
+    this.showMainHeader = _.indexOf(_.split(window.location.href, '/'), 'nuih') > -1
+      || _.indexOf(_.split(window.location.href, '/'), 'lms') > -1
+      || _.indexOf(_.split(window.location.href, '/'), 'innovate') > -1
+      || _.indexOf(_.split(window.location.href, '/'), 'iudx') > -1
+      || _.indexOf(_.split(window.location.href, '/'), 'smartgov') > -1 ?
+      false : true;
   }
   initializeLogedInsession() {
     this.userService.startSession();

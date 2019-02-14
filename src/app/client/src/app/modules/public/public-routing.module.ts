@@ -8,7 +8,8 @@ import {
   PublicCollectionPlayerComponent
 } from './components';
 import { SignupGuard, LandingpageGuard } from './services';
-
+// #NUIH change: Imported nuih, learn, innovate, data exchange and smart governance
+import { NuihComponent, LearnComponent, InnovateComponent } from './module/nuih';
 const routes: Routes = [
   {
     path: '', // root path '/' for the app
@@ -62,6 +63,28 @@ const routes: Routes = [
   },
   {
     path: ':slug/explore', loadChildren: './module/explore/explore.module#ExploreModule'
+  },
+  // #NUIH change: Added routing for nuih, learn, innovate, data exchange and smart governance
+  {
+    path: 'nuih', component: NuihComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'nuih', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: 'lms', component: LearnComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'lms', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: 'innovate', component: InnovateComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'innovate', type: 'view', subtype: 'paginate'
+      }
+    }
   }
 ];
 @NgModule({
