@@ -2,8 +2,8 @@
   <div class="one wide column"></div>
   <div class="ten wide column">
     <div class="row">
-      <div class="twelve wide column">
-        <div *ngIf="toDoList.length > 0 && !showLoader" class="ui styled accordion align-content">
+      <div class="twelve wide column width100">
+                <div *ngIf="toDoList.length > 0 && !showLoader" class="ui styled accordion align-content">
           <span class="ui header accordian-heading">{{resourceService.frmelmnts?.scttl?.todo}}</span>
           <span class="todolabel ui red circular inline label ">{{toDoList.length}}</span>
           <span class="removeline title title-padding-left active right-float" suiPopup popupHeader="{{collapse==true?'Expand':'Collapse'}}"
