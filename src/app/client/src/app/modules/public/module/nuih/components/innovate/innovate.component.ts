@@ -17,7 +17,7 @@ import { Subject } from 'rxjs/Subject';
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.css']
 })
-export class ExploreComponent implements OnInit, OnDestroy {
+export class InnovateComponent implements OnInit, OnDestroy {
   /**
    * To show toaster(error, success etc) after any API calls
    */
