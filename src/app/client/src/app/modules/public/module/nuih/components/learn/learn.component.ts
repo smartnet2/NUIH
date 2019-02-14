@@ -13,9 +13,9 @@ import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 @Component({
-  selector: 'app-explore',
-  templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.css']
+  selector: 'app-learn',
+  templateUrl: './learn.component.html',
+  styleUrls: ['./learn.component.css']
 })
 export class LearnComponent implements OnInit, OnDestroy {
   /**

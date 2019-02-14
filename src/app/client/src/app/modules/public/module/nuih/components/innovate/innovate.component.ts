@@ -13,9 +13,9 @@ import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 @Component({
-  selector: 'app-explore',
-  templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.css']
+  selector: 'app-innovate',
+  templateUrl: './innovate.component.html',
+  styleUrls: ['./innovate.component.css']
 })
 export class InnovateComponent implements OnInit, OnDestroy {
   /**

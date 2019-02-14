@@ -13,9 +13,9 @@ import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 @Component({
-  selector: 'app-explore',
-  templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.css']
+  selector: 'app-nuih',
+  templateUrl: './nuih.component.html',
+  styleUrls: ['./nuih.component.css']
 })
 export class NuihComponent implements OnInit, OnDestroy {
   /**
