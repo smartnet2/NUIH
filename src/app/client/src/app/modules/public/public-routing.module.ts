@@ -65,9 +65,9 @@ const routes: Routes = [
     path: ':slug/explore', loadChildren: './module/explore/explore.module#ExploreModule'
   },
   {
-    path: 'nuih', component: NuihComponent, data: {
+    path: 'nuis', component: NuihComponent, data: {
       telemetry: {
-        env: 'public', pageid: 'nuih', type: 'view', subtype: 'paginate'
+        env: 'public', pageid: 'nuis', type: 'view', subtype: 'paginate'
       }
     }
   },
