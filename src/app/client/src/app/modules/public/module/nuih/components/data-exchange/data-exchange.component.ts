@@ -1,6 +1,6 @@
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, Subject } from 'rxjs';
 import { PageApiService, PlayerService, ISort, OrgDetailsService } from '@sunbird/core';
-import { PublicPlayerService } from './../../../../services';
+import { PublicPlayerService } from '../../../../services';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   ResourceService, ToasterService, INoResultMessage,
@@ -11,20 +11,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 @Component({
-  selector: 'app-learn',
-  templateUrl: './learn.component.html',
-  styleUrls: ['./learn.component.css']
+  selector: 'app-data-exchange',
+  templateUrl: './data-exchange.component.html',
+  styleUrls: [
+    './data-exchange.component.css',
+  ]
 })
-export class LearnComponent implements OnInit, OnDestroy {
+export class DataExchangeComponent implements OnInit, OnDestroy {
   /**
    * To show toaster(error, success etc) after any API calls
    */
   private toasterService: ToasterService;
   /**
-   * 
-   * 
    * To call resource service which helps to use language constant
    */
   public resourceService: ResourceService;
@@ -52,7 +51,7 @@ export class LearnComponent implements OnInit, OnDestroy {
   /**
   * Contains result object returned from getPageData API.
   */
-  booksCarouselData: Array<ICaraouselData> = [];
+  opportunitiesCarouselData: Array<ICaraouselData> = [];
   public config: ConfigService;
   public filterType: string;
   public filters: any;
@@ -67,8 +66,8 @@ export class LearnComponent implements OnInit, OnDestroy {
   public unsubscribe$ = new Subject<void>();
   telemetryImpression: IImpressionEventInput;
   inviewLogs = [];
-  filterIntractEdata: IInteractEventEdata;
   sortIntractEdata: IInteractEventEdata;
+  prominentFilters: object;
   /**
    * The "constructor"
    *
@@ -92,11 +91,16 @@ export class LearnComponent implements OnInit, OnDestroy {
   populatePageData() {
     this.showLoader = true;
     this.noResult = false;
+    const filters = _.pickBy(this.filters, value => value.length > 0);
+    filters.channel = this.hashTagId;
+    filters.board = _.get(this.filters, 'board') ? this.filters.board : this.prominentFilters['board'];
     const option = {
       source: 'web',
       name: 'Explore',
-      filters: _.pickBy(this.filters, value => value.length > 0),
-      sort_by: { [this.queryParams.sort_by]: this.queryParams.sortType }
+      filters: filters,
+      softConstraints: { badgeAssertions: 98, board: 99, channel: 100 },
+      mode: 'soft',
+      exists: []
     };
     this.pageSectionService.getPageData(option).pipe(
       takeUntil(this.unsubscribe$))
@@ -105,26 +109,26 @@ export class LearnComponent implements OnInit, OnDestroy {
           if (apiResponse && apiResponse.sections) {
             let noResultCounter = 0;
             this.showLoader = false;
-            this.booksCarouselData = _.cloneDeep([apiResponse.sections[0]]);
-            _.forEach(this.booksCarouselData, (value, index) => {
-              if (this.booksCarouselData[index].contents && this.booksCarouselData[index].contents.length > 0) {
+            this.opportunitiesCarouselData = _.cloneDeep([apiResponse.sections[2]]);
+            _.forEach(this.opportunitiesCarouselData, (value, index) => {
+              if (this.opportunitiesCarouselData[index].contents && this.opportunitiesCarouselData[index].contents.length > 0) {
                 const constantData = this.config.appConfig.ExplorePage.constantData;
                 const metaData = this.config.appConfig.ExplorePage.metaData;
                 const dynamicFields = this.config.appConfig.ExplorePage.dynamicFields;
-                this.booksCarouselData[index].contents = this.utilService.getDataForCard(this.booksCarouselData[index].contents,
+                this.opportunitiesCarouselData[index].contents = this.utilService.getDataForCard(this.opportunitiesCarouselData[index].contents,
                   constantData, dynamicFields, metaData);
               }
             });
-            if (this.booksCarouselData.length > 0) {
-              _.forIn(this.booksCarouselData, (value, key) => {
-                if (this.booksCarouselData[key].contents === null) {
+            if (this.opportunitiesCarouselData.length > 0) {
+              _.forIn(this.opportunitiesCarouselData, (value, key) => {
+                if (this.opportunitiesCarouselData[key].contents === null) {
                   noResultCounter++;
-                } else if (this.booksCarouselData[key].contents === undefined) {
+                } else if (this.opportunitiesCarouselData[key].contents === undefined) {
                   noResultCounter++;
                 }
               });
             }
-            if (noResultCounter === this.booksCarouselData.length) {
+            if (noResultCounter === this.opportunitiesCarouselData.length) {
               this.noResult = true;
               this.noResultMessage = {
                 'message': this.resourceService.messages.stmsg.m0007,
@@ -146,10 +150,10 @@ export class LearnComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.prominentFilters = {};
     this.slug = this.activatedRoute.snapshot.params.slug;
     this.filterType = this.config.appConfig.explore.filterType;
     this.redirectUrl = this.config.appConfig.explore.inPageredirectUrl;
-    this.getQueryParams();
     this.getChannelId();
     this.telemetryImpression = {
       context: {
@@ -162,16 +166,12 @@ export class LearnComponent implements OnInit, OnDestroy {
         subtype: this.activatedRoute.snapshot.data.telemetry.subtype
       }
     };
-    this.filterIntractEdata = {
-      id: 'filter',
-      type: 'click',
-      pageid: this.activatedRoute.snapshot.data.telemetry.pageid
-    };
     this.sortIntractEdata = {
       id: 'sort',
       type: 'click',
       pageid: this.activatedRoute.snapshot.data.telemetry.pageid
     };
+
     // Timer Counter Starts Here
     (function ($) {
       (<any>$.fn).countTo = function (options) {
@@ -291,7 +291,6 @@ export class LearnComponent implements OnInit, OnDestroy {
       }
     });
     //Testimonials carousel Ends here
-
   }
 
   prepareVisits(event) {
@@ -344,7 +343,7 @@ export class LearnComponent implements OnInit, OnDestroy {
             this.filters[key] = value;
           }
         });
-        this.booksCarouselData = [];
+        this.opportunitiesCarouselData = [];
         if (this.queryParams.sort_by && this.queryParams.sortType) {
           this.queryParams.sortType = this.queryParams.sortType.toString();
         }
@@ -352,6 +351,15 @@ export class LearnComponent implements OnInit, OnDestroy {
           this.populatePageData();
         }
       });
+  }
+  getFilters(filters) {
+    _.forEach(filters, (value) => {
+      if (value.code === 'board') {
+        value.range = _.orderBy(value.range, ['index'], ['asc']);
+        this.prominentFilters['board'] = _.get(value, 'range[0].name') ? _.get(value, 'range[0].name') : [];
+      }
+    });
+    this.getQueryParams();
   }
 
   getChannelId() {

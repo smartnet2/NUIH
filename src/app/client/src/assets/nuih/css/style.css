@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700);
+
 body {
   background: #fff;
   color: #444;
@@ -104,10 +104,6 @@ h6 {
   color: #50d8af;
 }
 
-#mainNav {
-  background-color: #FFFFFF;
-}
-
 #topbar .social-links a:first-child {
   border-left: 0;
 }
@@ -152,25 +148,31 @@ h6 {
 /*--------------------------------------------------------------
 # Intro Section
 --------------------------------------------------------------*/
+#mainNav {
+  background-color: #FFFFFF;
+}
 
 #intro {
   width: 100%;
   height: 539px;
   position: relative;
-  /* background: url("../img/intro-carousel/1.jpg") no-repeat; */
   background-size: cover;
-  }
-
+}
 .landing-banner {
-  background: url("../img/intro-carousel/1.jpg") no-repeat;
+  background: url("../img/intro-carousel/1.jpg") no-repeat;  
 }
 .learning-banner {
-  background: url("../img/intro-carousel/inno-bannerl.jpg") no-repeat;
+  background: url("../img/intro-carousel/inno-bannerl.jpg") no-repeat;  
 }
 .innovate-banner {
-  background: url("../img/intro-carousel/inno-banner.jpg") no-repeat;
+  background: url("../img/intro-carousel/inno-banner.jpg") no-repeat;  
 }
-
+.data-exchange-banner-image {
+  background: url("../img/intro-carousel/idx.jpg") no-repeat;  
+}
+.smart-gov-banner-image {
+  background: url("../img/intro-carousel/smart-gov.jpg") no-repeat;  
+}
 #intro .intro-content {
   position: absolute;
   bottom: 0;
@@ -896,29 +898,80 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   margin-bottom: 20px;
 }
 
+#team .memberid {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 #team .member .pic {
   overflow: hidden;
   text-align: center;
+      margin-bottom: 15px;
 }
-
+#team .memberid .pic {
+  overflow: hidden;
+  text-align: center;
+      margin-bottom: 15px;
+}
 #team .member .pic img {
   max-width: 100%;
 }
 
-#team .member .details {
-  background: #50d8af;
-  color: #fff;
-  padding: 15px;
-  border-radius: 0 0 3px 3px;
+#team .memberid .pic img {
+  max-width: 100%;
 }
-
+#team .member .details {
+  box-sizing: content-box;
+    padding: 30px 30px 30px 30px;
+    margin: 30px 15px;
+    text-align: center;
+    min-height:auto;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+	width: auto;
+}
+#team .memberid .details {
+  box-sizing: content-box;
+    padding: 30px 30px 30px 30px;
+    margin: 30px 15px;
+    text-align: center;
+    min-height:100%;
+   
+    background-color: #ffffff;
+	width: auto;
+	height:400px;
+}
 #team .member h4 {
   font-weight: 700;
   margin-bottom: 2px;
   font-size: 18px;
+  width: 35%;
+    text-align: center;
+    margin: 0 auto;
+}
+#team .memberid h3 {
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 18px;
+  width: 100%;
+    text-align: center;
+    margin: 0 auto;
 }
 
+#team .memberid p {
+  
+  padding-top: 45px;
+  font-size: 14px;
+  width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
 #team .member span {
+  font-style: italic;
+  display: block;
+  font-size: 13px;
+}
+#team .memberid span {
   font-style: italic;
   display: block;
   font-size: 13px;
@@ -927,12 +980,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 #team .member .social {
   margin-top: 5px;
 }
+#team .memberid .social {
+  margin-top: 5px;
+}
 
 #team .member .social a {
   color: #fff;
 }
 
+#team .memberid .social a {
+  color: #fff;
+}
+
 #team .member .social i {
+  font-size: 16px;
+  margin: 0 2px;
+}
+#team .memberid .social i {
   font-size: 16px;
   margin: 0 2px;
 }
@@ -1836,7 +1900,7 @@ width: 115px !important;
 
 
 .btn2 {
-    height: 37px;
+    height: 39px;
     position: absolute;
     right: 0;
     top:0;
@@ -1854,4 +1918,173 @@ width: 115px !important;
 }
 #testimonials.wow.fadeInUp.grnn-bg {
     background:#3fd8a0 !important;
+}
+
+<!--/*login*/-->
+
+
+.main-head{
+    height: 150px;
+    background: #FFF;
+   
+}
+
+.sidenav {
+    height: 100%;
+    background:url(../img/Sign-in@1x.jpg) top center no-repeat;
+	background-size:cover;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+            margin-left: 50%;
+    }
+
+    .sidenav{
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form{
+        margin-top: 30%;
+    }
+
+    .register-form{
+        margin-top: 20%;
+    }
+}
+
+
+.login-main-text{
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+	text-align:center;
+}
+
+.login-main-text h2{
+    font-weight: 300;
+}
+
+.btn-black{
+    background-color: #000 !important;
+    color: #fff;
+}
+
+button.btn.btn-black.signin {
+    margin: 0 auto;
+    width: 40%;
+    background-color: #3c90ff!important;
+}
+
+label {
+	font-size:12px;
+    color: #000;
+}
+.dont-link{
+	position: absolute;
+    top: 15px;
+    /* left: 0; */
+    width: 100%;
+    right: 15px;
+    text-align: right;
+}
+
+
+	
+.box-shd{
+	box-sizing: content-box;
+    padding: 30px 30px 0 30px;
+    margin: 30px 15px;
+    text-align: center;
+    min-height:auto;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+	width: 100%;
+}
+
+.box-shd img{
+	margin:0 auto 25px; 
+}
+.box-shd h4{
+	text-align:center;
+	font-weight:600;
+	font-size:20px;
+}
+
+.row.tabiudx{
+	width:100%;
+	margin:0 auto;
+	
+}
+
+.row.tabiudx ul{
+	
+	padding:0;
+	margin:0 auto;
+	
+}
+
+.row.tabiudx li{
+	
+	padding:5px;
+	margin:0;
+	list-style:none;
+	 float:left;
+	
+}
+
+.row.tabiudx li a{
+	
+	padding:10px;
+	margin:0;
+	list-style:none;
+	 float:left;
+	 color:#223867;
+	
+}
+
+.row.tabiudx li a:hover{
+	
+	padding:10px;
+	margin:0;
+	list-style:none;
+	 float:left;
+	 color:#006dfe;
+	 background-color:rgba(0,109,254, 0.1);
+	
+}
+.activeix{
+	
+	padding:10px;
+	margin:0;
+	list-style:none;
+	 float:left;
+	 color:#006dfe;
+	 background-color:rgba(0,109,254, 0.1);
+	
 }

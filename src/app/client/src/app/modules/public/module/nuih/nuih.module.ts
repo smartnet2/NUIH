@@ -7,6 +7,8 @@ import { NgInviewModule } from 'angular-inport';
 import { NuihComponent } from './components/nuih/nuih.component';
 import { LearnComponent } from './components/learn/learn.component';
 import { InnovateComponent } from './components/innovate/innovate.component';
+import { DataExchangeComponent } from './components/data-exchange/data-exchange.component';
+import { SmartGovComponent } from './components/smart-gov/smart-gov.component';
 
 
 @NgModule({
@@ -17,6 +19,6 @@ import { InnovateComponent } from './components/innovate/innovate.component';
     SharedModule,
     NgInviewModule
   ],
-  declarations: [NuihComponent, LearnComponent, InnovateComponent]
+  declarations: [NuihComponent, LearnComponent, InnovateComponent, DataExchangeComponent, SmartGovComponent]
 })
 export class NuihModule { }
