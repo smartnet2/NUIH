@@ -22,12 +22,12 @@
               "src/favicon.png"
             ],
             "styles": [
+              "src/assets/nuih/css/style.css",
               "src/assets/nuih/lib/bootstrap/css/bootstrap.min.css",
               "src/assets/nuih/lib/animate/animate.min.css",
               "src/assets/nuih/lib/ionicons/css/ionicons.min.css",
               "src/assets/nuih/lib/owlcarousel/assets/owl.carousel.min.css",
               "src/assets/nuih/lib/magnific-popup/magnific-popup.css",
-              "src/assets/nuih/css/style.css",
               "src/assets/styles/semantic.min.css",
               "src/styles.css",
               "node_modules/font-awesome/css/font-awesome.css",
