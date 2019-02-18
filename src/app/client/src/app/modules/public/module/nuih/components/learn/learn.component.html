@@ -9,12 +9,16 @@
                         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/nuis" style="white-space:nowrap">Home</a> </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger nav-active" href="/lms">Learn</a> </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/innovate">Innovate</a> </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/iudx" style="white-space:nowrap">Data
-                                    Exchange</a> </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/smartgov" style="white-space:nowrap">Smart
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/nuis"
+                                    style="white-space:nowrap">Home</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger nav-active" href="/lms">Learn</a>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/innovate">Innovate</a>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/iudx"
+                                    style="white-space:nowrap">Data</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/smartgov"
+                                    style="white-space:nowrap">Smart
                                     Governance</a> </li>
                             <li class="nav-item"> <a class="btn btn-primary" href="/learn">Sign In/Up</a></li>
                         </ul>
@@ -84,23 +88,26 @@
                         <div class="container">
                             <div class="ui grid margin-bottom-0 hidden-section">
                                 <div class="twelve wide column">
-                                    <app-prominent-filter appTelemetryInteract [telemetryInteractEdata]="filterIntractEdata" *ngIf="filterType"
-          [filterEnv]="filterType" [ignoreQuery]="['key', 'language']" [redirectUrl]="redirectUrl"
-          [accordionDefaultOpen]=true [isShowFilterLabel]=true [showSearchedParam]=true [isShowFilterLabel]=true
-          [hashTagId]="hashTagId"></app-prominent-filter>
+                                    <app-prominent-filter appTelemetryInteract
+                                        [telemetryInteractEdata]="filterIntractEdata" *ngIf="filterType"
+                                        [filterEnv]="filterType" [ignoreQuery]="['key', 'language']"
+                                        [redirectUrl]="redirectUrl" [accordionDefaultOpen]=true [isShowFilterLabel]=true
+                                        [showSearchedParam]=true [isShowFilterLabel]=true [hashTagId]="hashTagId">
+                                    </app-prominent-filter>
                                 </div>
                             </div>
 
                             <div *ngFor="let section of booksCarouselData">
-                                <app-page-section (visits)="prepareVisits($event)" (playEvent)="playContent($event)" [section]="section"></app-page-section>
+                                <app-page-section (visits)="prepareVisits($event)" (playEvent)="playContent($event)"
+                                    [section]="section"></app-page-section>
                             </div>
                             <div class="twelve wide column" *ngIf="showLoader">
                                 <app-loader [data]='loaderMessage'></app-loader>
-                              </div>
-                              <div *ngIf="noResult && !showLoader">
+                            </div>
+                            <div *ngIf="noResult && !showLoader">
                                 <app-no-result [data]="noResultMessage"></app-no-result>
-                              </div>
-                                                      <!-- <div id="demo" class="carousel slide" data-ride="carousel">
+                            </div>
+                            <!-- <div id="demo" class="carousel slide" data-ride="carousel">
 
                                 
                                 <ul class="carousel-indicators mb-0 pb-0">
@@ -206,7 +213,7 @@
                 </div>
             </div>
         </section>
-<!--
+        <!--
 
         <section id="testimonials3" class="wow fadeInUp">
             <div class="container">
@@ -314,7 +321,7 @@
 
 
         <!-- #call-to-action -->
-      <!--  <section id="testimonials" class="wow fadeInUp grnn-bg">
+        <!--  <section id="testimonials" class="wow fadeInUp grnn-bg">
             <div class="container">
                 <div class="section-header text-center">
                     <h2>Explore by type of content</h2>
@@ -406,7 +413,8 @@
                 </div>
             </div>
         </section>
-        <!-- #team --> <!--
+        <!-- #team -->
+        <!--
         <section id="testimonials3" class="wow fadeInUp">
             <div class="container">
                 <div class="section-header margin-top130">
@@ -591,8 +599,7 @@
                             <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#services">Learn</a> </li>
                             <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#portfolio">Innovate</a>
                             </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#contact">Data
-                                    Exchange</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#contact">Data</a> </li>
                             <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#contact">Smart
                                     Governance</a> </li>
                         </ul>
