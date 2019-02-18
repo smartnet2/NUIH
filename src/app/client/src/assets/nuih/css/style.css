@@ -156,7 +156,7 @@ h6 {
   background-color: #FFFFFF;
 }
 .landing-page-counter {
-  padding-top: 30px;
+  padding-top: 0px !important;
 }
 /*--------------------------------------------------------------
 # Intro Section
