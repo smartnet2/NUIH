@@ -151,36 +151,34 @@ h6 {
   width: 100%;
   padding: 6rem 2rem 2rem;
 }
-/*--------------------------------------------------------------
-# Intro Section
---------------------------------------------------------------*/
+
 #mainNav {
   background-color: #FFFFFF;
 }
-
+.landing-page-counter {
+  padding-top: 30px;
+}
+/*--------------------------------------------------------------
+# Intro Section
+--------------------------------------------------------------*/
 #intro {
   width: 100%;
-  height: 539px;
+  height: 400px;
   position: relative;
-  background-size: cover;
 }
-.landing-banner {
-  background: url("../img/intro-carousel/1.jpg") no-repeat;  
-}
-.learning-banner {
-  background: url("../img/intro-carousel/inno-bannerl.jpg") no-repeat;  
-}
-.innovate-banner {
-  background: url("../img/intro-carousel/inno-banner.jpg") no-repeat;  
-}
-.data-exchange-banner-image {
-  background: url("../img/intro-carousel/idx.jpg") no-repeat;  
-}
-.smart-gov-banner-image {
-  background: url("../img/intro-carousel/smart-gov.jpg") no-repeat;  
-}
+
 #intro .intro-content {
   position: absolute;
+    
+background: rgba(25,39,54,1);
+background: -moz-linear-gradient(left, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(25,39,54,1)), color-stop(100%, rgba(73,155,234,0.16)));
+background: -webkit-linear-gradient(left, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+background: -o-linear-gradient(left, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+background: -ms-linear-gradient(left, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+background: linear-gradient(to right, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#192736', endColorstr='#499bea', GradientType=1 );
+
   bottom: 0;
   top: 0;
   left: 0;
@@ -207,13 +205,13 @@ h6 {
 }
 
 #intro .intro-content h2 {
-  color: #ffffff;
-  margin-top: 60px;
-  margin-bottom: 30px;
-  font-size: 48px;
-  font-weight: 700;
-  text-align:left;
-  width:90%;
+    color: #ffffff;
+    margin-top: 0px;
+    margin-bottom: 15px;
+    font-size: 33px;
+    font-weight: 600 !important;
+    text-align: left;
+    width: 90%;
 }
 
 /*#intro .intro-content h2 span {
@@ -223,7 +221,7 @@ h6 {
 
 #intro .intro-content .btn-get-started,
 #intro .intro-content .btn-projects {
-  font-family: "Raleway", sans-serif !important;
+  font-family: "Raleway", sans-serif;
   font-size: 15px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -261,7 +259,16 @@ h6 {
 
 #intro #intro-carousel::before {
   content: '';
-  /*background-color: rgba(255, 255, 255, 0.7);*/
+  
+background: rgba(25,39,54,1);
+background: -moz-linear-gradient(left, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(25,39,54,1)), color-stop(100%, rgba(73,155,234,0.16)));
+background: -webkit-linear-gradient(left, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+background: -o-linear-gradient(left, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+background: -ms-linear-gradient(left, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+background: linear-gradient(to right, rgba(25,39,54,1) 0%, rgba(73,155,234,0.16) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#192736', endColorstr='#499bea', GradientType=1 );
+
   position: absolute;
   height: 100%;
   width: 100%;
@@ -274,7 +281,7 @@ h6 {
 
 #intro #intro-carousel .item {
   width: 100%;
-  height: 539px;
+  height: 400px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1155,6 +1162,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 #footer .credits a {
   color: #0c2e8a;
 }
+li.nav-item.ft {
+  margin: 8px;
+}
 
 @media (min-width: 768px) {
   #contact .contact-address,
@@ -1306,9 +1316,9 @@ div#header-sticky-wrapper{
 }
 
 .intro-content p {
-    text-align: left;
-    width: 90%;
-	color:#ffffff;
+  text-align: left;
+  color: #fff;
+  font-size: 15px;
 }
 .navbar-brand {
   display: inline-block !important;
@@ -1625,6 +1635,10 @@ line-height:35px;
 .carousel-item{
 	margin-top:90px;
 }*/
+#testimonials-2 {
+  max-height: 165px;
+  padding-top: 30px;
+}
 .grow{
   box-sizing: content-box;
   padding: 75px 114px 0 108px;
@@ -1778,7 +1792,7 @@ h2.timer.count-title.count-number::before{
     text-align: center !important;
 	border-radius:2px !important;
 }
-.about-learn:hover {
+/* .about-learn:hover {
     background-color:#0065fe;
     font-size: 12px;
 	border: 1px solid #0065fe;
@@ -1792,7 +1806,7 @@ h2.timer.count-title.count-number::before{
     text-align: center;
 	border-radius:2px;
 	
-}
+} */
 
 .collapse.navbar-collapse.blue {
 	background-color:#102746;
@@ -2148,4 +2162,133 @@ label {
 	 color:#006dfe;
 	 background-color:rgba(0,109,254, 0.1);
 	
+}
+
+<!--/*learn*/-->
+
+#learn-banner {
+  width: 100%;
+  height: 400px;
+  position: relative;
+
+ 
+}
+
+#learn-banner .learn-content {
+  position: absolute;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#032317+0,000000+100&0.7+0,0+100 */
+background: -moz-linear-gradient(left, rgba(3,35,23,0.7) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, rgba(3,35,23,0.7) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, rgba(3,35,23,0.7) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3032317', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: center;
+}
+
+#learn-banner .learn-content h2 {
+  color: #ffffff;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  font-size: 33px;
+  font-weight: 600 !important;
+  text-align: left;
+  width: 90%;
+}
+
+/*#intro .intro-content h2 span {
+  color: #50d8af;
+  text-decoration: underline;
+}*/
+
+#learn-banner .learn-content .btn-get-started,
+#learn-banner .learn-content .btn-projects {
+  font-family: "Raleway", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 32px;
+  border-radius: 2px;
+  transition: 0.5s;
+  margin: 10px;
+  color: #fff;
+}
+
+#learn-banner .learn-content .btn-get-started {
+  background: #0c2e8a;
+  border: 2px solid #0c2e8a;
+}
+
+#learn-banner .learn-content .btn-get-started:hover {
+  background: none;
+  color: #0c2e8a;
+}
+
+#learn-banner .learn-content .btn-projects {
+  background: #50d8af;
+  border: 2px solid #50d8af;
+}
+
+#learn-banner .learn-content .btn-projects:hover {
+  background: none;
+  color: #50d8af;
+}
+
+#learn-banner #learn-banner-caro {
+  z-index: 8;
+}
+
+#learn-banner #learn-banner-caro::before {
+  content: '';
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#032317+0,000000+100&0.7+0,0+100 */
+background: -moz-linear-gradient(left, rgba(3,35,23,0.7) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left, rgba(3,35,23,0.7) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, rgba(3,35,23,0.7) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3032317', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 7;
+}
+
+#learn-banner #learn-banner-caro .learn-item {
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition-property: opacity;
+}
+
+.learn-content p {
+  text-align: left;
+  color: #fff;
+  font-size: 15px;
 }
