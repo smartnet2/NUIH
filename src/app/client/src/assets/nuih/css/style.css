@@ -523,7 +523,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 .section-header h2 {
   font-size: 25px;
   color: #0c2e8a;
-  text-transform: capitalize;
+  text-transform: none;
   font-weight: 600 !important;
   position: relative;
   padding-bottom: 20px;
@@ -542,6 +542,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-radius: 3px;
   padding-bottom: 33px;
   top: 3px;
+}
+.interested-section {
+  width: 80%;
+  margin-left: 10%;
 }
 
 .section-header p {
@@ -809,8 +813,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .testimonials-carousel {
-  width: 80%;
-  margin-left: 10%;
+  /* width: 80%;
+  margin-left: 10%; */
 }
 
 #testimonials .testimonial-item .quote-sign-left {
@@ -1310,7 +1314,7 @@ div#header-sticky-wrapper{
   display: inline-block !important;
   padding-top: 1px !important;
   padding-bottom: 6px !important;
-  margin-left: 10% !important;
+  /* margin-left: 10% !important; */
   line-height: inherit !important;
   white-space: nowrap !important;
 }
@@ -1515,7 +1519,7 @@ span.carousel-control-next-icon {
 }
 
 .get-inspired-container, .new-opportunity-container, .popular-courses-container {
-  margin-left: 10%;
+  margin-left: 10% !important;
 }
 
 .counter {
