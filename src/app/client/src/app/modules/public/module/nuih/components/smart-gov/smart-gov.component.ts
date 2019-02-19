@@ -291,6 +291,16 @@ export class SmartGovComponent implements OnInit, OnDestroy {
       }
     });
     //Testimonials carousel Ends here
+    // Intro Carousel Starts Here
+    // Intro background carousel
+    (<any>$("#intro-carousel")).owlCarousel({
+      autoplay: true,
+      dots: false,
+      loop: true,
+      animateOut: 'fadeOut',
+      items: 1
+    });
+    // Intro Carousel Ends Here
   }
 
   prepareVisits(event) {
