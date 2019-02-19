@@ -528,7 +528,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .section-header h2 {
-  font-size: 25px;
+  font-size: 25px !important;
   color: #0c2e8a;
   text-transform: none;
   font-weight: 600 !important;
@@ -1027,13 +1027,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   margin: 0 2px;
 }
 
+.learn-testimonial-footer-bg {
+  background:url(../img/footetbg.jpg) no-repeat top center !important;
+  -webkit-background-size:100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size:100% 100%;
+  background-size: 100% 100%; 
+}
 /* Contact Section
 --------------------------------*/
 
 #contact {
-  padding: 80px 0;
+  padding: 35px 0;
   background-color:#fafcff;
-  background:url(../img/footetbg.jpg) no-repeat top center;
+  /* background:url(../img/footetbg.jpg) no-repeat top center; */
 	-webkit-background-size:100% 100%;
         -moz-background-size: 100% 100%;
         -o-background-size:100% 100%;
@@ -1858,7 +1865,11 @@ h2.timer.count-title.count-number::before{
   font-weight: 500;
 }
 .text-align-left{
-		text-align:left!important;
+    text-align:left!important;
+    font-size: 13px !important;
+}
+.email.section-header{
+  margin-top: 20px !important;
 }
 .grn-color{
 	color:#47e793!important;
@@ -1973,10 +1984,14 @@ position: relative;
 width: 115px !important;
 }
 .blue-color h3{
-	color:#3c90ff;
-	text-align:left!important;
+  color:#3c90ff;
+  font-weight: 600 !important;
+  text-align:left!important;
+  margin-bottom: 5px;
 }
-
+.email.input-group {
+  margin-top: 23px;
+}
 #search {
     float: right;
     margin-top: 9px;
@@ -2708,4 +2723,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 
 .search.col-md-5.col-sm-5.col-lg-5 {
     margin: 0 auto;
+}
+.email.btn-primary {
+  margin-left: -2px;
+  padding: 8px 25px;
+  font-weight: normal !important;
+  color: #FFFFFF !important;
+  background-color: #3c90ff !important;
+  border: 1px solid #3c90ff !important;
+}
+.email.btn-primary:hover {
+  margin-left: -2px;
+  padding: 8px 25px;
+  font-weight: 500 !important;
+  color: #FFFFFF !important;
+  background-color: #0069d9 !important;
+  border: 1px solid #0069d9 !important;
 }

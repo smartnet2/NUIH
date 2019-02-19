@@ -9,12 +9,14 @@
                         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/nuis" >Home</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/nuis">Home</a> </li>
                             <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/lms">Learn</a> </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger nav-active" href="/innovate">Innovate</a> </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/iudx" >Data</a> </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/smartgov" >Smart Governance</a> </li>
-														
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger nav-active"
+                                    href="/innovate">Innovate</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/iudx">Data</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/smartgov">Smart
+                                    Governance</a> </li>
+
                             <li class="nav-item"> <a class="btn btn-primary" href="/challenge">Sign In/Up</a></li>
                         </ul>
                     </div>
@@ -24,31 +26,33 @@
     </header>
     <!-- #header -->
 
-<!--==========================
+    <!--==========================
     Intro Section
   ============================-->
-  <section id="innovate-banner">
-    <div class="innovate-content">
-      <div class="container text-center">
-        <h2>LET'S CREATE CHANGE </h2>
-        <p >A platform that helps cities and industries accelerate innovation by<br>
-																					  
-          providing opportunities to share and participate in various innovation challenges</p>
-      </div>
-    </div>
-    <div id="innovate-banner-caro" class=" " >
-      <div class="innovate-item" style="background-image: url('./assets/nuih/img/intro-carousel/Innovate.jpg');"></div>
-    </div>
-  </section>
-  <!-- #intro -->
-  
+    <section id="innovate-banner">
+        <div class="innovate-content">
+            <div class="container text-center">
+                <h2>LET'S CREATE CHANGE </h2>
+                <p>A platform that helps cities and industries accelerate innovation by<br>
+
+                    providing opportunities to share and participate in various innovation challenges</p>
+            </div>
+        </div>
+        <div id="innovate-banner-caro" class=" ">
+            <div class="innovate-item" style="background-image: url('./assets/nuih/img/intro-carousel/Innovate.jpg');">
+            </div>
+        </div>
+    </section>
+    <!-- #intro -->
+
     <main id="main">
         <section id="testimonials" class="wow fadeInUp">
             <div class="container">
                 <div class="section-header">
                     <h2>Let's Create Change</h2>
-                    <p class="text-center">You can innovate much faster when you’re building on the ideas of many. We call this open innovation. Here’s how you can try it out: </p>
-																														
+                    <p class="text-center">You can innovate much faster when you’re building on the ideas of many. We
+                        call this open innovation. Here’s how you can try it out: </p>
+
                 </div>
                 <div class="owl-carousel testimonials-carousel">
                     <div class="testimonial-item imc"> <img src="./assets/nuih/img/in-p.jpg" class="testimonial-img im"
@@ -82,7 +86,8 @@
                     <div class="col-lg-2 content">
                         <h2 class="border-btm">New<br>
                             Opportunities</h2>
-                        <p>"Innovation Challenges" by the Smart City CEOs for organisations to offer their products and services </p>
+                        <p>"Innovation Challenges" by the Smart City CEOs for organisations to offer their products and
+                            services </p>
                         <div class="pull-left viewall"><a href="#" class="view">View All</a> <i
                                 class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
                     </div>
@@ -90,22 +95,25 @@
                         <div class="container">
                             <div class="ui grid margin-bottom-0 hidden-section">
                                 <div class="twelve wide column">
-                                    <app-prominent-filter appTelemetryInteract [telemetryInteractEdata]="filterIntractEdata" *ngIf="filterType"
-          [filterEnv]="filterType" [ignoreQuery]="['key', 'language']" [redirectUrl]="redirectUrl"
-          [accordionDefaultOpen]=true [isShowFilterLabel]=true [showSearchedParam]=true [isShowFilterLabel]=true
-          [hashTagId]="hashTagId"></app-prominent-filter>
+                                    <app-prominent-filter appTelemetryInteract
+                                        [telemetryInteractEdata]="filterIntractEdata" *ngIf="filterType"
+                                        [filterEnv]="filterType" [ignoreQuery]="['key', 'language']"
+                                        [redirectUrl]="redirectUrl" [accordionDefaultOpen]=true [isShowFilterLabel]=true
+                                        [showSearchedParam]=true [isShowFilterLabel]=true [hashTagId]="hashTagId">
+                                    </app-prominent-filter>
                                 </div>
                             </div>
 
                             <div *ngFor="let section of opportunitiesCarouselData">
-                                <app-page-section (visits)="prepareVisits($event)" (playEvent)="playContent($event)" [section]="section"></app-page-section>
+                                <app-page-section (visits)="prepareVisits($event)" (playEvent)="playContent($event)"
+                                    [section]="section"></app-page-section>
                             </div>
                             <div class="twelve wide column" *ngIf="showLoader">
                                 <app-loader [data]='loaderMessage'></app-loader>
-                              </div>
-                              <div *ngIf="noResult && !showLoader">
+                            </div>
+                            <div *ngIf="noResult && !showLoader">
                                 <app-no-result [data]="noResultMessage"></app-no-result>
-                              </div>
+                            </div>
                             <!-- <div id="demo" class="carousel slide" data-ride="carousel">
 
                                 
@@ -299,7 +307,7 @@
         </section>
         <!-- #team -->
 
-        <section id="testimonials" class="wow fadeInUp">
+        <section id="testimonials" class="wow fadeInUp learn-testimonial-footer-bg">
             <div class="container">
                 <div class="section-header text-center">
                     <h2>Testimonials</h2>
@@ -327,9 +335,10 @@
 
                             <h5>Naman Jain</h5>
                             <p> CEO, Future Cities </p>
-                            <p>NUIS has given me the much needed opportunity to showcase my product. 
-                                I can now finally apply my knowledge in the field to real life problems affecting city civic issues."</p>
-																													   
+                            <p>NUIS has given me the much needed opportunity to showcase my product.
+                                I can now finally apply my knowledge in the field to real life problems affecting city
+                                civic issues."</p>
+
                         </div>
                     </div>
                     <div class="testimonial-item imc"> <img src="./assets/nuih/img/s2.png" class=" pro-img" alt=""
@@ -340,9 +349,10 @@
 
                             <h5>Shazia Husain</h5>
                             <p> CEO, Future Technology </p>
-                            <p>"NUIS gave me the opportunity to leverage my technical skills and develop practical solutions to issues currently affecting cities"s</p>
-																														
-																													   
+                            <p>"NUIS gave me the opportunity to leverage my technical skills and develop practical
+                                solutions to issues currently affecting cities"s</p>
+
+
                         </div>
                     </div>
 
@@ -353,18 +363,26 @@
         <!--==========================
             Contact Section
           ============================-->
-        <!-- <section id="contact" class="wow fadeInUp">
+        <section id="contact" class="wow fadeInUp">
             <div class="container">
-                <div class="section-header text-center row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 pull-left blue-color">
+                <div class="section-header text-center row email">
+                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 pull-left blue-color">
                         <h3>Never miss a good Opportunity</h3>
-                        <p class="text-align-left">Get our most important updates delivered straight to your inbox </p>
+                        <p class="text-align-left">Get our most important updates delivered<br> straight to your inbox
+                        </p>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
-                        <div class="search">
-                            <input type="text" class="form-control input-sm" maxlength="64" placeholder="Search" />
-                            <button type="submit" class="btn2 btn-primary btn-sm">Search</button>
+                    <div class="col-lg-5 col-md-5 col-sm-5 pull-left">
+                        <!-- <div class="search">
+                                <input type="text" class="form-control input-sm" maxlength="64" placeholder="Search" />
+                                <button type="submit" class="btn2 btn-primary btn-sm">Search</button>
+                            </div> -->
+                        <div class="input-group email">
+                            <input type="text" class="form-control" placeholder="Enter email id" name="search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary email" type="submit">Submit</button>
+                            </div>
                         </div>
                     </div>
 
@@ -372,7 +390,7 @@
 
                 </div>
             </div>
-        </section> -->
+        </section>
         <!-- #contact -->
 
     </main>
@@ -380,35 +398,36 @@
     <!--==========================
     Footer
   ============================-->
-  <footer id="footer">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg" id="mainNav2">
-            <div class="container"> <a class="navbar-brand js-scroll-trigger" href="http://niua.org"><img
-                        src="./assets/nuih/img/footer-logo.jpg" width="auto" height="auto" alt=""></a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                    aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-                <div class="collapse navbar-collapse blue" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item ft"> <a href="http://smartcities.gov.in/content/"><img src="./assets/nuih/img/smrt.png" width="90px"
-                                    height="auto" alt="" /></a> </li>
-                        <li class="nav-item ft"> <a href="http://amrut.gov.in/"><img src="./assets/nuih/img/amrut.png" width="90px"
-                                    height="auto" alt="" /></a> </li>
-                        <li class="nav-item ft"> <a href="https://www.hridayindia.in/"><img src="./assets/nuih/img/hri.png" width="90px"
-                                    height="auto" alt="" /></a> </li>
-                        <li class="nav-item ft"> <a href="https://swachhbharatmission.gov.in/sbmcms/index.htm"><img src="./assets/nuih/img/bhrt.png" width="90px"
-                                    height="auto" alt="" /></a> </li>
-                        <li class="nav-item ft"><a href="https://pmaymis.gov.in/"><img src="./assets/nuih/img/m.png" width="90px"
-                                    height="auto" alt="" /></a> </li>
-                        <li class="nav-item ft"><a href="https://nulm.gov.in/"><img src="./assets/nuih/img/day.png" width="90px" height="auto" alt="" /></a> </li>
-                                                                     
+    <footer id="footer">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg" id="mainNav2">
+                <div class="container"> <a class="navbar-brand js-scroll-trigger" href="http://niua.org"><img
+                            src="./assets/nuih/img/footer-logo.jpg" width="auto" height="auto" alt=""></a>
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                        aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="collapse navbar-collapse blue" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item ft"> <a href="http://smartcities.gov.in/content/"><img
+                                        src="./assets/nuih/img/smrt.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="http://amrut.gov.in/"><img
+                                        src="./assets/nuih/img/amrut.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="https://www.hridayindia.in/"><img
+                                        src="./assets/nuih/img/hri.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="https://swachhbharatmission.gov.in/sbmcms/index.htm"><img
+                                        src="./assets/nuih/img/bhrt.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"><a href="https://pmaymis.gov.in/"><img src="./assets/nuih/img/m.png"
+                                        width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"><a href="https://nulm.gov.in/"><img src="./assets/nuih/img/day.png"
+                                        width="90px" height="auto" alt="" /></a> </li>
 
-                    </ul>
+
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </div>
-</footer>
-<!-- #footer -->
-<!-- <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a> -->
+            </nav>
+        </div>
+    </footer>
+    <!-- #footer -->
+    <!-- <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a> -->
 </div>
