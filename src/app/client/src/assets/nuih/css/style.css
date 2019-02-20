@@ -1400,6 +1400,18 @@ div#header-sticky-wrapper{
   border-top-right-radius: 15px;
 }
 
+.smart-gov-border-btm{
+  border-bottom: 3px solid #006dfe;
+  border-radius: 3px;
+  padding-bottom: 33px;
+  border-height: 2rem;
+  width: 26px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  margin-top: -8px;
+  margin-left: 49%;
+}
+
 .border-btm-center{
 	border-bottom: 5px solid #006dfe;
     border-radius: 3px;
@@ -2540,16 +2552,25 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3032317', e
 }
 .smart-gov-heading {
   margin-block-start: -17px;
+  margin-bottom: -17px;
 }
-.smart-gov-heading::after {
-  content:'';
-  border-bottom: 3px solid #006dfe;
-  border-radius: 3px;
-  padding-bottom: 33px;
-  border-height: 2rem;
-  width: 29px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+.smart-gov-heading h2 {
+  font-size: 25px !important;
+  color: #0c2e8a;
+  text-transform: none;
+  font-weight: 600 !important;
+  position: relative;
+  padding-bottom: 20px;
+  text-align: center;
+}
+.smart-gov-heading.section-header h2::before {
+  border-bottom: none !important;
+}
+.left-39.section-header h2::before {
+  left:39% !important;
+}
+.left-41.section-header h2::before {
+  left:41% !important;
 }
 .smart-gov-text p {
   font-size: 15px;
@@ -2557,19 +2578,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3032317', e
 }
 .smart-gov-img img {
   width: 100%;
-}
-.smart-gov-heading.section-header h2::after {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 26px;
-    height: 3px;
-    bottom: 0;
-    left: 49%;
-    border-bottom: 3px solid #006dfe;
-    border-radius: 3px;
-    padding-bottom: 33px;
-    top: 3px;
 }
 .margin-0 {
   margin:0px !important;
@@ -2630,18 +2638,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
   margin-top: 60px;
   margin-bottom: 30px;
   font-size: 48px;
-  font-weight: 700;
+  font-weight: bolder !important;
   text-align:left;
   width:100%;
+  letter-spacing: 7px;
 }
 
 #comming .comming-content p {
   color: #ffffff;
   margin: 0;
   padding:0;
-
   text-align:left;
   width:100%;
+  font-size: 18px;
 }
 
 
@@ -2739,4 +2748,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
   color: #FFFFFF !important;
   background-color: #0069d9 !important;
   border: 1px solid #0069d9 !important;
+}
+.margin-left-25 {
+  margin-left:25px !important;
+}
+.margin-left-11 {
+  margin-left:11% !important;
 }

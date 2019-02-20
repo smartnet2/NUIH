@@ -8,7 +8,7 @@ import {
   PublicCollectionPlayerComponent
 } from './components';
 import { SignupGuard, LandingpageGuard } from './services';
-import { NuihComponent, LearnComponent, InnovateComponent, DataExchangeComponent, SmartGovComponent } from './module/nuih';
+import { NuihComponent, LearnComponent, InnovateComponent, DataExchangeComponent, SmartGovComponent, AboutusComponent, ComingSoonComponent } from './module/nuih';
 
 const routes: Routes = [
   {
@@ -96,6 +96,20 @@ const routes: Routes = [
     path: 'smartgov', component: SmartGovComponent, data: {
       telemetry: {
         env: 'public', pageid: 'smartgov', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: 'aboutus', component: AboutusComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'aboutus', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: 'comingsoon', component: ComingSoonComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'comingsoon', type: 'view', subtype: 'paginate'
       }
     }
   }
