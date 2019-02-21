@@ -190,6 +190,94 @@
         </div>
       </div>
     </div>
+    <!--Discussion starts-->
+    <div class="ui fitted divider margin-bottom-20 margin-top-30"></div>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Comments</h3>
+    </div>
+    <div class="col-md-6" *ngIf="discussionThread.length === 0">
+        <button class="pull-right" (click)="startNewConversionClick()">Start New
+            Conversation</button>
+    </div>
+</div>
+<div class="row MB30" *ngFor="let thread of discussionThread;let i=index">
+    <div class="col-md-12">
+        <div class="col-md-12 teamHeader MB30" (click)="collapse(i,thread.id)">
+            <span class="teamName">{{thread.title}}</span>
+        </div>
+        <div class="row" *ngIf="thread.show">
+            <div class="col-md-11">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 userInfo">
+                        <div class="clearfix userDetails">
+                            <div class="">
+                                <h2 style="color:lightseagreen">{{thread.author.name}}</h2>
+                                <p>{{thread.body}}</p>
+                               
+                                <div class="ui section divider"></div>
+                                <div *ngFor="let reply of repliesContent; let i=index">
+                                    <h2 style="color:lightseagreen">{{reply.author.name}}</h2>
+                                    <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P>
+                                    <div [innerHTML]="reply.body" *ngIf="parseBody(reply.body)"></div>
+                                    <div class="row" *ngIf="reply.actions.vote <= 0">
+                                    <!--     <div class="col-md-10">
+                                            <img class="pull-right cursor_pointer" src="https://previews.123rf.com/images/rclassenlayouts/rclassenlayouts1208/rclassenlayouts120800101/14757879-face-symbol-hand-i-like-fan-fanpage-social-voting-dislike-network-book-icon-community.jpg"
+                                                alt="Smiley face" height="35" width="35"
+                                                (click)="likePostClick(reply.id,false)">
+                                        </div>
+                                        <div class="col-md-2" style="margin-top:2px;font-size:20px">
+                                            <span>
+                                                {{reply.actions.vote}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="reply.actions.vote > 0">
+                                        <div class="col-md-10">
+                                            <img class="pull-right cursor_pointer" src="https://previews.123rf.com/images/arhimicrostok/arhimicrostok1705/arhimicrostok170502441/77784877-like-icon-hand-finger-up-sign-thumb-up-symbol-flat-design-style-.jpg"
+                                                alt="Smiley face" height="35" width="35"
+                                                (click)="likePostClick(reply.id,true)">
+                                        </div>
+                                        <div class="col-md-2" style="margin-top:2px;font-size:20px">
+                                            <span>
+                                                {{reply.actions.vote}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                </div> -->
+                                
+                            </div>
+                            <div class="ui section divider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)"
+        (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)">
+    </quill-editor> -->
+<div class="editor" *ngIf="discussionThread && discussionThread.length !== 0">
+    <textarea class="wmd-input" [(ngModel)]="editorContent" id="wmd-input" placeholder="Type Here....Morethan 15 characters"></textarea>
+    <br />
+    <!-- <div class="post_buttom">
+        <button class="ui item" (click)="postComment()">Post</button>
+    </div> -->
+    <br />
+    <div class="post_buttom">
+        <button class="ui item" style="margin-right: 5px" [ngClass]="{'disabled_cursor': isDisabled()}"
+            [disabled]="isDisabled()" (click)="replyToThread()">Post</button>
+        <button class="ui item" (click)="postCancel()">cancel</button>
+    </div>
+</div>
+<div>
+    <input type="file" id="myFile" name="myFile" accept=".pdf" (change)="fileEvent($event)" title="Choose a file"
+        autocomplete="off" />
+    <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx"> -->
+</div>
+    <!--discussion ends-->
   </div>
   <div class="one wide column"></div>
 </div>
