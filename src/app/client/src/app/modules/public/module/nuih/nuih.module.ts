@@ -11,7 +11,6 @@ import { DataExchangeComponent } from './components/data-exchange/data-exchange.
 import { SmartGovComponent } from './components/smart-gov/smart-gov.component';
 import { AboutusComponent } from './components/about-us/about-us.component';
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
-import { SSLVerifyComponent } from './components/ssl-verify/ssl-verify.component';
 
 
 @NgModule({
@@ -22,6 +21,6 @@ import { SSLVerifyComponent } from './components/ssl-verify/ssl-verify.component
     SharedModule,
     NgInviewModule
   ],
-  declarations: [NuihComponent, LearnComponent, InnovateComponent, DataExchangeComponent, SmartGovComponent, AboutusComponent, ComingSoonComponent, SSLVerifyComponent]
+  declarations: [NuihComponent, LearnComponent, InnovateComponent, DataExchangeComponent, SmartGovComponent, AboutusComponent, ComingSoonComponent]
 })
 export class NuihModule { }
