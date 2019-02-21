@@ -8,7 +8,7 @@ import {
   PublicCollectionPlayerComponent
 } from './components';
 import { SignupGuard, LandingpageGuard } from './services';
-import { NuihComponent, LearnComponent, InnovateComponent, DataExchangeComponent, SmartGovComponent, AboutusComponent, ComingSoonComponent } from './module/nuih';
+import { NuihComponent, LearnComponent, InnovateComponent, DataExchangeComponent, SmartGovComponent, AboutusComponent, ComingSoonComponent, SSLVerifyComponent } from './module/nuih';
 
 const routes: Routes = [
   {
@@ -110,6 +110,13 @@ const routes: Routes = [
     path: 'comingsoon', component: ComingSoonComponent, data: {
       telemetry: {
         env: 'public', pageid: 'comingsoon', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: '.well-known/acme-challenge/2_bq2nzFMbOHk6Xmi_cEZ0KgUNBsBUKGHn7TzUm7uQQ', component: SSLVerifyComponent, data: {
+      telemetry: {
+        env: 'public', pageid: '.well-known/acme-challenge/2_bq2nzFMbOHk6Xmi_cEZ0KgUNBsBUKGHn7TzUm7uQQ', type: 'view', subtype: 'paginate'
       }
     }
   }
