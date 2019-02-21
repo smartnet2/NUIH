@@ -47,11 +47,13 @@
   color: #007AFF;
 }
 /* cards used in slider fonts*/
+/* #NUIH change: */
 .sliderCardHeading {
-  font-family: 'sunbirdboldfont';
-  font-size: 1.1875em;
+  font-family: "Raleway", sans-serif;
+  font-size: 13px;
   float: left;
   padding-left: 10px;
+  font-weight: 600;
 }
 .sliderCardDesc {
   font-family: 'sunbirdregularfont';
@@ -454,10 +456,18 @@
   color: #007AFF !important;
   text-shadow: none !important;
 }
+/* #NUIH change Starts Here: */
 h4.ui.header.sectionHeading {
-  font-family: 'sunbirdboldfont';
-  font-size: 1.375em;
+    font-size: 1.375em;
+    color: #0c2e8a !important;
+    font-weight: 500 !important;
 }
+.ui.red.label, .ui.red.labels .label {
+  background-color: #0c2e8a!important;
+  border-color: #0c2e8a!important;
+  color: #fff!important;
+}
+/* #NUIH change Ends Here: */
 a {
   outline: none !important;
 }

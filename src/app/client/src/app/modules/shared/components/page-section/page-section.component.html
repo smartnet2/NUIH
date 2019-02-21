@@ -1,7 +1,6 @@
 <div class="ui link popular-section" *ngIf="section.contents && section.contents.length > 0">
     <h4 class="ui header card-section-header sectionHeading">{{section.name}}
         <span class="ui red circular inline label">{{section.contents.length}}</span>
-        <span class="ui header margin-left-10" *ngIf="showChallengeHeading">Welcome to Ludhiana Smart City Innovation Challenge</span>
     </h4>
     <div>
         <ngx-slick in-view-container (inview)="inview($event)" [throttle]="[1000]" [trigger]="section.contents" (afterChange)="inviewChange(section.contents,$event)"class="carousel" #slickModal="slick-modal" [config]="slideConfig">
