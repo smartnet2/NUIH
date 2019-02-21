@@ -1,6 +1,6 @@
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, Subject } from 'rxjs';
 import { PageApiService, PlayerService, ISort, OrgDetailsService } from '@sunbird/core';
-import { PublicPlayerService } from './../../../../services';
+import { PublicPlayerService } from '../../../../services';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   ResourceService, ToasterService, INoResultMessage,
@@ -11,13 +11,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
 @Component({
-  selector: 'app-learn',
-  templateUrl: './learn.component.html',
-  styleUrls: ['./learn.component.css']
+  selector: 'app-coming-soon',
+  templateUrl: './coming-soon.component.html',
+  styleUrls: [
+    './coming-soon.component.css',
+  ]
 })
-export class LearnComponent implements OnInit, OnDestroy {
+export class ComingSoonComponent implements OnInit, OnDestroy {
   /**
    * To show toaster(error, success etc) after any API calls
    */
@@ -52,6 +53,8 @@ export class LearnComponent implements OnInit, OnDestroy {
   /**
   * Contains result object returned from getPageData API.
   */
+  inspiredCarouselData: Array<ICaraouselData> = [];
+  opportunitiesCarouselData: Array<ICaraouselData> = [];
   booksCarouselData: Array<ICaraouselData> = [];
   public config: ConfigService;
   public filterType: string;
@@ -106,12 +109,32 @@ export class LearnComponent implements OnInit, OnDestroy {
             let noResultCounter = 0;
             this.showLoader = false;
             this.booksCarouselData = _.cloneDeep([apiResponse.sections[0]]);
+            this.inspiredCarouselData = _.cloneDeep([apiResponse.sections[1]]);
+            this.opportunitiesCarouselData = _.cloneDeep([apiResponse.sections[2]]);
             _.forEach(this.booksCarouselData, (value, index) => {
               if (this.booksCarouselData[index].contents && this.booksCarouselData[index].contents.length > 0) {
                 const constantData = this.config.appConfig.ExplorePage.constantData;
                 const metaData = this.config.appConfig.ExplorePage.metaData;
                 const dynamicFields = this.config.appConfig.ExplorePage.dynamicFields;
                 this.booksCarouselData[index].contents = this.utilService.getDataForCard(this.booksCarouselData[index].contents,
+                  constantData, dynamicFields, metaData);
+              }
+            });
+            _.forEach(this.inspiredCarouselData, (value, index) => {
+              if (this.inspiredCarouselData[index].contents && this.inspiredCarouselData[index].contents.length > 0) {
+                const constantData = this.config.appConfig.ExplorePage.constantData;
+                const metaData = this.config.appConfig.ExplorePage.metaData;
+                const dynamicFields = this.config.appConfig.ExplorePage.dynamicFields;
+                this.inspiredCarouselData[index].contents = this.utilService.getDataForCard(this.inspiredCarouselData[index].contents,
+                  constantData, dynamicFields, metaData);
+              }
+            });
+            _.forEach(this.opportunitiesCarouselData, (value, index) => {
+              if (this.opportunitiesCarouselData[index].contents && this.opportunitiesCarouselData[index].contents.length > 0) {
+                const constantData = this.config.appConfig.ExplorePage.constantData;
+                const metaData = this.config.appConfig.ExplorePage.metaData;
+                const dynamicFields = this.config.appConfig.ExplorePage.dynamicFields;
+                this.opportunitiesCarouselData[index].contents = this.utilService.getDataForCard(this.opportunitiesCarouselData[index].contents,
                   constantData, dynamicFields, metaData);
               }
             });
@@ -291,7 +314,10 @@ export class LearnComponent implements OnInit, OnDestroy {
       }
     });
     //Testimonials carousel Ends here
+
   }
+
+
 
   prepareVisits(event) {
     _.forEach(event, (inview, index) => {
@@ -343,6 +369,8 @@ export class LearnComponent implements OnInit, OnDestroy {
             this.filters[key] = value;
           }
         });
+        this.inspiredCarouselData = [];
+        this.opportunitiesCarouselData = [];
         this.booksCarouselData = [];
         if (this.queryParams.sort_by && this.queryParams.sortType) {
           this.queryParams.sortType = this.queryParams.sortType.toString();

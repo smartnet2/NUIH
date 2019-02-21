@@ -2,22 +2,23 @@
     <header id="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-                <div class="container"> <a class="navbar-brand js-scroll-trigger" href="javascript:"><img
+                <div class="container"> <a class="navbar-brand js-scroll-trigger" href="/nuis"><img
                             src="./assets/nuih/img/nuih-logo.jpg" width="100%" height="100%" alt=""></a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto nuis">
-                            <li class="nav-item nuis"> <a class="nav-link js-scroll-trigger nav-active"
-                                    href="/nuis">About us</a> </li>
-                            <li class="nav-item nuis"> <a class="nav-link js-scroll-trigger" href="/lms">Learn</a> </li>
-                            <li class="nav-item nuis"> <a class="nav-link js-scroll-trigger"
-                                    href="/innovate">Innovate</a> </li>
-                            <li class="nav-item nuis"> <a class="nav-link js-scroll-trigger" href="/iudx">Data</a> </li>
-                            <li class="nav-item nuis"> <a class="nav-link js-scroll-trigger" href="/smartgov">Smart
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/aboutus">About Us</a>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/lms">Learn</a>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/innovate">Innovate</a>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/iudx">Data</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/smartgov">Smart
                                     Governance</a> </li>
-                            <li class="nav-item"> <a class="btn btn-primary" href="/learn">Sign In / Up</a></li>
+                            <li class="nav-item"> <a class="btn btn-primary" href="/learn">Sign In/Up</a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,9 +35,9 @@
         <div class="intro-content">
             <div class="container">
                 <h2>LET'S BUILD<br>
-                    BETTER CITIES TOGETHER </h2>
-                <p>An initiative by MoUHA to accelerate innovation in the urban ecosystem<br>
-                   by connecting Government, Industries and Academias</p>
+                    SMART CITIES TOGETHER </h2>
+                <p>An initiative by MoHUA to accelerate innovation and build capacity in the urban ecosystem <br>
+                 by connecting Communities, Industry, Academia and Governments for solutioning at scale and speed</p>
             </div>
         </div>
         <div id="intro-carousel" class=" ">
@@ -76,7 +77,7 @@
                     <div class="col-md-2 col-lg-2 col-sm-2">
                         <div class="counter">
                             <h2 class="timer count-title count-number" data-to="1000" data-speed="1500">+</h2>
-                            <p class="count-text ">Successful Collaborations </p>
+                            <p class="count-text margin-left-25">Collaborations </p>
                         </div>
                         <div class="top-botm-border"></div>
                     </div>
@@ -100,7 +101,7 @@
                         <p> Participate in "Innovation Challenges" and grow your professional network
 
                         </p>
-                        <div class="learn" (click)="redirectToUrl('innovate')">Learn More</div>
+                        <div class="learn" (click)="redirectToUrl('comingsoon')">Learn More</div>
                     </div>
                     <div class="testimonial-item"> <img src="./assets/nuih/img/sr.jpg" class="testimonial-img" alt=""
                             width="auto">
@@ -109,7 +110,7 @@
                         <p> Leverage a rich library of curated learning resources in your innovation journey
 
                         </p>
-                        <div class="learn" (click)="redirectToUrl('lms')">Learn More</div>
+                        <div class="learn" (click)="redirectToUrl('comingsoon')">Learn More</div>
                     </div>
                     <div class="testimonial-item"> <img src="./assets/nuih/img/sr3.jpg" class="testimonial-img" alt=""
                             width="auto">
@@ -118,7 +119,7 @@
                         <p> Browse through a catalog of data across the urban ecosystem
 
                         </p>
-                        <div class="learn" (click)="redirectToUrl('iudx')">Learn More</div>
+                        <div class="learn" (click)="redirectToUrl('comingsoon')">Learn More</div>
                     </div>
                 </div>
 
@@ -136,7 +137,7 @@
                         <p>Latest success stories<br>
                             and updates from urban <br>
                             India.</p>
-                        <div class="pull-left viewall"><a href="#" class="view">View All</a> <i
+                        <div class="pull-left viewall"><a href="javascript:" class="view" (click)="redirectToUrl('comingsoon')">View All</a> <i
                                 class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
                     </div>
                     <div class="col-lg-10">
@@ -158,24 +159,27 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12"> <a href="#" onclick=abc(this)
                                                 class="slider_info"> <img class="img-fluid card-img-top"
                                                     src="./assets/nuih/img/sldier1.jpg"> </a>
-                                            <div class="silder-content pull-left">
+                                            <div class="silder-content">
                                                 <p><b>SUCCESS STORY</b></p>
                                                 <p class="highlight"><b>Waste Management Programme in Shivalik Nagar,
                                                         Haridwar.</b></p>
-                                                <p>The story about how Haridwar successfully planned its Waste Management programme alongside its citizens...</p>
-																		  
+                                                <p>The story about how Haridwar successfully planned its Waste
+                                                    Management Programme alongside its citizens...</p>
+
                                                 <p class="bottom-text">20 January, 2019</p>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12"> <a href="#" onclick=abc(this)
                                                 class="slider_info"> <img class="img-fluid card-img-top rounded-bottom"
                                                     src="./assets/nuih/img/sldier2.jpg"> </a>
-                                            <div class="silder-content pull-left">
+                                            <div class="silder-content">
                                                 <p><b>CASE STUDY</b></p>
-                                                <p class="highlight"><b>Energy Principles and Renewable Energy, Pune.</b></p>
-                                                <p>An introduction to the language of energy, key scientific principles that
+                                                <p class="highlight"><b>Energy Principles and Renewable Energy,
+                                                        Pune.</b></p>
+                                                <p>An introduction to the language of energy, key scientific principles
+                                                    that
                                                     underpin energy systems, future energy...</p>
-																		  
+
                                                 <p class="bottom-text">20 January, 2019</p>
                                             </div>
                                         </div>
@@ -183,12 +187,13 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12"> <a href="#" onclick=abc(this)
                                                 class="slider_info"> <img class="img-fluid card-img-top rounded-bottom"
                                                     src="./assets/nuih/img/sldier3.jpg"> </a>
-                                            <div class="silder-content pull-left">
+                                            <div class="silder-content">
                                                 <p><b>CASE STUDY</b></p>
-                                                <p class="highlight"><b>City Operation Centre, Nagpur.</b></p>
-                                                <p>The video provides a brief introduction to the functioning of the City Operation Centre. 3800 CCTV cameras installed at…</p>
-																												   
-																		  
+                                                <p class="highlight"><b>City Operation Center, Nagpur.</b></p>
+                                                <p>The video provides a brief introduction to the functioning of the
+                                                    City Operation Center. 3800 CCTV cameras installed at...</p>
+
+
                                                 <p class="bottom-text">20 January, 2019</p>
                                             </div>
                                         </div>
@@ -197,24 +202,26 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12"> <a href="#" onclick=abc(this)
                                                 class="slider_info"> <img class="img-fluid card-img-top"
                                                     src="./assets/nuih/img/sldier1.jpg"> </a>
-                                            <div class="silder-content pull-left">
+                                            <div class="silder-content">
                                                 <p><b>SUCCESS STORY</b></p>
                                                 <p><b>Waste Management Programme in Shivalik Nagar,
                                                         Haridwar.</b></p>
-                                                <p>The story about how Haridwar successfully planned its Waste Management programme alongside its citizens...</p>
-																		  
+                                                <p>The story about how Haridwar successfully planned its Waste
+                                                    Management programme alongside its citizens...</p>
+
                                                 <p class="bottom-text">20 January, 2019</p>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12"> <a href="#" onclick=abc(this)
                                                 class="slider_info"> <img class="img-fluid card-img-top rounded-bottom"
                                                     src="./assets/nuih/img/sldier2.jpg"> </a>
-                                            <div class="silder-content pull-left">
+                                            <div class="silder-content">
                                                 <p><b>CASE STUDY</b></p>
                                                 <p><b>Energy Principles and Renewable Energy, Pune.</b></p>
-                                                <p>An introduction to the language of energy, key scientific principles that
+                                                <p>An introduction to the language of energy, key scientific principles
+                                                    that
                                                     underpin energy systems, future energy...</p>
-																		  
+
                                                 <p class="bottom-text">20 January, 2019</p>
                                             </div>
                                         </div>
@@ -222,12 +229,13 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12"> <a href="#" onclick=abc(this)
                                                 class="slider_info"> <img class="img-fluid card-img-top rounded-bottom"
                                                     src="./assets/nuih/img/sldier3.jpg"> </a>
-                                            <div class="silder-content pull-left">
+                                            <div class="silder-content">
                                                 <p><b>CASE STUDY</b></p>
-                                                <p><b>City Operation Centre, Nagpur.</b></p>
-                                                <p>The video provides a brief introduction to the functioning of the City Operation Centre. 3800 CCTV cameras installed at…</p>
-																												   
-																		  
+                                                <p><b>City Operation Center, Nagpur.</b></p>
+                                                <p>The video provides a brief introduction to the functioning of the
+                                                    City Operation Center. 3800 CCTV cameras installed at...</p>
+
+
                                                 <p class="bottom-text">20 January, 2019</p>
                                             </div>
                                         </div>
@@ -327,7 +335,8 @@
                     <div class="col-lg-2 content">
                         <h2 class="border-btm">New<br>
                             Opportunities</h2>
-                        <p>“Innovation Challenges” by the Smart City CEOs for organisations to offer their products and services </p>
+                        <p>"Innovation Challenges" by the Smart City CEOs for organizations to offer their products and
+                            services </p>
                     </div>
                     <div class="col-lg-10">
                         <div class="container">
@@ -450,10 +459,10 @@
                         <h2 class="grow-hd">Grow Your
                             Network</h2>
                         <p>Connect with your fellow innovators like Smart City CEOs, industries,
-                            startups, academic institutes, funding organisations and NGOs. </p>
-																													  
-							   
-													  
+                            startups, academic institutes, funding organizations and NGOs. </p>
+
+
+
                     </div>
                     <div class="col-md-2 col-lg-2"></div>
                     <div class="col-md-3 col-lg-3 pull-left">
@@ -468,7 +477,7 @@
                             <div class="counter gr-ctn">
                                 <h2 class="timer count-title count-number text-align-left grn-color " data-to="500"
                                     data-speed="1500">200</h2>
-                                <p class="count-text ">Private Organisations</p>
+                                <p class="count-text ">Private Organizations</p>
                             </div>
                         </div>
                     </div>
@@ -615,10 +624,11 @@
             <div class="container">
                 <div class="section-header text-center">
                     <h2>About Us</h2>
-                    <p>NUIS ( National Urban Innovation Stack ) is an initiative of the Ministry of Housing and Urban<br>
-                        Affairs to support the development of cities across India...
+                    <p>An initiative by MoHUA to accelerate innovation and build capacity in the urban ecosystem
+                         <br>
+                        by connecting Communities, Industry, Academia and Governments for solutioning at scale and speed..
                     </p>
-                    <div class="btn btn-primary nuih">Learn More</div>
+                    <div class="btn btn-primary nuih" (click)="redirectToUrl('aboutus')">Learn More</div>
                 </div>
 
             </div>
@@ -642,18 +652,19 @@
                         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse blue" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item ft"> <a href="http://smartcities.gov.in/content/"><img src="./assets/nuih/img/smrt.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"> <a href="http://amrut.gov.in/"><img src="./assets/nuih/img/amrut.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"> <a href="https://www.hridayindia.in/"><img src="./assets/nuih/img/hri.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"> <a href="https://swachhbharatmission.gov.in/sbmcms/index.htm"><img src="./assets/nuih/img/bhrt.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"><a href="https://pmaymis.gov.in/"><img src="./assets/nuih/img/m.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"><a href="https://nulm.gov.in/"><img src="./assets/nuih/img/day.png" width="90px" height="auto" alt="" /></a> </li>
-																		 
+                            <li class="nav-item ft"> <a href="http://smartcities.gov.in/content/"><img
+                                        src="./assets/nuih/img/smrt.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="http://amrut.gov.in/"><img
+                                        src="./assets/nuih/img/amrut.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="https://www.hridayindia.in/"><img
+                                        src="./assets/nuih/img/hri.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="https://swachhbharatmission.gov.in/sbmcms/index.htm"><img
+                                        src="./assets/nuih/img/bhrt.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"><a href="https://pmaymis.gov.in/"><img src="./assets/nuih/img/m.png"
+                                        width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"><a href="https://nulm.gov.in/"><img src="./assets/nuih/img/day.png"
+                                        width="90px" height="auto" alt="" /></a> </li>
+
 
                         </ul>
                     </div>

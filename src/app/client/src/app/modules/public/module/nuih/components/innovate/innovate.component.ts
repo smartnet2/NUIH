@@ -366,7 +366,9 @@ export class InnovateComponent implements OnInit, OnDestroy {
         }
       );
   }
-
+  redirectToUrl(path) {
+    this.router.navigate([path]);
+  }
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

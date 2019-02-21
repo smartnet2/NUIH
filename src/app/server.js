@@ -207,6 +207,8 @@ app.all('/lms', indexPage)
 app.all('/innovate', indexPage)
 app.all('/smartgov', indexPage)
 app.all('/iudx', indexPage)
+app.all('/aboutus', indexPage)
+app.all('/comingsoon', indexPage)
 app.all(['/groups', '/groups/*'], keycloak.protect(), indexPage)
 app.all('/play/*', indexPage)
 
