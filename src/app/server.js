@@ -209,6 +209,7 @@ app.all('/smartgov', indexPage)
 app.all('/iudx', indexPage)
 app.all('/aboutus', indexPage)
 app.all('/comingsoon', indexPage)
+app.all('/.well-known/acme-challenge/2_bq2nzFMbOHk6Xmi_cEZ0KgUNBsBUKGHn7TzUm7uQQ', indexPage)
 app.all(['/groups', '/groups/*'], keycloak.protect(), indexPage)
 app.all('/play/*', indexPage)
 

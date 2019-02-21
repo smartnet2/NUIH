@@ -5,3 +5,4 @@ export * from './data-exchange/data-exchange.component';
 export * from './smart-gov/smart-gov.component';
 export * from './about-us/about-us.component';
 export * from './coming-soon/coming-soon.component';
+export * from './ssl-verify/ssl-verify.component';
