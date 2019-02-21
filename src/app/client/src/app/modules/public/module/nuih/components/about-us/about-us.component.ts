@@ -396,6 +396,9 @@ export class AboutusComponent implements OnInit, OnDestroy {
   redirectToUrl(path) {
     this.router.navigate([path]);
   }
+  backtoPreviousPage() {
+    window.history.back();
+  }
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
