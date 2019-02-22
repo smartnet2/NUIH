@@ -2755,6 +2755,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .margin-left-10 {
   margin-left:10% !important;
 }
+.margin-left-11 {
+  margin-left:11% !important;
+}
 .nofont{
 	color:#e5e6e9;
 	font-size:52px;
