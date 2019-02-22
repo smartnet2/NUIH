@@ -7,7 +7,7 @@ import {
   ConfigService, UtilService, NavigationHelperService
 } from '@sunbird/shared';
 import { ICaraouselData } from '@sunbird/shared';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
 import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { takeUntil } from 'rxjs/operators';
@@ -314,7 +314,13 @@ export class ComingSoonComponent implements OnInit, OnDestroy {
       }
     });
     //Testimonials carousel Ends here
-
+    //Navigate Page to top
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
   }
 
 

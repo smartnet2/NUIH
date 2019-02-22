@@ -7,7 +7,7 @@ import {
   ConfigService, UtilService, NavigationHelperService
 } from '@sunbird/shared';
 import { ICaraouselData } from '@sunbird/shared';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
 import { IInteractEventEdata, IImpressionEventInput } from '@sunbird/telemetry';
 import { takeUntil } from 'rxjs/operators';
@@ -52,9 +52,9 @@ export class NuihComponent implements OnInit, OnDestroy {
   /**
   * Contains result object returned from getPageData API.
   */
- inspiredCarouselData: Array<ICaraouselData> = [];
- opportunitiesCarouselData: Array<ICaraouselData> = [];
- booksCarouselData: Array<ICaraouselData> = [];
+  inspiredCarouselData: Array<ICaraouselData> = [];
+  opportunitiesCarouselData: Array<ICaraouselData> = [];
+  booksCarouselData: Array<ICaraouselData> = [];
   public config: ConfigService;
   public filterType: string;
   public filters: any;
@@ -313,10 +313,16 @@ export class NuihComponent implements OnInit, OnDestroy {
       }
     });
     //Testimonials carousel Ends here
-
+    //Navigate Page to top
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
   }
 
-  
+
 
   prepareVisits(event) {
     _.forEach(event, (inview, index) => {
