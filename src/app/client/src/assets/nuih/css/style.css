@@ -144,9 +144,6 @@ h6 {
   padding: 0;
   margin: 0;
 }
-#navbarResponsive {
-  height: 112px;
-}
 .footer-section {
   width: 100%;
   padding: 6rem 2rem 2rem;
@@ -1178,6 +1175,54 @@ li.nav-item.ft {
 }
 
 @media (min-width: 768px) {
+  .navbar-brand {
+    display: inline-block!important;
+    padding-top: 1px!important;
+    padding-bottom: 6px!important;
+    line-height: inherit!important;
+    white-space: nowrap!important;
+    width: 60%;
+}
+
+.navbar-brand {
+    margin-left: 4rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+}
+
+.navbar-toggler {
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    position: absolute;
+    top: 3rem;
+    left: 0.5rem;
+}
+
+.get-inspired-container, .new-opportunity-container, .popular-courses-container {
+    margin-left: 0!important;
+}
+
+div#navbarResponsive{
+    height:100%!important;
+}
+
+.navbar{
+    padding:0!important;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 0;
+}
+
+#header {
+ 
+    width: 100%!important;
+}
   #contact .contact-address,
   #contact .contact-phone,
   #contact .contact-email {
@@ -1365,7 +1410,7 @@ div#header-sticky-wrapper{
 /* NUIH change ends here: */
 .navbar-collapse{
   width: 100%;
-  padding: 4rem 0rem 2rem;
+  padding: 2rem 0rem 0rem;
   background-color:#fff;
 }
 
