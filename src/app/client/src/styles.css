@@ -523,7 +523,9 @@ a:hover {
 .ui.secondary.pointing.menu .active.item {
   border-color: #007AFF;
   color: #333333;
-  font-family: 'sunbirdmediumfont';
+  /* #NUIH changes for styles*/
+  font-family: "Raleway", sans-serif !important;
+  /* #NUIH changes for styles*/
 }
 .ui.secondary.pointing.menu {
   background: #fdfdfd;
