@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { takeUntil, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterNavigationService, ResourceService, ToasterService, ServerResponse } from '@sunbird/shared';
@@ -12,7 +12,10 @@ import { Subject, combineLatest } from 'rxjs';
 @Component({
   selector: 'app-create-batch',
   templateUrl: './create-batch.component.html',
-  styleUrls: ['./create-batch.component.css']
+  styleUrls: ['./create-batch.component.css'],
+  /* #NUIH change: Starts here */
+  encapsulation: ViewEncapsulation.None
+  /* #NUIH change: Ends here*/
 })
 export class CreateBatchComponent implements OnInit, OnDestroy {
 
