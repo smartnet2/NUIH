@@ -2248,11 +2248,11 @@ label {
 }
 
 .owl-stage-outer2{
-  padding: 30px 0px;
+  padding: 15px 0px 0px 0px;
   margin: 30px;
   text-align: left;
-  max-height: 250px;
-  min-height: 250px;
+  max-height: 240px;
+  min-height: 240px;
   height: 100%;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08);
   background-color: #ffffff;
@@ -2833,4 +2833,24 @@ line-height:35px;*/
      width: 100px;
    text-align: center;
  border-radius:2px;
+}
+.stakeholder-header {
+  font-size: 25px !important;
+  color: #0c2e8a;
+  font-weight: 600 !important;
+  margin-top:10px !important;
+}
+.stakeholder-text {
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+.stakeholder-text li {
+  margin-top: 23px;
+  margin-bottom: 0px;
+}
+.margin-top-0 {
+  margin-top:0px !important;
+}
+.margin-bottom-15 {
+  margin-bottom: 15px !important;
 }
