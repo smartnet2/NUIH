@@ -15,7 +15,7 @@ export class DiscussionComponent implements OnInit {
 
   private activatedRouteSubscription: Subscription;
   // private activatedRoute: ActivatedRoute;
-  
+
   private discussionService: DiscussionService;
   public batchId: string;
   discussionThread: any = [];
@@ -28,41 +28,47 @@ export class DiscussionComponent implements OnInit {
   public editorContent: any;
   public uploadedFile: any;
   public editorOptions = {
-    placeholder: "insert content..."
+    placeholder: 'insert content...'
   };
 
   constructor(
     discussionService: DiscussionService, private activatedRoute: ActivatedRoute,
-    public courseDiscussionsService: CourseDiscussService, private courseConsumptionService: CourseConsumptionService, public courseBatchService: CourseBatchService) {
+    public courseDiscussionsService: CourseDiscussService, private courseConsumptionService: CourseConsumptionService,
+    public courseBatchService: CourseBatchService) {
     this.discussionService = discussionService;
-   }
+  }
 
   ngOnInit() {
-       
-    this.activatedRouteSubscription = this.activatedRoute.params.pipe(first(),
-    mergeMap((params) => {
-      this.batchId = params.batchId;
-      console.log("Inside discussion Player" + this.batchId)
-      if (this.batchId) {
-        return combineLatest(
-          this.courseConsumptionService.getCourseHierarchy(params.courseId),
-          this.courseBatchService.getEnrolledBatchDetails(this.batchId),
-        ).pipe(map(results => ({ courseHierarchy: results[0], enrolledBatchDetails: results[1] })));
-      } 
-    })).subscribe((response: any) => {
-    });
+    const batchIdentifier: string = this.activatedRoute.snapshot.queryParamMap.get('batchIdentifier');
+    if (batchIdentifier) {
+      this.batchId = batchIdentifier;
+      this.courseDiscussionsService.retrieveDiscussion(this.batchId).subscribe((res: any) => {
+        console.log('retirve', res, this.batchId);
+        this.discussionThread = res.result.threads;
+      });
+    }
 
+    this.activatedRoute.params.subscribe((params) => {
+      this.batchId = params.batchId ? params.batchId : batchIdentifier;
+      console.log('Inside discussion Player' + this.batchId);
+      if (this.batchId) {
+        this.courseDiscussionsService.retrieveDiscussion(this.batchId).subscribe((res: any) => {
+          console.log('retirve', res, this.batchId);
+          this.discussionThread = res.result.threads;
+        });
+      }
+    });
   }
   postComment() {
-    let req = {
-      "title": "Discussion for batch" + "-" + this.batchId,
-      "body": "Discussion for batch",
-      "contextId": this.batchId,
-    }
+    const req = {
+      'title': 'Discussion for batch' + '-' + this.batchId,
+      'body': 'Discussion for batch',
+      'contextId': this.batchId,
+    };
     this.courseDiscussionsService.postDiscussion(req).subscribe((res: any) => {
-      this.retreiveThread(this.batchId)
+      this.retreiveThread(this.batchId);
       this.editorContent = '';
-    })
+    });
   }
   startNewConversionClick() {
     this.postComment();
@@ -70,14 +76,14 @@ export class DiscussionComponent implements OnInit {
   getReplies(id) {
     this.courseDiscussionsService.getReplies(id).subscribe((res: any) => {
       this.repliesContent = res.result.thread.replies;
-      console.log("res", this.repliesContent)
-    })
+      console.log('res', this.repliesContent);
+    });
   }
-  parseBody(body){
-    if(body.includes('</a>')) {
-      return true
+  parseBody(body) {
+    if (body.includes('</a>')) {
+      return true;
     } else {
-      return false
+      return false;
     }
   }
   retreiveThread(id) {
@@ -85,13 +91,13 @@ export class DiscussionComponent implements OnInit {
       this.discussionThread = res.result.threads;
       if (this.discussionThread.length !== 0) {
         this.threadId = this.discussionThread[0].id;
-        this.getReplies(this.discussionThread[0].id)
+        this.getReplies(this.discussionThread[0].id);
       }
-    })
+    });
   }
   collapse(i, id) {
-    this.discussionThread[i].show = !this.discussionThread[i].show
-      this.getReplies(id)
+    this.discussionThread[i].show = !this.discussionThread[i].show;
+    this.getReplies(id);
   }
   cancel(i) {
     this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
@@ -103,57 +109,57 @@ export class DiscussionComponent implements OnInit {
     this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
   }
   replyToThread(id) {
-    let body = {
-      "body": this.uploadedFile +'  ' +this.editorContent,
-      "threadId": this.threadId
-    }
+    const body = {
+      'body': this.uploadedFile + '  ' + this.editorContent,
+      'threadId': this.threadId
+    };
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
-      this.editorContent = ''
-      this.retreiveThread(this.batchId)
-      this.getReplies(this.threadId)
-    })
+      this.editorContent = '';
+      this.retreiveThread(this.batchId);
+      this.getReplies(this.threadId);
+    });
   }
   isDisabled() {
     if (this.editorContent && this.editorContent !== '' && this.editorContent.length >= 15) {
       return false;
     } else {
-      return true
+      return true;
     }
   }
   likePostClick(id, value) {
     let body = {};
     if (value) {
       body = {
-        "request": {
-          "postId": id.toString(),
-          "value": "up"
+        'request': {
+          'postId': id.toString(),
+          'value': 'up'
         }
-      }
+      };
     } else {
       body = {
-        "request": {
-          "postId": id.toString(),
-          "value": "down"
+        'request': {
+          'postId': id.toString(),
+          'value': 'down'
         }
-      }
+      };
     }
     this.courseDiscussionsService.likeReply(body).subscribe((res) => {
-      this.editorContent = ''
-      this.retreiveThread(this.batchId)
-      this.getReplies(this.threadId)
-    })
+      this.editorContent = '';
+      this.retreiveThread(this.batchId);
+      this.getReplies(this.threadId);
+    });
   }
 
   fileEvent(event) {
     const file = event.target.files[0];
     this.courseDiscussionsService.uploadFile(file).subscribe((res: any) => {
-      if(res && res.result.response) {
-        let url = res.result.response.url;
-        let fileName = res.result.response.original_filename
-        this.uploadedFile = '<a class="attachment" href=' + url +'>'+fileName+'</a>'
-        console.log("uploadedFile",this.uploadedFile)
+      if (res && res.result.response) {
+        const url = res.result.response.url;
+        const fileName = res.result.response.original_filename;
+        this.uploadedFile = '<a class="attachment" href=' + url + '>' + fileName + '</a>';
+        console.log('uploadedFile', this.uploadedFile);
       }
-    })
+    });
     // this.challengeService.batchUpload(file).subscribe((result: any) => {
     //   if (this.utils.validatorMessage(result, KRONOS.MESSAGES.FILE_UPLOAD_SUCCESSFULLY)) {
     //     this.getAllUsersByOrg();
@@ -161,5 +167,5 @@ export class DiscussionComponent implements OnInit {
     // });
   }
 
-  
+
 }
