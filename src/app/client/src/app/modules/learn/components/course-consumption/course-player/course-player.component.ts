@@ -1,8 +1,9 @@
+
 import { combineLatest, Subscription, Subject } from 'rxjs';
 import { takeUntil, first, mergeMap, map } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import {
-  ContentService, UserService, BreadcrumbsService, PermissionService, CoursesService, DiscussionService
+  ContentService, UserService, BreadcrumbsService, PermissionService, CoursesService
 } from '@sunbird/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import * as _ from 'lodash';
@@ -10,11 +11,12 @@ import {
   WindowScrollService, ILoaderMessage, ConfigService, ICollectionTreeOptions, NavigationHelperService,
   ToasterService, ResourceService, ExternalUrlPreviewService
 } from '@sunbird/shared';
-import { CourseConsumptionService, CourseBatchService, CourseDiscussionsService } from './../../../services';
+import { CourseConsumptionService, CourseBatchService } from './../../../services';
 import { INoteData } from '@sunbird/notes';
 import {
   IImpressionEventInput, IEndEventInput, IStartEventInput, IInteractEventObject, IInteractEventEdata
 } from '@sunbird/telemetry';
+
 
 @Component({
   selector: 'app-course-player',
@@ -40,8 +42,6 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   public contentId: string;
 
   public courseStatus: string;
-
-  private discussionService: DiscussionService;
 
   private contentService: ContentService;
 
@@ -131,8 +131,6 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   replyEditor: boolean = false;
 
-  discussionThread: any = [];
-
   replyContent: any;
 
   repliesContent: any;
@@ -147,14 +145,13 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   public unsubscribe = new Subject<void>();
 
-  constructor(contentService: ContentService, discussionService: DiscussionService, activatedRoute: ActivatedRoute, private configService: ConfigService,
+  constructor(contentService: ContentService, activatedRoute: ActivatedRoute, private configService: ConfigService,
     private courseConsumptionService: CourseConsumptionService, windowScrollService: WindowScrollService,
     router: Router, public navigationHelperService: NavigationHelperService, private userService: UserService,
     private toasterService: ToasterService, private resourceService: ResourceService, public breadcrumbsService: BreadcrumbsService,
-    private cdr: ChangeDetectorRef, public courseBatchService: CourseBatchService, public courseDiscussionsService: CourseDiscussionsService, public permissionService: PermissionService,
+    private cdr: ChangeDetectorRef, public courseBatchService: CourseBatchService, public permissionService: PermissionService,
     public externalUrlPreviewService: ExternalUrlPreviewService, public coursesService: CoursesService) {
     this.contentService = contentService;
-    this.discussionService = discussionService;
     this.activatedRoute = activatedRoute;
     this.windowScrollService = windowScrollService;
     this.router = router;
@@ -184,6 +181,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       mergeMap((params) => {
         this.courseId = params.courseId;
         this.batchId = params.batchId;
+        console.log("Inside Course Player" + this.batchId)
         this.courseStatus = params.courseStatus;
         this.setTelemetryCourseImpression();
         if (this.batchId) {
@@ -210,7 +208,6 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
           this.enrolledCourse = true;
           this.setTelemetryStartEndData();
           this.parseChildContent();
-          this.retreiveThread(this.batchId)
           // this.courseDiscussionsService.retrieveDiscussion(this.batchId).subscribe((res) => {
           //   console.log("retirve", res,this.batchId)
           //   this.discussionThread = res.result.threads;
@@ -234,26 +231,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       });
 
   }
-  postComment() {
-    let req = {
-      "title": "Discussion for batch" + "-" + this.batchId,
-      "body": "Discussion for batch",
-      "contextId": this.batchId,
-    }
-    this.courseDiscussionsService.postDiscussion(req).subscribe((res: any) => {
-      this.retreiveThread(this.batchId)
-      this.editorContent = '';
-    })
-  }
-  startNewConversionClick() {
-    this.postComment();
-  }
-  getReplies(id) {
-    this.courseDiscussionsService.getReplies(id).subscribe((res: any) => {
-      this.repliesContent = res.result.thread.replies;
-      console.log("res", this.repliesContent)
-    })
-  }
+ 
   parseBody(body){
     if(body.includes('</a>')) {
       return true
@@ -261,39 +239,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       return false
     }
   }
-  retreiveThread(id) {
-    this.courseDiscussionsService.retrieveDiscussion(id).subscribe((res: any) => {
-      this.discussionThread = res.result.threads;
-      if (this.discussionThread.length !== 0) {
-        this.threadId = this.discussionThread[0].id;
-        this.getReplies(this.discussionThread[0].id)
-      }
-    })
-  }
-  collapse(i, id) {
-    this.discussionThread[i].show = !this.discussionThread[i].show
-    //   this.getReplies(id)
-  }
-  cancel(i) {
-    this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
-  }
-  postCancel() {
-    this.editorContent = '';
-  }
-  reply(i) {
-    this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
-  }
-  replyToThread(id) {
-    let body = {
-      "body": this.uploadedFile +'  ' +this.editorContent,
-      "threadId": this.threadId
-    }
-    this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
-      this.editorContent = ''
-      this.retreiveThread(this.batchId)
-      this.getReplies(this.threadId)
-    })
-  }
+ 
+ 
   isDisabled() {
     if (this.editorContent && this.editorContent !== '' && this.editorContent.length >= 15) {
       return false;
@@ -318,29 +265,9 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         }
       }
     }
-    this.courseDiscussionsService.likeReply(body).subscribe((res) => {
-      this.editorContent = ''
-      this.retreiveThread(this.batchId)
-      this.getReplies(this.threadId)
-    })
   }
 
-  fileEvent(event) {
-    const file = event.target.files[0];
-    this.courseDiscussionsService.uploadFile(file).subscribe((res: any) => {
-      if(res && res.result.response) {
-        let url = res.result.response.url;
-        let fileName = res.result.response.original_filename
-        this.uploadedFile = '<a class="attachment" href=' + url +'>'+fileName+'</a>'
-        console.log("uploadedFile",this.uploadedFile)
-      }
-    })
-    // this.challengeService.batchUpload(file).subscribe((result: any) => {
-    //   if (this.utils.validatorMessage(result, KRONOS.MESSAGES.FILE_UPLOAD_SUCCESSFULLY)) {
-    //     this.getAllUsersByOrg();
-    //   }
-    // });
-  }
+ 
   private parseChildContent() {
     const model = new TreeModel();
     const mimeTypeCount = {};
