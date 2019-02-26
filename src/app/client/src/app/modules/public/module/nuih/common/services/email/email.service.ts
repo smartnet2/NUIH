@@ -29,6 +29,6 @@ export class EmailService extends DataService {
   constructor(config: ConfigService, http: HttpClient, test: DataService) {
     super(http);
     this.config = config;
-    this.baseUrl = this.config.urlConFig.URLS.PUBLIC_PREFIX;
+    this.baseUrl = "/";
   }
 }

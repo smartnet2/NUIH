@@ -5,7 +5,6 @@ const credentials = {
     EMAIL_STORE_CONTAINER_NAME: 'emails'
 }
 
-var fs = require('fs');
 var azure = require('azure-storage');
 var blobService = azure.createBlobService(credentials.AZURE_ACCOUNT_NAME, credentials.AZURE_ACCOUNT_KEY);
 

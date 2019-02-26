@@ -101,7 +101,7 @@ app.all(['/server.js', '/helpers/*.js', '/helpers/**/*.js'], function (req, res)
   res.sendStatus(404);
 })
 
-app.post('/api/custom/v1/write/email', bodyParser.urlencoded({ extended: false }),
+app.post('/custom/v1/write/email', bodyParser.urlencoded({ extended: false }),
 bodyParser.json({ limit: '10mb' }),customServiceHelper.verifyAndStoreEmail)
 
 // this line should be above middleware please don't change
