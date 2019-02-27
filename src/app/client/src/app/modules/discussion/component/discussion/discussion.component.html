@@ -92,4 +92,6 @@
             [disabled]="isDisabled()" (click)="replyToThread()">Post</button>
         <button class="ui item" (click)="postCancel()">cancel</button>
     </div>
+    <input type="file" id="myFile" name="myFile" accept=".pdf" (change)="fileEvent($event)" title="Choose a file"
+autocomplete="off" />
 </div>
