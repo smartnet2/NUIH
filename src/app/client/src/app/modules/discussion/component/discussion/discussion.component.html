@@ -43,7 +43,7 @@
                                     <h2 style="color:lightseagreen">{{reply.author.name}}</h2>
                                     <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P>
                                     <div [innerHTML]="reply.body" *ngIf="parseBody(reply.body)"></div>
-                                    <div class="row" *ngIf="reply.actions.vote <= 0">
+                                    <!-- <div class="row" *ngIf="reply.actions.vote <= 0">
                                         <div class="col-md-10">
                                             <img class="pull-right cursor_pointer" src="https://previews.123rf.com/images/rclassenlayouts/rclassenlayouts1208/rclassenlayouts120800101/14757879-face-symbol-hand-i-like-fan-fanpage-social-voting-dislike-network-book-icon-community.jpg"
                                                 alt="Smiley face" height="35" width="35"
@@ -54,8 +54,8 @@
                                                 {{reply.actions.vote}}
                                             </span>
                                         </div>
-                                    </div>
-                                    <div class="row" *ngIf="reply.actions.vote > 0">
+                                    </div> -->
+                                    <!-- <div class="row" *ngIf="reply.actions.vote > 0">
                                         <div class="col-md-10">
                                             <img class="pull-right cursor_pointer" src="https://previews.123rf.com/images/arhimicrostok/arhimicrostok1705/arhimicrostok170502441/77784877-like-icon-hand-finger-up-sign-thumb-up-symbol-flat-design-style-.jpg"
                                                 alt="Smiley face" height="35" width="35"
@@ -66,7 +66,7 @@
                                                 {{reply.actions.vote}}
                                             </span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="ui section divider"></div>
                                 </div>
                             </div>
@@ -92,4 +92,6 @@
             [disabled]="isDisabled()" (click)="replyToThread()">Post</button>
         <button class="ui item" (click)="postCancel()">cancel</button>
     </div>
+    <input type="file" id="myFile" name="myFile" accept=".pdf" (change)="fileEvent($event)" title="Choose a file"
+autocomplete="off" />
 </div>

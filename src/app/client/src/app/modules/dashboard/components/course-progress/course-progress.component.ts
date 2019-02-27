@@ -1,5 +1,3 @@
-
-
 import { combineLatest,  Subscription ,  Observable ,  Subject } from 'rxjs';
 
 import {first, takeUntil} from 'rxjs/operators';
@@ -13,6 +11,7 @@ import { CourseProgressService } from './../../services';
 import { ICourseProgressData, IBatchListData } from './../../interfaces';
 import { IInteractEventInput, IImpressionEventInput } from '@sunbird/telemetry';
 import { CourseDiscussionsService } from './../../../learn/services/course-discussion/course-discussion.service';
+import { DiscussionModule } from './../../../discussion/discussion.module';
 /**
  * This component shows the course progress dashboard
  */
@@ -122,13 +121,7 @@ export class CourseProgressComponent implements OnInit, OnDestroy {
    * Discussion vars declaration starts
    */
 
-  replyEditor = false;
 
-  discussionThread: any = [];
-
-  replyContent: any;
-  threadId: any;
-  repliesContent: any;
   public enrolledCourse = false;
 
   public contentId: string;
@@ -156,12 +149,7 @@ export class CourseProgressComponent implements OnInit, OnDestroy {
 
   private activatedRouteSubscription: Subscription;
 
-  public editor;
-  public editorContent: any;
-  public uploadedFile: any;
-  public editorOptions = {
-    placeholder: 'insert content...'
-  };
+
 
 
 
@@ -206,9 +194,7 @@ export class CourseProgressComponent implements OnInit, OnDestroy {
       status: ['1', '2', '3'],
       createdBy: this.userId
     };
-    if (this.queryParams.batchIdentifier) {
-      this.retreiveThread(this.queryParams.batchIdentifier);
-    }
+  
     this.courseProgressService.getBatches(option).pipe(
     takeUntil(this.unsubscribe))
     .subscribe(
@@ -381,118 +367,6 @@ export class CourseProgressComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  //Discussion code starts
-  postComment() {
-    let req = {
-      "title": "Discussion for batch" + "-" + this.queryParams.batchIdentifier,
-      "body": "Discussion for batch",
-      "contextId": this.queryParams.batchIdentifier,
-    }
-    this.courseDiscussionsService.postDiscussion(req).subscribe((res: any) => {
-      this.retreiveThread(this.queryParams.batchIdentifier)
-      this.editorContent = '';
-    })
-  }
-  startNewConversionClick() {
-    this.postComment();
-  }
-  getReplies(id) {
-    this.courseDiscussionsService.getReplies(id).subscribe((res: any) => {
-      this.repliesContent = res.result.thread.replies;
-      console.log('res', this.repliesContent)
-    })
-  }
-  parseBody(body){
-    if(body.includes('</a>')) {
-      return true
-    } else {
-      return false
-    }
-  }
-  retreiveThread(id) {
-    this.courseDiscussionsService.retrieveDiscussion(id).subscribe((res: any) => {
-      this.discussionThread = res.result.threads;
-      if (this.discussionThread.length !== 0) {
-        this.threadId = this.discussionThread[0].id;
-        this.getReplies(this.discussionThread[0].id)
-      }
-    })
-  }
-  collapse(i, id) {
-    this.discussionThread[i].show = !this.discussionThread[i].show
-    //   this.getReplies(id)
-  }
-  cancel(i) {
-    this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
-  }
-  postCancel() {
-    this.editorContent = '';
-  }
-  reply(i) {
-    this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
-  }
-  replyToThread(id) {
-    let body = {
-      'body': this.uploadedFile ? this.uploadedFile : '' + '  ' + this.editorContent,
-      'threadId': this.threadId
-    }
-    this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
-      this.editorContent = ''
-      this.retreiveThread(this.queryParams.batchIdentifier)
-      this.getReplies(this.threadId)
-    })
-  }
-  isDisabled() {
-    if (this.editorContent && this.editorContent !== '' && this.editorContent.length >= 15) {
-      return false;
-    } else {
-      return true
-    }
-  }
-  likePostClick(id, value) {
-    let body = {};
-    if (value) {
-      body = {
-        'request': {
-          'postId': id.toString(),
-          'value': 'up'
-        }
-      }
-    } else {
-      body = {
-        'request': {
-          'postId': id.toString(),
-          'value': 'down'
-        }
-      }
-    }
-    this.courseDiscussionsService.likeReply(body).subscribe((res) => {
-      this.editorContent = ''
-      this.retreiveThread(this.queryParams.batchIdentifier)
-      this.getReplies(this.threadId)
-    })
-  }
-
-  fileEvent(event) {
-    const file = event.target.files[0];
-    this.courseDiscussionsService.uploadFile(file).subscribe((res: any) => {
-      if(res && res.result.response) {
-        let url = res.result.response.url;
-        let fileName = res.result.response.original_filename
-        this.uploadedFile = '<a class="attachment" href=' + url +'>'+fileName+'</a>'
-        console.log("uploadedFile",this.uploadedFile)
-      }
-    })
-    // this.challengeService.batchUpload(file).subscribe((result: any) => {
-    //   if (this.utils.validatorMessage(result, KRONOS.MESSAGES.FILE_UPLOAD_SUCCESSFULLY)) {
-    //     this.getAllUsersByOrg();
-    //   }
-    // });
-  }
-  //Discussion code ends
-
-
   ngOnDestroy() {
     if (this.userDataSubscription) {
       this.userDataSubscription.unsubscribe();

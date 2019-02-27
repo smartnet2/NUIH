@@ -3,7 +3,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Injectable, EventEmitter } from '@angular/core';
 import { ConfigService, ServerResponse } from '@sunbird/shared';
 import { ContentService, UserService, CoursesService } from '@sunbird/core';
-import{ DiscussionService} from '../discussions/discussions.service';
+import { DiscussionService } from '../discussions/discussions.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
@@ -30,7 +30,7 @@ export class CourseDiscussService {
   courseProgressData: EventEmitter<any> = new EventEmitter();
 
 
-  constructor(contentService: ContentService,discussionService: DiscussionService, configService: ConfigService,
+  constructor(contentService: ContentService, discussionService: DiscussionService, configService: ConfigService,
     userService: UserService, public coursesService: CoursesService) {
     this.contentService = contentService;
     this.discussionService = discussionService;
@@ -43,21 +43,21 @@ export class CourseDiscussService {
   */
   public postDiscussion(req) {
     const contextId = req.contextId;
-    let requestBody = {
-      "request": {
-        "title": req.title,
-        "body": req.body,
-        "contextId": contextId,
-        "contextType": "batch",
-        "type": "public",
-        "config": {
-          "upVote": true,
-          "downVote": true,
-          "acceptAnswer": true,
-          "flag": true
+    const requestBody = {
+      'request': {
+        'title': req.title,
+        'body': req.body,
+        'contextId': contextId,
+        'contextType': 'batch',
+        'type': 'public',
+        'config': {
+          'upVote': true,
+          'downVote': true,
+          'acceptAnswer': true,
+          'flag': true
         }
       }
-    }
+    };
     const channelOptions = {
       url: this.configService.urlConFig.URLS.COURSE.COURSE_DISCUSSIONS_POST,
       data: requestBody
@@ -73,14 +73,13 @@ export class CourseDiscussService {
 
   public retrieveDiscussion(req) {
     const batchId = req;
-    let requestBody =
-    {
-      "request":
-      {
-        "contextId": batchId,
-        "type": "public"
-      }
-    }
+    const requestBody = {
+      'request':
+        {
+          'contextId': batchId,
+          'type': 'public'
+        }
+    };
     const channelOptions = {
       url: this.configService.urlConFig.URLS.COURSE.RETRIEVE_DISCUSSION,
       data: requestBody
@@ -95,14 +94,13 @@ export class CourseDiscussService {
 
   public replyToThread(req) {
     const threadId = req.threadId;
-    const body = req.body
-    let requestBody =
-    {
-      "request": {
-        "threadId": threadId,
-        "body": body
+    const body = req.body;
+    const requestBody = {
+      'request': {
+        'threadId': threadId,
+        'body': body
       }
-    }
+    };
     const channelOptions = {
       url: this.configService.urlConFig.URLS.COURSE.REPLY_TO_THREAD,
       data: requestBody
@@ -139,10 +137,10 @@ export class CourseDiscussService {
     }));
 
   }
-   public uploadFile(file) {
+  public uploadFile(file) {
     const formData = new FormData();
     formData.append('files', file);
-    formData.append('type','upload')
+    formData.append('type', 'upload');
     // let requestBody =
     // {
     //   "request": {
@@ -150,7 +148,7 @@ export class CourseDiscussService {
     //     "body": body
     //   }
     // }
-    console.log("formData", formData)
+    console.log('formData', formData);
     const channelOptions = {
       url: this.configService.urlConFig.URLS.COURSE.UPLOAD_FILE,
       data: formData
@@ -160,6 +158,6 @@ export class CourseDiscussService {
     }), catchError((err) => {
       return err;
     }));
-   }
+  }
 
 }

@@ -1,4 +1,5 @@
 
+
 import { combineLatest, Subscription, Subject } from 'rxjs';
 import { takeUntil, first, mergeMap, map } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
@@ -13,10 +14,10 @@ import {
 } from '@sunbird/shared';
 import { CourseConsumptionService, CourseBatchService } from './../../../services';
 import { INoteData } from '@sunbird/notes';
+import { DiscussionModule } from './../../../../discussion/discussion.module';
 import {
   IImpressionEventInput, IEndEventInput, IStartEventInput, IInteractEventObject, IInteractEventEdata
 } from '@sunbird/telemetry';
-
 
 @Component({
   selector: 'app-course-player',
@@ -63,12 +64,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   private activatedRouteSubscription: Subscription;
 
-  public editor;
-  public editorContent: any;
-  public uploadedFile: any;
-  public editorOptions = {
-    placeholder: "insert content..."
-  };
+
 
   enableContentPlayer = false;
 
@@ -127,15 +123,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
 
   showExtContentMsg = false;
 
-  show: boolean = false;
+  show = false;
 
-  replyEditor: boolean = false;
-
-  replyContent: any;
-
-  repliesContent: any;
-
-  threadId: any;
   public loaderMessage: ILoaderMessage = {
     headerMessage: 'Please wait...',
     loaderMessage: 'Fetching content details!'
@@ -181,7 +170,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       mergeMap((params) => {
         this.courseId = params.courseId;
         this.batchId = params.batchId;
-        console.log("Inside Course Player" + this.batchId)
+        // console.log("Inside Course Player" + this.batchId)
         this.courseStatus = params.courseStatus;
         this.setTelemetryCourseImpression();
         if (this.batchId) {
@@ -231,41 +220,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       });
 
   }
- 
-  parseBody(body){
-    if(body.includes('</a>')) {
-      return true
-    } else {
-      return false
-    }
-  }
- 
- 
-  isDisabled() {
-    if (this.editorContent && this.editorContent !== '' && this.editorContent.length >= 15) {
-      return false;
-    } else {
-      return true
-    }
-  }
-  likePostClick(id, value) {
-    let body = {};
-    if (value) {
-      body = {
-        "request": {
-          "postId": id.toString(),
-          "value": "up"
-        }
-      }
-    } else {
-      body = {
-        "request": {
-          "postId": id.toString(),
-          "value": "down"
-        }
-      }
-    }
-  }
+
 
  
   private parseChildContent() {

@@ -6,9 +6,6 @@ import { DiscussionService } from './services';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
-
-
-
 @NgModule({
   imports: [
     CommonModule,
@@ -19,4 +16,4 @@ import { FormsModule } from '@angular/forms';
   exports: [DiscussionComponent],
   declarations: [DiscussionComponent]
 })
-export class DiscussModule { }
+export class DiscussionModule { }
