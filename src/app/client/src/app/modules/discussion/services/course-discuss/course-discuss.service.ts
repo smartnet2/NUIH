@@ -2,12 +2,13 @@ import { of as observableOf } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Injectable, EventEmitter } from '@angular/core';
 import { ConfigService, ServerResponse } from '@sunbird/shared';
-import { ContentService, UserService, CoursesService, DiscussionService } from '@sunbird/core';
+import { ContentService, UserService, CoursesService } from '@sunbird/core';
+import { DiscussionService } from '../discussions/discussions.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Injectable()
-export class CourseDiscussionsService {
+export class CourseDiscussService {
   /**
  * Reference of content service.
  */
@@ -29,7 +30,7 @@ export class CourseDiscussionsService {
   courseProgressData: EventEmitter<any> = new EventEmitter();
 
 
-  constructor(contentService: ContentService,discussionService: DiscussionService, configService: ConfigService,
+  constructor(contentService: ContentService, discussionService: DiscussionService, configService: ConfigService,
     userService: UserService, public coursesService: CoursesService) {
     this.contentService = contentService;
     this.discussionService = discussionService;
@@ -74,10 +75,10 @@ export class CourseDiscussionsService {
     const batchId = req;
     const requestBody = {
       'request':
-      {
-        'contextId': batchId,
-        'type': 'public'
-      }
+        {
+          'contextId': batchId,
+          'type': 'public'
+        }
     };
     const channelOptions = {
       url: this.configService.urlConFig.URLS.COURSE.RETRIEVE_DISCUSSION,
@@ -136,7 +137,7 @@ export class CourseDiscussionsService {
     }));
 
   }
-   public uploadFile(file) {
+  public uploadFile(file) {
     const formData = new FormData();
     formData.append('files', file);
     formData.append('type', 'upload');
@@ -157,6 +158,6 @@ export class CourseDiscussionsService {
     }), catchError((err) => {
       return err;
     }));
-   }
+  }
 
 }
