@@ -1,12 +1,8 @@
-const credentials = {
-    AZURE_ACCOUNT_NAME: 'nuihsunbird',
-    AZURE_ACCOUNT_KEY: 'PiAc4nsoLrcyfxqH2E4PEiNeEZ2Ji42LiyGKe698a46DAaOLEqS3CbS9gMzdYBQBIEjO+f0uIj9szZBvEosDVQ==',
-    AZURE_STORAGE_URL: 'https://nuihsunbird.blob.core.windows.net/',
-    EMAIL_STORE_CONTAINER_NAME: 'emails'
-}
+const envVariables = require('./../environmentVariablesHelper.js')
 
-var azure = require('azure-storage');
-var blobService = azure.createBlobService(credentials.AZURE_ACCOUNT_NAME, credentials.AZURE_ACCOUNT_KEY);
+const azure = require('azure-storage');
+const blobService = azure.createBlobService(envVariables.EMAIL_STORE_AZURE_ACCOUNT_NAME, 
+    envVariables.EMAIL_STORE_AZURE_ACCOUNT_KEY);
 
 function verifyAndStoreEmail(req, res) {
 
@@ -58,7 +54,9 @@ function verifyAndStoreEmail(req, res) {
 
 function verifyOrStoreEmail(email, callback) {
 
-    blobService.createBlockBlobFromText(credentials.EMAIL_STORE_CONTAINER_NAME, email, email, function (error, result, response) {
+    blobService.createBlockBlobFromText(envVariables.EMAIL_STORE_CONTAINER_NAME, 
+        email, 
+        email, function (error, result, response) {
         if (!error) {
             // file uploaded
             console.log('blob result ' + JSON.stringify(response));
