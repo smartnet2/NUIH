@@ -55,6 +55,7 @@ export class DiscussionComponent implements OnInit {
         this.courseDiscussionsService.retrieveDiscussion(this.batchId).subscribe((res: any) => {
           console.log('retirve', res, this.batchId);
           this.discussionThread = res.result.threads;
+          this.threadId = this.discussionThread['0'].id;
         });
       }
     });
@@ -90,8 +91,8 @@ export class DiscussionComponent implements OnInit {
     this.courseDiscussionsService.retrieveDiscussion(id).subscribe((res: any) => {
       this.discussionThread = res.result.threads;
       if (this.discussionThread.length !== 0) {
-        this.threadId = this.discussionThread[0].id;
-        this.getReplies(this.discussionThread[0].id);
+        this.threadId =  this.discussionThread['0'].id;
+        this.getReplies(this.threadId);
       }
     });
   }
@@ -110,7 +111,7 @@ export class DiscussionComponent implements OnInit {
   }
   replyToThread(id) {
     const body = {
-      'body': this.uploadedFile + '  ' + this.editorContent,
+      'body': this.uploadedFile ? this.uploadedFile + '  ' : ''  + this.editorContent,
       'threadId': this.threadId
     };
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
