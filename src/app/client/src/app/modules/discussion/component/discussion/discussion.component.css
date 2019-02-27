@@ -13,6 +13,8 @@
     background: #d3d3d35e;
     cursor: pointer;
     width: 100%;
+    margin-left: 9px;
+    margin-top: 10px;
 }
 .teamName {
     font-size: 20   px;
