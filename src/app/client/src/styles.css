@@ -1032,6 +1032,9 @@ i.large.icon.limitedPublishingLinkIcon {
   max-height: calc(70vh);
   overflow: auto;
 }
+.ui.modal{
+  bottom: auto !important;
+}
 /*concept selector pop up */
 .ui.tree-picker.modal .header .ui.menu {
   margin-top: -12px;
@@ -1572,6 +1575,7 @@ span.fancytree-title {
   padding: 0;
   border-radius: 0;
   border: 0;
+  width: 100%;
 }
 .tocplayer.ui.grid {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
