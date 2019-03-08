@@ -125,9 +125,9 @@ export class TelemetryService {
     }
   }
    /**
-   * Logs 'share' telemetry event
+   * Logs 'feedback' telemetry event
    *
-   * @param {IShareEventInput} shareEventInput
+   * @param {IFeedbackEventInput} feedbackEventInput
    * @memberof TelemetryService
    */
   public feedback(feedbackEventInput: IFeedbackEventInput) {
