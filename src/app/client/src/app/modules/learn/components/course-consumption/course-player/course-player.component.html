@@ -30,8 +30,7 @@
                             <app-collection-tree (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes"
                                 [options]="collectionTreeOptions" [contentStatus]="contentStatus"></app-collection-tree>
                             <div>
-                                <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx"> -->
-                            </div>
+                            </div> 
                             <app-discussion></app-discussion>
                         </div>
                         <div class='three wide column'>
@@ -151,4 +150,6 @@
         </div>
     </div>
 </div>
+
+<app-content-rating *ngIf='showRatingModal'[feedbackObject]='telemetryFeedbackObject' ></app-content-rating>
 <router-outlet></router-outlet>
