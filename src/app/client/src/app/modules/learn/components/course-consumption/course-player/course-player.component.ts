@@ -16,7 +16,7 @@ import { CourseConsumptionService, CourseBatchService } from './../../../service
 import { INoteData } from '@sunbird/notes';
 import { DiscussionModule } from './../../../../discussion/discussion.module';
 import {
-  IImpressionEventInput, IEndEventInput, IStartEventInput, IInteractEventObject, IInteractEventEdata
+  IImpressionEventInput, IEndEventInput, IStartEventInput, IInteractEventObject, IInteractEventEdata,  IFeedbackObject, IFeedbackEdata
 } from '@sunbird/telemetry';
 
 @Component({
@@ -124,6 +124,10 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   showExtContentMsg = false;
 
   show = false;
+
+  feedbackModal: false;
+  showRatingModal: true;
+  telemetryFeedbackObject: IFeedbackObject;
 
   public loaderMessage: ILoaderMessage = {
     headerMessage: 'Please wait...',
@@ -346,8 +350,11 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     }
   }
   public contentProgressEvent(event) {
+    const eid = event.detail.telemetryData.eid;
+    if (eid === 'END') {
+      this.showRatingModal = true;
+    }
     if (this.batchId && this.enrolledBatchInfo && this.enrolledBatchInfo.status === 1) {
-      const eid = event.detail.telemetryData.eid;
       const request: any = {
         userId: this.userService.userid,
         contentId: this.contentId,
@@ -422,6 +429,11 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         pageid: this.activatedRoute.snapshot.data.telemetry.pageid,
         mode: 'play'
       }
+    };
+    this.telemetryFeedbackObject = {
+      id: this.courseId,
+      type:'course',
+      ver: '1.0'
     };
   }
   private setTelemetryCourseImpression() {
