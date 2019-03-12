@@ -4,10 +4,10 @@
       <div class="header">
         <div class="ui grid">
           <div class="eleven wide column">
-            <span class="ui header">{{resourceService?.frmelmnts?.lbl?.share}}</span>
+            <span class="ui header">Enjoyed this content</span>
           </div>
           <div class="one wide column actions">
-            <h5 class="ui basic icon circular button deny" (click)="closeModal(contentFeedbackModal);feedbackModal=false ">
+            <h5 class="ui basic icon circular button deny" (click)="closeModal(contentFeedbackModal);">
               <i class="ui remove icon"></i>
             </h5>
           </div>
@@ -16,7 +16,7 @@
       <div class="content">
           <div class="ui form">
               <div class="field">
-                <label>Enjoyed this content</label>
+                <!-- <label></label> -->
                 <h5>Help us by rating</h5>
               </div>
               <div class="field">
@@ -25,7 +25,7 @@
               <div class="field">
                   <textarea rows="2"  [(ngModel)]="comments" ></textarea>
               </div>
-              <button  class="ui button" type="submit"  (click)="sendFeedback(contentFeedbackModal, true); feedbackModal=false;">Submit</button>
+              <button  class="ui button" type="submit"  (click)="sendFeedback(contentFeedbackModal, true);">Submit</button>
             </div>
           <br/>
       </div>           
