@@ -4,7 +4,7 @@ import { DiscussionService } from '../../services/discussions/discussions.servic
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { combineLatest, Subscription, Subject } from 'rxjs';
 import { takeUntil, first, mergeMap, map } from 'rxjs/operators';
-import { CourseConsumptionService, CourseBatchService } from '../../../learn/services'
+import { CourseConsumptionService, CourseBatchService } from '../../../learn/services';
 
 @Component({
   selector: 'app-discussion',
@@ -55,7 +55,7 @@ export class DiscussionComponent implements OnInit {
         this.courseDiscussionsService.retrieveDiscussion(this.batchId).subscribe((res: any) => {
           console.log('retirve', res, this.batchId);
           this.discussionThread = res.result.threads;
-          this.threadId = this.discussionThread['0'].id;
+          this.threadId = this.discussionThread['0'] ? this.discussionThread['0'].id : '';
         });
       }
     });
@@ -167,6 +167,4 @@ export class DiscussionComponent implements OnInit {
     //   }
     // });
   }
-
-
 }

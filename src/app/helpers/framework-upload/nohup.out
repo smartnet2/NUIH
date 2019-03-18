@@ -1,0 +1,227 @@
+API running on localhost:3000
+API running on localhost:3000
+[32minfo[39m: Init Framework Function
+[32minfo[39m: Framework Name :: sk_k-12_2
+[32minfo[39m: Reading a excel file
+[32minfo[39m: converted excel file to json successfully!
+[32minfo[39m: ::ffff:127.0.0.1 - - [11/Mar/2019:10:14:32 +0000] "GET /v1/getframework HTTP/1.1" 200 86410 "-" "curl/7.47.0"
+
+[32minfo[39m: Calling get term api :: statesikkim
+[32minfo[39m: Calling get term api :: english
+[32minfo[39m: ROW NO > 0 > READ FRAMEWORK : Took 867.9810 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM board: Took 130.3511 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM subject: Took 154.2184 milliseconds
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - statesikkim
+[32minfo[39m: ROW NO > 0 > CREATE TERM board : Took 124.0402 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - statesikkim
+[31merror[39m:  Error: Create Term Error - statesikkim
+    at Request._callback (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:1033:27)
+    at Request.self.callback (/home/revathi/project/node-framework-upload/node_modules/request/request.js:186:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/home/revathi/project/node-framework-upload/node_modules/request/request.js:1163:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/home/revathi/project/node-framework-upload/node_modules/request/request.js:1085:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+[32minfo[39m: TOTAL FRAMEWORK TIME : Took 1123.5424 milliseconds
+[32minfo[39m: Successfully bulk data uplaod process done!!!
+[32minfo[39m: Calling get term api :: english
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - english
+[32minfo[39m: ROW NO > 0 > CREATE TERM subject : Took 147.9040 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - english
+[32minfo[39m: Calling get term api :: evs
+[32minfo[39m: ROW NO > 0 > READ TERM medium: Took 114.6725 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM subject: Took 165.3762 milliseconds
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - english
+[32minfo[39m: ROW NO > 0 > CREATE TERM medium : Took 126.6831 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - english
+(node:21578) UnhandledPromiseRejectionWarning: Error: Callback was already called.
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:955:32
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:3871:13
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:202:32)
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:258:16)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+(node:21578) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+(node:21578) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - evs
+[32minfo[39m: ROW NO > 0 > CREATE TERM subject : Took 149.1069 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - evs
+(node:21578) UnhandledPromiseRejectionWarning: Error: Callback was already called.
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:955:32
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:3871:13
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:208:32)
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:258:16)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+(node:21578) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 2)
+[32minfo[39m: Init Framework Function
+[32minfo[39m: Framework Name :: sk_k-12_2
+[32minfo[39m: Reading a excel file
+[32minfo[39m: converted excel file to json successfully!
+[32minfo[39m: ::ffff:127.0.0.1 - - [11/Mar/2019:10:14:54 +0000] "GET /v1/getframework HTTP/1.1" 200 86410 "-" "curl/7.47.0"
+
+[32minfo[39m: Calling get term api :: statesikkim
+[32minfo[39m: Calling get term api :: english
+[32minfo[39m: ROW NO > 0 > READ FRAMEWORK : Took 714.9735 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM subject: Took 99.1647 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM board: Took 113.3994 milliseconds
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - english
+[32minfo[39m: ROW NO > 0 > CREATE TERM subject : Took 145.4831 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - english
+[31merror[39m:  Error: Create Term Error - english
+    at Request._callback (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:1033:27)
+    at Request.self.callback (/home/revathi/project/node-framework-upload/node_modules/request/request.js:186:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/home/revathi/project/node-framework-upload/node_modules/request/request.js:1163:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/home/revathi/project/node-framework-upload/node_modules/request/request.js:1085:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+[32minfo[39m: TOTAL FRAMEWORK TIME : Took 958.2770 milliseconds
+[32minfo[39m: Successfully bulk data uplaod process done!!!
+[32minfo[39m: Calling get term api :: evs
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - statesikkim
+[32minfo[39m: ROW NO > 0 > CREATE TERM board : Took 147.7236 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - statesikkim
+[32minfo[39m: Calling get term api :: english
+[32minfo[39m: ROW NO > 0 > READ TERM medium: Took 102.7443 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM subject: Took 144.1988 milliseconds
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - english
+[32minfo[39m: ROW NO > 0 > CREATE TERM medium : Took 107.2701 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - english
+(node:21578) UnhandledPromiseRejectionWarning: Error: Callback was already called.
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:955:32
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:3871:13
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:202:32)
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:258:16)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+(node:21578) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 3)
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - evs
+[32minfo[39m: ROW NO > 0 > CREATE TERM subject : Took 105.2822 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - evs
+(node:21578) UnhandledPromiseRejectionWarning: Error: Callback was already called.
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:955:32
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:3871:13
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:208:32)
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:258:16)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+(node:21578) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 4)
+[32minfo[39m: Init Framework Function
+[32minfo[39m: Framework Name :: sk_k-12_2
+[32minfo[39m: Reading a excel file
+[32minfo[39m: converted excel file to json successfully!
+[32minfo[39m: ::ffff:127.0.0.1 - - [11/Mar/2019:10:16:11 +0000] "GET /v1/getframework HTTP/1.1" 200 86410 "-" "curl/7.47.0"
+
+[32minfo[39m: Calling get term api :: statesikkim
+[32minfo[39m: Calling get term api :: english
+[32minfo[39m: ROW NO > 0 > READ FRAMEWORK : Took 361.7694 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM board: Took 177.6221 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM subject: Took 228.2806 milliseconds
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - statesikkim
+[32minfo[39m: ROW NO > 0 > CREATE TERM board : Took 148.8594 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - statesikkim
+[31merror[39m:  Error: Create Term Error - statesikkim
+    at Request._callback (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:1033:27)
+    at Request.self.callback (/home/revathi/project/node-framework-upload/node_modules/request/request.js:186:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/home/revathi/project/node-framework-upload/node_modules/request/request.js:1163:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/home/revathi/project/node-framework-upload/node_modules/request/request.js:1085:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+[32minfo[39m: TOTAL FRAMEWORK TIME : Took 687.9948 milliseconds
+[32minfo[39m: Successfully bulk data uplaod process done!!!
+[32minfo[39m: Calling get term api :: english
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - english
+[32minfo[39m: ROW NO > 0 > CREATE TERM subject : Took 152.3537 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - english
+[32minfo[39m: Calling get term api :: evs
+[32minfo[39m: ROW NO > 0 > READ TERM subject: Took 97.9644 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM medium: Took 160.9993 milliseconds
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - english
+[32minfo[39m: ROW NO > 0 > CREATE TERM medium : Took 109.2562 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - english
+(node:21578) UnhandledPromiseRejectionWarning: Error: Callback was already called.
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:955:32
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:3871:13
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:202:32)
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:258:16)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+(node:21578) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 5)
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - evs
+[32minfo[39m: ROW NO > 0 > CREATE TERM subject : Took 165.6729 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - evs
+(node:21578) UnhandledPromiseRejectionWarning: Error: Callback was already called.
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:955:32
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:3871:13
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:208:32)
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:258:16)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+(node:21578) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 6)
+[32minfo[39m: Init Framework Function
+[32minfo[39m: Framework Name :: sk_k-12_2
+[32minfo[39m: Reading a excel file
+[32minfo[39m: converted excel file to json successfully!
+[32minfo[39m: ::ffff:127.0.0.1 - - [11/Mar/2019:11:42:14 +0000] "GET /v1/getframework HTTP/1.1" 200 86410 "-" "curl/7.47.0"
+
+[32minfo[39m: Calling get term api :: statesikkim
+[32minfo[39m: Calling get term api :: english
+[32minfo[39m: ROW NO > 0 > READ FRAMEWORK : Took 966.2523 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM subject: Took 174.2501 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM board: Took 227.6165 milliseconds
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - english
+[32minfo[39m: ROW NO > 0 > CREATE TERM subject : Took 201.7344 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - english
+[31merror[39m:  Error: Create Term Error - english
+    at Request._callback (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:1033:27)
+    at Request.self.callback (/home/revathi/project/node-framework-upload/node_modules/request/request.js:186:22)
+    at emitTwo (events.js:126:13)
+    at Request.emit (events.js:214:7)
+    at Request.<anonymous> (/home/revathi/project/node-framework-upload/node_modules/request/request.js:1163:10)
+    at emitOne (events.js:116:13)
+    at Request.emit (events.js:211:7)
+    at IncomingMessage.<anonymous> (/home/revathi/project/node-framework-upload/node_modules/request/request.js:1085:12)
+    at Object.onceWrapper (events.js:313:30)
+    at emitNone (events.js:111:20)
+[32minfo[39m: TOTAL FRAMEWORK TIME : Took 1344.0446 milliseconds
+[32minfo[39m: Successfully bulk data uplaod process done!!!
+[32minfo[39m: Calling get term api :: evs
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - statesikkim
+[32minfo[39m: ROW NO > 0 > CREATE TERM board : Took 216.2366 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - statesikkim
+[32minfo[39m: Calling get term api :: english
+[32minfo[39m: ROW NO > 0 > READ TERM medium: Took 227.6616 milliseconds
+[32minfo[39m: ROW NO > 0 > READ TERM subject: Took 323.3891 milliseconds
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - evs
+[32minfo[39m: ROW NO > 0 > CREATE TERM subject : Took 397.4823 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - evs
+(node:21578) UnhandledPromiseRejectionWarning: Error: Callback was already called.
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:955:32
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:3871:13
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:208:32)
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:258:16)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+(node:21578) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 7)
+[31merror[39m: CREATE TERM API ERROR3 : Error: Create Term Error - english
+[32minfo[39m: ROW NO > 0 > CREATE TERM medium : Took 614.2425 milliseconds
+[31merror[39m: CREATE TERM API ERROR1 : Error: Create Term Error - english
+(node:21578) UnhandledPromiseRejectionWarning: Error: Callback was already called.
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:955:32
+    at /home/revathi/project/node-framework-upload/node_modules/async/dist/async.js:3871:13
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:202:32)
+    at createAssociationHashmap (/home/revathi/project/node-framework-upload/app/v1/controllers/index.controller.js:258:16)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+(node:21578) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 8)

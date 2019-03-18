@@ -1,4 +1,6 @@
 'use strict'
+const morgan = require('morgan');
+const winston = require('winston');
 
 const express = require('express')
 const app = express()
@@ -123,11 +125,15 @@ app.use('/announcement/v1', bodyParser.urlencoded({ extended: false }),
   app.use('/discussions/v1', bodyParser.urlencoded({ extended: false }),
   bodyParser.json({ limit: '10mb' }), require('./helpers/discussion')(keycloak))
 
+  // app.use('/framework/v1', morgan('combined', { stream: winston.stream }), bodyParser.urlencoded({ extended: false }),
+  // bodyParser.json({ limit: '10mb' }), require('./helpers/framework-upload')())
+  
+  app.all('/logoff', endSession, function (req, res) {
+    res.cookie('connect.sid', '', { expires: new Date() })
+    res.redirect('/logout')
+  })
 
-app.all('/logoff', endSession, function (req, res) {
-  res.cookie('connect.sid', '', { expires: new Date() })
-  res.redirect('/logout')
-})
+
 
 function getLocals(req) {
   var locals = {};
