@@ -95,10 +95,12 @@ export class CourseDiscussService {
   public replyToThread(req) {
     const threadId = req.threadId;
     const body = req.body;
+    const replyPostNumber = req.replyPostNumber;
     const requestBody = {
       'request': {
         'threadId': threadId,
-        'body': body
+        'body': body,
+        'replyPostNumber': replyPostNumber
       }
     };
     const channelOptions = {

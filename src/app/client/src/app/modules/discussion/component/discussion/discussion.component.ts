@@ -12,12 +12,24 @@ import { CourseConsumptionService, CourseBatchService } from '../../../learn/ser
   styleUrls: ['./discussion.component.css']
 })
 export class DiscussionComponent implements OnInit {
-
+  // #NUIH change:
+  public options: Object = {
+    placeholderText: 'Type your comment here...',
+    charCounterCount: true,
+    heightMin: 200,
+    quickInsertTags: null,
+    toolbarButtons: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert']
+  };
+  // #NUIH change:
   private activatedRouteSubscription: Subscription;
   // private activatedRoute: ActivatedRoute;
 
   private discussionService: DiscussionService;
   public batchId: string;
+  public replyPostNumber: number=null;
   discussionThread: any = [];
   replyContent: any;
   repliesContent: any;
@@ -59,6 +71,13 @@ export class DiscussionComponent implements OnInit {
         });
       }
     });
+    // #NUIH change:
+    $(function () {
+      $("#emoticons-1").on('click', function () {
+        $(".fr-popup").find("p").hide();
+      })
+    });
+    // #NUIH change:
   }
   postComment() {
     const req = {
@@ -77,6 +96,9 @@ export class DiscussionComponent implements OnInit {
   getReplies(id) {
     this.courseDiscussionsService.getReplies(id).subscribe((res: any) => {
       this.repliesContent = res.result.thread.replies;
+      $(function () {
+        $(".emoji").hide();
+      });
       console.log('res', this.repliesContent);
     });
   }
@@ -91,7 +113,7 @@ export class DiscussionComponent implements OnInit {
     this.courseDiscussionsService.retrieveDiscussion(id).subscribe((res: any) => {
       this.discussionThread = res.result.threads;
       if (this.discussionThread.length !== 0) {
-        this.threadId =  this.discussionThread['0'].id;
+        this.threadId = this.discussionThread['0'].id;
         this.getReplies(this.threadId);
       }
     });
@@ -109,13 +131,20 @@ export class DiscussionComponent implements OnInit {
   reply(i) {
     this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
   }
-  replyToThread(id) {
+  getPostNumber(index) {
+    this.replyPostNumber = index+2;
+    console.log("Post Number");
+    console.log(this.replyPostNumber);
+  }
+  replyToThread() {
     const body = {
-      'body': this.uploadedFile ? this.uploadedFile + '  ' : ''  + this.editorContent,
-      'threadId': this.threadId
+      'body': this.uploadedFile ? this.uploadedFile + '  ' : '' + this.editorContent,
+      'threadId': this.threadId,
+      'replyPostNumber': this.replyPostNumber
     };
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
       this.editorContent = '';
+      this.replyPostNumber = null;
       this.retreiveThread(this.batchId);
       this.getReplies(this.threadId);
     });

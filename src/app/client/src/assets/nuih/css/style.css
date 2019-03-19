@@ -3079,3 +3079,6 @@ line-height:35px;*/
 .color-white{
 	color:#fff!important;
 }
+.fr-toolbar {
+  border-top: none !important;
+}

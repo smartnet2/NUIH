@@ -64,9 +64,9 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
     public toasterService: ToasterService, public copyContentService: CopyContentService, private changeDetectorRef: ChangeDetectorRef,
     private courseProgressService: CourseProgressService, public contentUtilsServiceService: ContentUtilsServiceService,
     public externalUrlPreviewService: ExternalUrlPreviewService, public coursesService: CoursesService, private userService: UserService, private certificateDownloadService: CertificateDownloadService) {
-      this.userName  =  this.userService.userProfile.userName;
-    this.userId = this.userService.userid;
-
+      if(this.userService.userProfile)
+        this.userName  =  this.userService.userProfile.userName;
+        this.userId = this.userService.userid;
   }
 
   ngOnInit() {

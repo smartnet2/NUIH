@@ -33,7 +33,7 @@ class DiscourseAdapter {
     /**
      * @property {string} discourseEndPoint - An endpoint url for discourse api
      */
-    this.discourseEndPoint = 'http://discourse.idc.tarento.com/'
+    this.discourseEndPoint = 'http://discourse-docker.ddns.net/'
     /**
      * @property {object} discourseUriList - List of discourse uri's
      */
@@ -55,9 +55,9 @@ class DiscourseAdapter {
 
     this.userName = userName
     this.apiAuth = {
-      apiKey: 'ad70c8761eef0b379c8c22104dbc597023322536ec8f6757b8a780f7d3d9c0ae',
+      apiKey: '84b089c628eefcef2e9d9b4f67e1c199b0aaf3b2bfd40a9bf198da9fc35660fc',
       // apiUserName: 'ntptest102'
-      apiUserName: 'jamespj'
+      apiUserName: 'aqib'
     }
   }
 
@@ -255,19 +255,19 @@ class DiscourseAdapter {
         topic_id: threadData.threadId,
         // topic_id: threadData.threadId,
         nested_post: true,
-        // reply_to_post_number: 2
+        reply_to_post_number: threadData.replyPostNumber
       }
 
-      console.log('threadData.replyPostNumber', threadData);
 
-      if (threadData.replyPostNumber) {
-        formData.reply_to_post_number = threadData.replyPostNumber
-      }
+      // if (threadData.replyPostNumber) {
+        // formData.reply_to_post_number = threadData.replyPostNumber
+      // }
       let options = {
         method: 'POST',
         uri: this.discourseEndPoint + this.discourseUris.postThread,
         form: formData
       }
+      console.log("Post reply");
       console.log(options);
 
       this.httpService.call(options).then((data) => {
