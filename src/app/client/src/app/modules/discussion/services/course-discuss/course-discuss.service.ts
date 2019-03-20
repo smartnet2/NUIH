@@ -96,13 +96,25 @@ export class CourseDiscussService {
     const threadId = req.threadId;
     const body = req.body;
     const replyPostNumber = req.replyPostNumber;
-    const requestBody = {
-      'request': {
-        'threadId': threadId,
-        'body': body,
-        'replyPostNumber': replyPostNumber
-      }
-    };
+    var requestBody={};
+    if(!_.isEmpty(req.replyPostNumber)) {
+      requestBody = {
+        'request': {
+          'threadId': threadId,
+          'body': body,
+          'replyPostNumber': replyPostNumber
+        }
+      };
+    } else {
+      requestBody = {
+        'request': {
+          'threadId': threadId,
+          'body': body
+        }
+      };
+    }
+    console.log("New Payload");
+    console.log(requestBody);
     const channelOptions = {
       url: this.configService.urlConFig.URLS.COURSE.REPLY_TO_THREAD,
       data: requestBody
