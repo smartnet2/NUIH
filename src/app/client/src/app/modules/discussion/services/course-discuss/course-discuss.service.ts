@@ -75,10 +75,10 @@ export class CourseDiscussService {
     const batchId = req;
     const requestBody = {
       'request':
-        {
-          'contextId': batchId,
-          'type': 'public'
-        }
+      {
+        'contextId': batchId,
+        'type': 'public'
+      }
     };
     const channelOptions = {
       url: this.configService.urlConFig.URLS.COURSE.RETRIEVE_DISCUSSION,
@@ -96,8 +96,10 @@ export class CourseDiscussService {
     const threadId = req.threadId;
     const body = req.body;
     const replyPostNumber = req.replyPostNumber;
-    var requestBody={};
-    if(!_.isEmpty(req.replyPostNumber)) {
+    var requestBody = {};
+    console.log("Payload from service");
+    console.log(req);
+    if (req.replyPostNumber != null) {
       requestBody = {
         'request': {
           'threadId': threadId,

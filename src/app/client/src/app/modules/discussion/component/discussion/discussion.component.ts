@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { combineLatest, Subscription, Subject } from 'rxjs';
 import { takeUntil, first, mergeMap, map } from 'rxjs/operators';
 import { CourseConsumptionService, CourseBatchService } from '../../../learn/services'
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-discussion',
   templateUrl: './discussion.component.html',
@@ -13,8 +13,9 @@ import { CourseConsumptionService, CourseBatchService } from '../../../learn/ser
 })
 export class DiscussionComponent implements OnInit {
   // #NUIH change:
+  public postBtnText: string = "Post";
   public options: Object = {
-    placeholderText: 'Type your comment here...',
+    placeholderText: 'Type here...',
     charCounterCount: true,
     heightMin: 200,
     quickInsertTags: null,
@@ -29,7 +30,7 @@ export class DiscussionComponent implements OnInit {
 
   private discussionService: DiscussionService;
   public batchId: string;
-  public replyPostNumber: number=null;
+  public replyPostNumber: number = null;
   discussionThread: any = [];
   replyContent: any;
   repliesContent: any;
@@ -127,12 +128,19 @@ export class DiscussionComponent implements OnInit {
   }
   postCancel() {
     this.editorContent = '';
+    this.replyPostNumber = null;
+    this.postBtnText = "Post";
   }
   reply(i) {
     this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
   }
   getPostNumber(index) {
-    this.replyPostNumber = index+2;
+    this.postBtnText = "Reply";
+    let scrollingElement = (document.scrollingElement || document.body);
+    this.replyPostNumber = index + 2;
+    $(scrollingElement).animate({
+      scrollTop: document.body.scrollHeight
+    }, 700);
     console.log("Post Number");
     console.log(this.replyPostNumber);
   }
@@ -142,9 +150,12 @@ export class DiscussionComponent implements OnInit {
       'threadId': this.threadId,
       'replyPostNumber': this.replyPostNumber
     };
+    console.log("Krishna");
+    console.log(body);
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
       this.editorContent = '';
       this.replyPostNumber = null;
+      this.postBtnText = "Post";
       this.retreiveThread(this.batchId);
       this.getReplies(this.threadId);
     });
@@ -196,6 +207,4 @@ export class DiscussionComponent implements OnInit {
     //   }
     // });
   }
-
-
 }

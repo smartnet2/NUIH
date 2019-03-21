@@ -44,7 +44,8 @@
                                     <!-- <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P> -->
                                     <div *ngIf="!parseBody(reply.body)" [froalaView]="reply.body"></div>
                                     <div [innerHTML]="reply.body" *ngIf="parseBody(reply.body)"></div>
-                                    <span style="cursor: pointer;" class="reply-button pull-right" (click)=getPostNumber(i);>
+                                    <span style="cursor: pointer;" class="reply-button pull-right"
+                                        (click)=getPostNumber(i);>
                                         <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;Reply
                                     </span>
                                     <!-- <div class="row" *ngIf="reply.actions.vote <= 0">
@@ -96,7 +97,7 @@
     <br />
     <div class="post_buttom">
         <button class="ui blue button" style="margin-right: 5px" [ngClass]="{'disabled_cursor': isDisabled()}"
-            [disabled]="isDisabled()" (click)="replyToThread()">Post</button>
+            [disabled]="isDisabled()" (click)="replyToThread()">{{postBtnText}}</button>
         <button class="ui basic button" (click)="postCancel()">cancel</button>
     </div>
     <label class="ui green button" for="myFile">Choose file</label>
