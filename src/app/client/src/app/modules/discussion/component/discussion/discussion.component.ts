@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 })
 export class DiscussionComponent implements OnInit {
   // #NUIH change:
+  public discussionComments:any;
   public postBtnText: string = "Post";
   public options: Object = {
     placeholderText: 'Type here...',
@@ -77,6 +78,9 @@ export class DiscussionComponent implements OnInit {
       $("#emoticons-1").on('click', function () {
         $(".fr-popup").find("p").hide();
       })
+    });
+    this.courseDiscussionsService.getJSON().subscribe((response: any) => {
+      this.discussionComments = response.posts;
     });
     // #NUIH change:
   }

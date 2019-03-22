@@ -39,16 +39,64 @@
                                     </div>
                                 </div> -->
                                 <!-- <div class="ui section divider"></div> -->
-                                <div *ngFor="let reply of repliesContent; let i=index" style="line-height:25px">
-                                    <strong>{{reply.author.name}}</strong>
-                                    <!-- <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P> -->
-                                    <div *ngIf="!parseBody(reply.body)" [froalaView]="reply.body"></div>
-                                    <div [innerHTML]="reply.body" *ngIf="parseBody(reply.body)"></div>
-                                    <span style="cursor: pointer;" class="reply-button pull-right"
-                                        (click)=getPostNumber(i);>
-                                        <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;Reply
-                                    </span>
-                                    <!-- <div class="row" *ngIf="reply.actions.vote <= 0">
+                                <div class="row">
+                                    <div class="col-md-12" *ngFor="let firstLevelReply of discussionComments;"
+                                        style="line-height:25px">
+                                        <strong>{{firstLevelReply.name}}</strong>
+                                        <!-- <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P> -->
+                                        <div *ngIf="!parseBody(firstLevelReply.body)"
+                                            [froalaView]="firstLevelReply.body"></div>
+                                        <div [innerHTML]="firstLevelReply.body" *ngIf="parseBody(firstLevelReply.body)">
+                                        </div>
+                                        <div class="text-primary cursor_pointer"
+                                            (click)=getPostNumber(firstLevelReply.post_number);>
+                                            <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;&nbsp;Reply
+                                        </div>
+                                        <div *ngIf="firstLevelReply.replies.length > 0">
+                                            <div class="col-md-12 ml-4"
+                                                *ngFor="let secondLevelReply of firstLevelReply.replies;"
+                                                style="line-height:25px">
+                                                <strong>{{secondLevelReply.name}}</strong>
+                                                <!-- <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P> -->
+                                                <div *ngIf="!parseBody(secondLevelReply.body)"
+                                                    [froalaView]="secondLevelReply.body"></div>
+                                                <div [innerHTML]="secondLevelReply.body"
+                                                    *ngIf="parseBody(secondLevelReply.body)">
+                                                </div>
+                                                <div class="text-primary cursor_pointer"
+                                                    (click)=getPostNumber(secondLevelReply.post_number);>
+                                                    <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;&nbsp;Reply
+                                                </div>
+                                                <div *ngIf="secondLevelReply.replies.length > 0">
+                                                    <div class="col-md-12 ml-4"
+                                                        *ngFor="let thirdLevelReply of secondLevelReply.replies;"
+                                                        style="line-height:25px">
+                                                        <strong>{{thirdLevelReply.name}}</strong>
+                                                        <!-- <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P> -->
+                                                        <div *ngIf="!parseBody(thirdLevelReply.body)"
+                                                            [froalaView]="thirdLevelReply.body"></div>
+                                                        <div [innerHTML]="thirdLevelReply.body"
+                                                            *ngIf="parseBody(thirdLevelReply.body)">
+                                                        </div>
+                                                        <div class="text-primary cursor_pointer"
+                                                            (click)=getPostNumber(thirdLevelReply.post_number);>
+                                                            <i class="fa fa-reply"
+                                                                aria-hidden="true"></i>&nbsp;&nbsp;Reply
+                                                        </div>
+                                                        <div *ngIf="thirdLevelReply.replies.length > 0">
+                                                            <strong class="text-success cursor_pointer" data-toggle="modal" data-target="#myModal">View more
+                                                                >></strong>
+                                                        </div>
+                                                        <!-- <div style="margin:10px 0;" class="ui section divider"></div> -->
+                                                    </div>
+                                                </div>
+                                                <!-- <div style="margin:10px 0;" class="ui section divider"></div> -->
+                                            </div>
+                                        </div>
+                                        <div style="margin:10px 0;" class="ui section divider"></div>
+                                    </div>
+                                </div>
+                                <!-- <div class="row" *ngIf="reply.actions.vote <= 0">
                                         <div class="col-md-10">
                                             <img class="pull-right cursor_pointer" src="https://previews.123rf.com/images/rclassenlayouts/rclassenlayouts1208/rclassenlayouts120800101/14757879-face-symbol-hand-i-like-fan-fanpage-social-voting-dislike-network-book-icon-community.jpg"
                                                 alt="Smiley face" height="35" width="35"
@@ -60,7 +108,7 @@
                                             </span>
                                         </div>
                                     </div> -->
-                                    <!-- <div class="row" *ngIf="reply.actions.vote > 0">
+                                <!-- <div class="row" *ngIf="reply.actions.vote > 0">
                                         <div class="col-md-10">
                                             <img class="pull-right cursor_pointer" src="https://previews.123rf.com/images/arhimicrostok/arhimicrostok1705/arhimicrostok170502441/77784877-like-icon-hand-finger-up-sign-thumb-up-symbol-flat-design-style-.jpg"
                                                 alt="Smiley face" height="35" width="35"
@@ -72,8 +120,6 @@
                                             </span>
                                         </div>
                                     </div> -->
-                                    <div style="margin:10px 0;" class="ui section divider"></div>
-                                </div>
                             </div>
                         </div>
                     </div>

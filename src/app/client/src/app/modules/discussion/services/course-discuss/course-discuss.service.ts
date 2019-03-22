@@ -7,6 +7,10 @@ import { DiscussionService } from '../discussions/discussions.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
+
+import { HttpClient } from '@angular/common/http'; 
+import { Observable } from 'rxjs/Observable';
+
 @Injectable()
 export class CourseDiscussService {
   /**
@@ -31,7 +35,7 @@ export class CourseDiscussService {
 
 
   constructor(contentService: ContentService, discussionService: DiscussionService, configService: ConfigService,
-    userService: UserService, public coursesService: CoursesService) {
+    userService: UserService, public coursesService: CoursesService,private http: HttpClient) {
     this.contentService = contentService;
     this.discussionService = discussionService;
     this.configService = configService;
@@ -174,6 +178,10 @@ export class CourseDiscussService {
     }), catchError((err) => {
       return err;
     }));
+  }
+
+  public getJSON(): Observable<any> {
+    return this.http.get("./assets/nuih/json/replies.json");
   }
 
 }

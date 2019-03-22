@@ -320,6 +320,21 @@ class DiscourseAdapter {
     return threadList
   }
 
+  threadLoopBuilder(arr){
+
+    for(var i=arr.length-2;i>-1;i--){
+        var current = arr[i];
+        var splited_arr = _.cloneDeep(arr).splice(i+1,arr.length);
+        var children = _.filter(splited_arr, function(o) { return o.reply_to_post_number == current.post_number });
+        if(children.length > 0){
+            current['children'] = children
+            arr[i] = current
+        }
+    }
+    var result = _.filter(arr, function(o) { return o.reply_to_post_number == null });
+    return result;
+  }
+
   extractThreadData(topicData) {
     // console.log('extractThreadD/ata: data====================================================', JSON.stringify(topicData));
     let posts = topicData.post_stream.posts
@@ -374,6 +389,69 @@ class DiscourseAdapter {
         threadData.replies.push(replyData)
       }
     })
+    return threadData
+  }
+
+  parseThreadData(topicData) {
+    
+
+    let posts = topicData.post_stream.posts
+    let postData = _.find(posts, {
+      topic_id: topicData.id,
+      post_number: 1 //representing the main comment
+    })
+    let posters = []
+    _.forEach(topicData.details.participants, function (participant) {
+      posters.push({
+        userId: participant.id,
+        userName: participant.username
+      })
+    })
+
+    let threadData = {
+      id: topicData.id,
+      author: {
+        userName: postData.username,
+        name: postData.name
+      },
+
+      body: postData.cooked.substring(postData.cooked.indexOf('>') + 1, postData.cooked.lastIndexOf('<')),
+      title: topicData.title,
+      createdDate: topicData.created_at,
+      repliesCount: posts.length - 1,
+      voteCount: topicData.like_count,
+      read: postData.read,
+      posters: posters,
+      replies: [],
+      actions: this.getThreadActions(postData, false),
+      descId: postData.id,
+      archived: topicData.archived,
+      locked: topicData.closed
+    }
+
+    let adapter = this
+    _.forEach(posts, function (post, index) {
+      if (post.post_number !== 1 && post.post_type === 1) {
+        let replyData = {
+          id: post.id,
+          author: {
+            userName: post.username,
+            name: post.name
+          },
+          body: post.cooked.substring(post.cooked.indexOf('>') + 1, post.cooked.lastIndexOf('<')),
+          actions: adapter.getThreadActions(post, true),
+          createdDate: post.created_at,
+          voteCount: post.like_count,
+          acceptedAnswer: post.accepted_answer,
+          read: post.read,
+          post_number: posts.post_number,
+          reply_to_post_number: posts.reply_to_post_number
+        }
+        threadData.replies.push(replyData)
+      }
+    })
+    var replies = threadData.replies
+    threadData.replies = threadLoopBuilder(replies)
     return threadData
   }
 
@@ -477,7 +555,7 @@ class DiscourseAdapter {
           console.log('data/httpcall====================================================', data.response.statusCode);
           if (data.response.statusCode == HttpStatus.OK && data.body) {
             let res = JSON.parse(data.body)
-            var aaa = this.extractThreadData(res)
+            var aaa = this.parseThreadData(res)
             console.log('aaa', aaa)
             return resolve(aaa)
           } else {
