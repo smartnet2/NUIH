@@ -450,8 +450,8 @@ class DiscourseAdapter {
         threadData.replies.push(replyData)
       }
     })
-    var replies = threadData.replies
-    threadData.replies = threadLoopBuilder(replies)
+    // var replies = threadData.replies
+    // threadData.replies = threadLoopBuilder(replies)
     return threadData
   }
 
@@ -555,7 +555,7 @@ class DiscourseAdapter {
           console.log('data/httpcall====================================================', data.response.statusCode);
           if (data.response.statusCode == HttpStatus.OK && data.body) {
             let res = JSON.parse(data.body)
-            var aaa = this.parseThreadData(res)
+            var aaa = this.extractThreadData(res)
             console.log('aaa', aaa)
             return resolve(aaa)
           } else {
