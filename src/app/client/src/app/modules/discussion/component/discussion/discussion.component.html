@@ -44,8 +44,7 @@
                                         style="line-height:25px">
                                         <strong>{{firstLevelReply.name}}</strong>
                                         <!-- <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P> -->
-                                        <div *ngIf="!parseBody(firstLevelReply.body)"
-                                            [froalaView]="firstLevelReply.body"></div>
+                                        <div *ngIf="!parseBody(firstLevelReply.body)">{{firstLevelReply.body}}</div>
                                         <div [innerHTML]="firstLevelReply.body" *ngIf="parseBody(firstLevelReply.body)">
                                         </div>
                                         <div class="text-primary cursor_pointer"
@@ -58,8 +57,8 @@
                                                 style="line-height:25px">
                                                 <strong>{{secondLevelReply.name}}</strong>
                                                 <!-- <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P> -->
-                                                <div *ngIf="!parseBody(secondLevelReply.body)"
-                                                    [froalaView]="secondLevelReply.body"></div>
+                                                <div *ngIf="!parseBody(secondLevelReply.body)">{{secondLevelReply.body}}
+                                                </div>
                                                 <div [innerHTML]="secondLevelReply.body"
                                                     *ngIf="parseBody(secondLevelReply.body)">
                                                 </div>
@@ -73,8 +72,8 @@
                                                         style="line-height:25px">
                                                         <strong>{{thirdLevelReply.name}}</strong>
                                                         <!-- <P *ngIf="!parseBody(reply.body)">{{reply.body}}</P> -->
-                                                        <div *ngIf="!parseBody(thirdLevelReply.body)"
-                                                            [froalaView]="thirdLevelReply.body"></div>
+                                                        <div *ngIf="!parseBody(thirdLevelReply.body)">
+                                                            {{thirdLevelReply.body}}</div>
                                                         <div [innerHTML]="thirdLevelReply.body"
                                                             *ngIf="parseBody(thirdLevelReply.body)">
                                                         </div>
@@ -84,7 +83,10 @@
                                                                 aria-hidden="true"></i>&nbsp;&nbsp;Reply
                                                         </div>
                                                         <div *ngIf="thirdLevelReply.replies.length > 0">
-                                                            <strong class="text-success cursor_pointer" data-toggle="modal" data-target="#myModal">View more
+                                                            <strong class="text-success cursor_pointer"
+                                                                data-toggle="modal" data-target="#nestedCommentsModal"
+                                                                (click)="viewMoreComments(firstLevelReply.post_number)">View
+                                                                more
                                                                 >></strong>
                                                         </div>
                                                         <!-- <div style="margin:10px 0;" class="ui section divider"></div> -->
@@ -128,12 +130,10 @@
         </div>
     </div>
 </div>
-<!-- <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)"
-        (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)">
-    </quill-editor> -->
 <div class="editor mt-3">
     <!-- #NUIH change: -->
-    <div [froalaEditor]="options" [(froalaModel)]="editorContent"></div><br>
+    <quill-editor [(ngModel)]="editorContent" [options]="editorOptions"></quill-editor>
+    <!-- <div [froalaEditor]="options" [(froalaModel)]="editorContent"></div><br> -->
     <!-- #NUIH change: -->
     <!-- <textarea class="wmd-input" [(ngModel)]="editorContent" id="wmd-input" placeholder="Type Here....Morethan 15 characters"></textarea> -->
     <br />
@@ -141,12 +141,61 @@
         <button class="ui item" (click)="postComment()">Post</button>
     </div> -->
     <br />
+    <div class="pull-left">
+        <label class="ui green button" for="myFile">Choose file</label>
+        <input type="file" style="display:none" id="myFile" name="myFile" accept=".pdf" (change)="fileEvent($event)"
+            title="Choose a file" autocomplete="off" />
+    </div>
     <div class="post_buttom">
         <button class="ui blue button" style="margin-right: 5px" [ngClass]="{'disabled_cursor': isDisabled()}"
             [disabled]="isDisabled()" (click)="replyToThread()">{{postBtnText}}</button>
         <button class="ui basic button" (click)="postCancel()">cancel</button>
     </div>
-    <label class="ui green button" for="myFile">Choose file</label>
-    <input type="file" style="display:none" id="myFile" name="myFile" accept=".pdf" (change)="fileEvent($event)"
-        title="Choose a file" autocomplete="off" />
+</div>
+<!-- Modal -->
+<div class="modal fade" id="nestedCommentsModal" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" data-dismiss="modal" (click)="postCancel()">&times;</span>
+                <h6 class="modal-title">Comments</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <tree-view-menu [replyList]="nestedComments">Loading...</tree-view-menu>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 ml-5">
+                        <div class="editor mt-3">
+                            <!-- #NUIH change: -->
+                            <quill-editor [(ngModel)]="editorContent" [options]="editorOptions"></quill-editor>
+                            <!-- <div [froalaEditor]="options" [(froalaModel)]="editorContent"></div><br> -->
+                            <!-- #NUIH change: -->
+                            <!-- <textarea class="wmd-input" [(ngModel)]="editorContent" id="wmd-input" placeholder="Type Here....Morethan 15 characters"></textarea> -->
+                            <br />
+                            <!-- <div class="post_buttom">
+                                    <button class="ui item" (click)="postComment()">Post</button>
+                                </div> -->
+                            <br />
+                            <div class="pull-left">
+                                <label class="ui green button" for="myFile">Choose file</label>
+                                <input type="file" style="display:none" id="myFile" name="myFile" accept=".pdf"
+                                    (change)="fileEvent($event)" title="Choose a file" autocomplete="off" />
+                            </div>
+                            <div class="post_buttom">
+                                <button class="ui blue button" style="margin-right: 5px"
+                                    [ngClass]="{'disabled_cursor': isDisabled()}" [disabled]="isDisabled()"
+                                    (click)="replyToThread()">{{postBtnText}}</button>
+                                <button class="ui basic button" (click)="postCancel()">cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="ui basic button" data-dismiss="modal">Close</button>
+            </div> -->
+        </div>
+    </div>
 </div>

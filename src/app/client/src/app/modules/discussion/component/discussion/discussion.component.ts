@@ -13,18 +13,19 @@ import * as _ from 'lodash';
 })
 export class DiscussionComponent implements OnInit {
   // #NUIH change:
-  public discussionComments:any;
+  public nestedComments: any = [];
+  public discussionComments: any;
   public postBtnText: string = "Post";
-  public options: Object = {
-    placeholderText: 'Type here...',
-    charCounterCount: true,
-    heightMin: 200,
-    quickInsertTags: null,
-    toolbarButtons: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
-    toolbarButtonsXS: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
-    toolbarButtonsSM: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
-    toolbarButtonsMD: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert']
-  };
+  // public options: Object = {
+  //   placeholderText: 'Type here...',
+  //   charCounterCount: true,
+  //   heightMin: 200,
+  //   quickInsertTags: null,
+  //   toolbarButtons: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
+  //   toolbarButtonsXS: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
+  //   toolbarButtonsSM: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert'],
+  //   toolbarButtonsMD: ['bold', 'italic', 'underline', 'formatOL', 'formatUL', 'insertLink', 'undo', 'redo', 'alert']
+  // };
   // #NUIH change:
   private activatedRouteSubscription: Subscription;
   // private activatedRoute: ActivatedRoute;
@@ -41,8 +42,16 @@ export class DiscussionComponent implements OnInit {
   public editor;
   public editorContent: any;
   public uploadedFile: any;
+  public toolbarOptions = [
+    ['bold', 'italic', 'underline'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    ['link']
+  ];
   public editorOptions = {
-    placeholder: 'insert content...'
+    placeholder: 'Type here...',
+    modules: {
+      toolbar: this.toolbarOptions
+    }
   };
 
   constructor(
@@ -104,6 +113,7 @@ export class DiscussionComponent implements OnInit {
       $(function () {
         $(".emoji").hide();
       });
+      console.log("New Response");
       console.log('res', this.repliesContent);
     });
   }
@@ -148,14 +158,17 @@ export class DiscussionComponent implements OnInit {
     console.log("Post Number");
     console.log(this.replyPostNumber);
   }
+  viewMoreComments(postNumber) {
+    this.nestedComments = _.filter(_.cloneDeep(this.discussionComments), { post_number: postNumber });
+    console.log("Nested Comments");
+    console.log(this.nestedComments);
+  }
   replyToThread() {
     const body = {
       'body': this.uploadedFile ? this.uploadedFile + '  ' : '' + this.editorContent,
       'threadId': this.threadId,
       'replyPostNumber': this.replyPostNumber
     };
-    console.log("Krishna");
-    console.log(body);
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
       this.editorContent = '';
       this.replyPostNumber = null;
