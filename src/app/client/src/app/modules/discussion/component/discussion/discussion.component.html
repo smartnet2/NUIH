@@ -169,7 +169,7 @@
                     <div class="col-md-11 ml-5">
                         <div class="editor mt-3">
                             <!-- #NUIH change: -->
-                            <quill-editor [(ngModel)]="editorContent" [options]="editorOptions"></quill-editor>
+                            <quill-editor [(ngModel)]="editorContentForModal" [options]="editorOptions"></quill-editor>
                             <!-- <div [froalaEditor]="options" [(froalaModel)]="editorContent"></div><br> -->
                             <!-- #NUIH change: -->
                             <!-- <textarea class="wmd-input" [(ngModel)]="editorContent" id="wmd-input" placeholder="Type Here....Morethan 15 characters"></textarea> -->
@@ -186,7 +186,7 @@
                             <div class="post_buttom">
                                 <button class="ui blue button" style="margin-right: 5px"
                                     [ngClass]="{'disabled_cursor': isDisabled()}" [disabled]="isDisabled()"
-                                    (click)="replyToThread()">{{postBtnText}}</button>
+                                    (click)="replyToThreadFromModal()">{{postBtnText}}</button>
                                 <button class="ui basic button" (click)="postCancel()">cancel</button>
                             </div>
                         </div>

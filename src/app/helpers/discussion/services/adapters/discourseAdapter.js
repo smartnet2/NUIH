@@ -63,7 +63,7 @@ class DiscourseAdapter {
 
   grantModeration(userName) {
     return new Promise((resolve, reject) => {
-      let discourseUser = await (this.getUserByUserName(userName))
+      let discourseUser = await(this.getUserByUserName(userName))
       let options = {
         method: 'PUT',
         uri: this.discourseEndPoint + this.discourseUris.adminUsers + discourseUser.id + this.discourseUris.grantModeration,
@@ -86,7 +86,7 @@ class DiscourseAdapter {
   }
 
   revokeModeration(userName) {
-    let discourseUser = await (this.getUserByUserName(userName))
+    let discourseUser = await(this.getUserByUserName(userName))
     return new Promise((resolve, reject) => {
       let options = {
         method: 'PUT',
@@ -260,7 +260,7 @@ class DiscourseAdapter {
 
 
       // if (threadData.replyPostNumber) {
-        // formData.reply_to_post_number = threadData.replyPostNumber
+      // formData.reply_to_post_number = threadData.replyPostNumber
       // }
       let options = {
         method: 'POST',
@@ -320,18 +320,18 @@ class DiscourseAdapter {
     return threadList
   }
 
-  threadLoopBuilder(arr){
+  threadLoopBuilder(arr) {
 
-    for(var i=arr.length-2;i>-1;i--){
-        var current = arr[i];
-        var splited_arr = _.cloneDeep(arr).splice(i+1,arr.length);
-        var children = _.filter(splited_arr, function(o) { return o.reply_to_post_number == current.post_number });
-        if(children.length > 0){
-            current['children'] = children
-            arr[i] = current
-        }
+    for (var i = arr.length - 2; i > -1; i--) {
+      var current = arr[i];
+      var splited_arr = _.cloneDeep(arr).splice(i + 1, arr.length);
+      var children = _.filter(splited_arr, function (o) { return o.reply_to_post_number == current.post_number });
+      if (children.length > 0) {
+        current['children'] = children
+        arr[i] = current
+      }
     }
-    var result = _.filter(arr, function(o) { return o.reply_to_post_number == null });
+    var result = _.filter(arr, function (o) { return o.reply_to_post_number == null });
     return result;
   }
 
@@ -393,7 +393,7 @@ class DiscourseAdapter {
   }
 
   parseThreadData(topicData) {
-    
+
 
     let posts = topicData.post_stream.posts
     let postData = _.find(posts, {
@@ -825,21 +825,21 @@ class DiscourseAdapter {
     return new Promise((resolve, reject) => {
       // console.log(file);
       let options = {
-          'api_key': this.apiAuth.apiKey,
-          'api_username': this.userName, //this.apiAuth.apiUserName
-          'type': 'upload',
-          'file': fs.createReadStream("./" + file.file.path),//fs.createReadStream("./"+file.file.path,'utf8'),
+        'api_key': this.apiAuth.apiKey,
+        'api_username': this.userName, //this.apiAuth.apiUserName
+        'type': 'upload',
+        'file': fs.createReadStream("./" + file.file.path),//fs.createReadStream("./"+file.file.path,'utf8'),
 
       }
       console.log(JSON.stringify(options));
 
-      webService.post({url: this.discourseEndPoint + this.discourseUris.filePath, formData: options}, function (err,data,body) {
-        console.log(err,data.statusCode,body);
+      webService.post({ url: this.discourseEndPoint + this.discourseUris.filePath, formData: options }, function (err, data, body) {
+        console.log(err, data.statusCode, body);
 
-        if(err){
+        if (err) {
           console.log("uploadFile: Error in catch block", error)
-            // error.reqObj = options
-            return reject(error)
+          // error.reqObj = options
+          return reject(error)
         }
         //  let res = JSON.parse(body)
         console.log("==================================================================================");

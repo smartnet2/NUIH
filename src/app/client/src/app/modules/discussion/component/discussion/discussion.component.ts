@@ -41,6 +41,7 @@ export class DiscussionComponent implements OnInit {
 
   public editor;
   public editorContent: any;
+  public editorContentForModal: any;
   public uploadedFile: any;
   public toolbarOptions = [
     ['bold', 'italic', 'underline'],
@@ -142,16 +143,17 @@ export class DiscussionComponent implements OnInit {
   }
   postCancel() {
     this.editorContent = '';
+    this.editorContentForModal = '';
     this.replyPostNumber = null;
     this.postBtnText = "Post";
   }
   reply(i) {
     this.discussionThread[i].replyEditor = !this.discussionThread[i].replyEditor;
   }
-  getPostNumber(index) {
+  getPostNumber(postNumber) {
     this.postBtnText = "Reply";
     let scrollingElement = (document.scrollingElement || document.body);
-    this.replyPostNumber = index + 2;
+    this.replyPostNumber = postNumber;
     $(scrollingElement).animate({
       scrollTop: document.body.scrollHeight
     }, 700);
@@ -160,12 +162,16 @@ export class DiscussionComponent implements OnInit {
   }
   viewMoreComments(postNumber) {
     this.nestedComments = _.filter(_.cloneDeep(this.discussionComments), { post_number: postNumber });
+    this.postCancel();
     console.log("Nested Comments");
     console.log(this.nestedComments);
   }
+  replyToThreadFromModal() {
+
+  }
   replyToThread() {
     const body = {
-      'body': this.uploadedFile ? this.uploadedFile + '  ' : '' + this.editorContent,
+      'body': this.uploadedFile ? this.editorContent + this.uploadedFile + '  ' : '' + this.editorContent,
       'threadId': this.threadId,
       'replyPostNumber': this.replyPostNumber
     };
