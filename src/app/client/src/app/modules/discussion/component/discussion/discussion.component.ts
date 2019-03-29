@@ -14,7 +14,6 @@ import * as _ from 'lodash';
 export class DiscussionComponent implements OnInit {
   // #NUIH change:
   public nestedComments: any = [];
-  public discussionComments: any;
   public postBtnText: string = "Post";
   // public options: Object = {
   //   placeholderText: 'Type here...',
@@ -89,9 +88,6 @@ export class DiscussionComponent implements OnInit {
         $(".fr-popup").find("p").hide();
       })
     });
-    this.courseDiscussionsService.getJSON().subscribe((response: any) => {
-      this.discussionComments = response.posts;
-    });
     // #NUIH change:
   }
   postComment() {
@@ -161,7 +157,7 @@ export class DiscussionComponent implements OnInit {
     console.log(this.replyPostNumber);
   }
   viewMoreComments(postNumber) {
-    this.nestedComments = _.filter(_.cloneDeep(this.discussionComments), { post_number: postNumber });
+    this.nestedComments = _.filter(_.cloneDeep(this.repliesContent), { post_number: postNumber });
     this.postCancel();
     console.log("Nested Comments");
     console.log(this.nestedComments);

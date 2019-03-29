@@ -63,7 +63,7 @@ class DiscourseAdapter {
 
   grantModeration(userName) {
     return new Promise((resolve, reject) => {
-      let discourseUser = await(this.getUserByUserName(userName))
+      let discourseUser = await (this.getUserByUserName(userName))
       let options = {
         method: 'PUT',
         uri: this.discourseEndPoint + this.discourseUris.adminUsers + discourseUser.id + this.discourseUris.grantModeration,
@@ -86,7 +86,7 @@ class DiscourseAdapter {
   }
 
   revokeModeration(userName) {
-    let discourseUser = await(this.getUserByUserName(userName))
+    let discourseUser = await (this.getUserByUserName(userName))
     return new Promise((resolve, reject) => {
       let options = {
         method: 'PUT',
@@ -260,7 +260,7 @@ class DiscourseAdapter {
 
 
       // if (threadData.replyPostNumber) {
-      // formData.reply_to_post_number = threadData.replyPostNumber
+        // formData.reply_to_post_number = threadData.replyPostNumber
       // }
       let options = {
         method: 'POST',
@@ -320,19 +320,34 @@ class DiscourseAdapter {
     return threadList
   }
 
-  threadLoopBuilder(arr) {
+  threadLoopBuilder(arr){
 
-    for (var i = arr.length - 2; i > -1; i--) {
-      var current = arr[i];
-      var splited_arr = _.cloneDeep(arr).splice(i + 1, arr.length);
-      var children = _.filter(splited_arr, function (o) { return o.reply_to_post_number == current.post_number });
-      if (children.length > 0) {
-        current['children'] = children
-        arr[i] = current
+    var arr_length = arr.length;
+    if(arr_length == 0 || arr_length == 1){
+      return arr;
+    }else if(arr_length == 2){
+      var result = _.filter(arr, function(o) { return o.reply_to_post_number == null });
+      if(result.length == 2){
+        return arr;
+      }else{
+        var result1 = _.filter(arr, function(o) { return o.reply_to_post_number != null });
+        result[0].replies = result1[0]
+        return result;
       }
+    }else{
+      for(var i=arr.length-2;i>-1;i--){
+        var current = arr[i];
+        var splited_arr = _.cloneDeep(arr).splice(i+1,arr.length);
+        var replies = _.filter(splited_arr, function(o) { return o.reply_to_post_number == current.post_number });
+        if(replies.length > 0){
+            current['replies'] = replies
+            arr[i] = current
+        }
+      }
+      var result = _.filter(arr, function(o) { return o.reply_to_post_number == null });
+      return result;
     }
-    var result = _.filter(arr, function (o) { return o.reply_to_post_number == null });
-    return result;
+    
   }
 
   extractThreadData(topicData) {
@@ -393,7 +408,7 @@ class DiscourseAdapter {
   }
 
   parseThreadData(topicData) {
-
+    
 
     let posts = topicData.post_stream.posts
     let postData = _.find(posts, {
@@ -428,30 +443,30 @@ class DiscourseAdapter {
       archived: topicData.archived,
       locked: topicData.closed
     }
-
     let adapter = this
     _.forEach(posts, function (post, index) {
       if (post.post_number !== 1 && post.post_type === 1) {
         let replyData = {
           id: post.id,
-          author: {
-            userName: post.username,
-            name: post.name
-          },
+          userName: post.username,
+          name: post.name,
+          avatar_template: post.avatar_template,
           body: post.cooked.substring(post.cooked.indexOf('>') + 1, post.cooked.lastIndexOf('<')),
-          actions: adapter.getThreadActions(post, true),
+          post_number: post.post_number,
+          reply_count: post.reply_count,
+          reply_to_post_number: post.reply_to_post_number,
+          flag: null,
+          acceptAnswer: post.accepted_answer,
           createdDate: post.created_at,
-          voteCount: post.like_count,
-          acceptedAnswer: post.accepted_answer,
           read: post.read,
-          post_number: posts.post_number,
-          reply_to_post_number: posts.reply_to_post_number
+          replies: []
         }
         threadData.replies.push(replyData)
       }
     })
-    // var replies = threadData.replies
-    // threadData.replies = threadLoopBuilder(replies)
+    //console.log('threaddata replies -- >>> '+JSON.stringify(threadData.replies))
+    var replies = threadData.replies
+    threadData.replies = this.threadLoopBuilder(replies)
     return threadData
   }
 
@@ -549,14 +564,15 @@ class DiscourseAdapter {
           method: 'GET',
           uri: this.discourseEndPoint + this.discourseUris.getOne + '/' + threadId + '.json?' + queryString.stringify(filters)
         }
-        console.log(options)
+        //console.log(options)
         this.httpService.call(options).then((data) => {
 
-          console.log('data/httpcall====================================================', data.response.statusCode);
+          //console.log('data/httpcall====================================================', data.response.statusCode);
           if (data.response.statusCode == HttpStatus.OK && data.body) {
             let res = JSON.parse(data.body)
-            var aaa = this.extractThreadData(res)
-            console.log('aaa', aaa)
+            var aaa = this.parseThreadData(res)
+            //console.log('aaa', aaa)
+            //console.log('getThreadById - threadId : '+threadId)
             return resolve(aaa)
           } else {
             console.log("error0", data.response.statusCode)
@@ -825,21 +841,21 @@ class DiscourseAdapter {
     return new Promise((resolve, reject) => {
       // console.log(file);
       let options = {
-        'api_key': this.apiAuth.apiKey,
-        'api_username': this.userName, //this.apiAuth.apiUserName
-        'type': 'upload',
-        'file': fs.createReadStream("./" + file.file.path),//fs.createReadStream("./"+file.file.path,'utf8'),
+          'api_key': this.apiAuth.apiKey,
+          'api_username': this.userName, //this.apiAuth.apiUserName
+          'type': 'upload',
+          'file': fs.createReadStream("./" + file.file.path),//fs.createReadStream("./"+file.file.path,'utf8'),
 
       }
       console.log(JSON.stringify(options));
 
-      webService.post({ url: this.discourseEndPoint + this.discourseUris.filePath, formData: options }, function (err, data, body) {
-        console.log(err, data.statusCode, body);
+      webService.post({url: this.discourseEndPoint + this.discourseUris.filePath, formData: options}, function (err,data,body) {
+        console.log(err,data.statusCode,body);
 
-        if (err) {
+        if(err){
           console.log("uploadFile: Error in catch block", error)
-          // error.reqObj = options
-          return reject(error)
+            // error.reqObj = options
+            return reject(error)
         }
         //  let res = JSON.parse(body)
         console.log("==================================================================================");
@@ -895,6 +911,19 @@ class DiscourseAdapter {
     });
   }
 
+}
+
+function removeFieldFromArrayObj(array){
+
+  for(var o in  array){
+      if(array[o].post_number){
+          delete array[o].post_number
+          delete array[o].reply_to_post_number
+      }
+      if(array[o].replies != undefined && array[o].replies.length > 0){
+          return removeFieldFromArrayObj(array[o].replies)
+      }
+  }
 }
 
 module.exports = DiscourseAdapter

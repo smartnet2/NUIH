@@ -180,8 +180,4 @@ export class CourseDiscussService {
     }));
   }
 
-  public getJSON(): Observable<any> {
-    return this.http.get("./assets/nuih/json/replies.json");
-  }
-
 }
