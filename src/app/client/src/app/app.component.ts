@@ -114,6 +114,7 @@ export class AppComponent implements OnInit {
       || _.indexOf(_.split(window.location.href, '/'), 'iudx') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'smartgov') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'aboutus') > -1
+      || _.indexOf(_.split(window.location.href, '/'), 'signup') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'comingsoon') > -1 ?
       false : true;
   }
