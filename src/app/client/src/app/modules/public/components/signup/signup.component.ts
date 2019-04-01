@@ -80,7 +80,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.signupService.signup(this.signUpForm.value).pipe(
       takeUntil(this.unsubscribe$))
       .subscribe(res => {
-        this.modal.approve();
+        // this.modal.approve();
         this.showLoader = false;
         this.toasterService.success(this.resourceService.messages.smsg.m0039);
         this.router.navigate(['home']);
