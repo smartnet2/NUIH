@@ -1,3 +1,4 @@
+import { FrameworkUtiliyComponent } from './components/frameworkutility/frameworkutility.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {
@@ -212,6 +213,16 @@ const routes: Routes = [
           breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
         }
       },
+      {
+        path: 'framework-utility', component: FrameworkUtiliyComponent, 
+        data: {
+          telemetry: {
+            env: telemetryEnv, pageid: 'framework-create', uri: '/workspace/getframework',
+            type: 'view', mode: 'create', object: { type: objectType, ver: '1.0' }
+          }, roles: 'bulkUpload',
+          breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
+        }
+      }
       // { path: '**', redirectTo: 'create' }
     ]
   },

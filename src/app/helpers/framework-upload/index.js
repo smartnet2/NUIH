@@ -2,10 +2,19 @@
 const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const crypto = require("crypto");
+let path = require("path");
+let fs = require("fs");
+let HttpStatus = require('http-status-codes')
+let dateFormat = require('dateformat');
+let uuidv1 = require('uuid/v1');
 var morgan = require('morgan');
 var winston = require('./config/winston');
 // const express = require('express');
 const router = express.Router();
+
+
 // const indexControllerV1 = require('./app/v1/controllers/index.controller');
 
 
@@ -25,50 +34,25 @@ const {
     performance
 } = require('perf_hooks');
 
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
 
-// Init app
-// const app = express();
+    filename: function (req, file, cb) {
+        console.log("====================================================");
 
-// BodyParser Middleware
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            if (err) return cb(err)
+            cb(null, raw.toString('hex') + path.extname(file.originalname))
+        })
+        // cb(null, file.fieldname + '-' + Date.now(), file)
+    }
+})
+const upload = multer({
+    storage: storage
+}).single('files')
 
-// set it to stream interface and winston configuration
-// app.use(morgan('combined', { stream: winston.stream }));
-
-
-// Routes
-// app.use('/', routes);
-
-// app.get('*', (req, res) => {
-//     res.send("Invalid page");
-// });
-
-
-// error handler
-
-// app.use(function(err, req, res, next) {
-//     // set locals, only providing error in development
-//     res.locals.message = err.message;
-//     res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
-//     // add this line to include winston logging
-//     winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
-  
-//     // render the error page
-//     res.status(err.status || 500);
-//     res.render('error');
-// });
-
-// const port = process.env.PORT || '3000';
-
-// Set port
-// app.set('port', port);
-
-// const server = http.createServer(app);
-// server.listen(port, () => console.log(`API running on localhost:${port}`));
-
-// Exposing an app
 
 /**
  * Global Varibles
@@ -111,37 +95,14 @@ let L1TrasalationHashmap = new Map();
 
 
 
-const initFramework = (req, res) => {
-    console.log('Init framework ==============*************>>>>>>>>>>>>')
-    console.log("Init Framework Function");
-    console.log("Framework Name :: " +  _constants.framework_id);
-    var excelData = readExcelFile();
-    
-    excelData.then(function (data) {
-        console.log("converted excel file to json successfully!");
-        var startTime = performance.now();
-        // res.json(data);
-        async.waterfall([
-            frameworkFunc,
-            createHashmapOfFramework,
-            hashmapOfTermAssociation,
-            categoryFunc,
-            async.apply(termAndAssociationFunc, data),
-        ], function (err, result) {
-            if (err) {
-                logger.error(err);
-            }
-            var endTime = performance.now();
-            console.log('TOTAL FRAMEWORK TIME : Took', (endTime - startTime).toFixed(4), 'milliseconds');
-            console.log('Successfully bulk data uplaod process done!!!');
-        });
-    }, function (error) {
-        // res.json(error);
-    });
-
+function clearGlobals() {
+    catHashmap.clear();
+    termHashmap.clear();
+    subjectTermHashmap.clear();
+    termAssHashmap.clear();
+    subjectAssHashmap.clear();
+    L1TrasalationHashmap.clear();
 }
-
-
 
 
 /**
@@ -156,12 +117,10 @@ const initFramework = (req, res) => {
  * 
  */
 
-let readExcelFile = function () {
+let readExcelFile = function (excelfile) {
     return new Promise(function (resolve, reject) {
         console.log("Reading a excel file");
-        console.log('vefore workbook approot val=========', `${appRoot}`)
-        var workbook = XLSX.readFile(`${appRoot}/helpers/framework-upload/data_input/` + _constants.xlsx_input.file_name);
-        console.log('workbook=========')
+        var workbook = XLSX.readFile(excelfile);
         var sheet_name_list = workbook.SheetNames;
         var result = [];
         sheet_name_list.forEach(function (y) {
@@ -205,7 +164,6 @@ let readExcelFile = function () {
 
 
 let frameworkFunc = function (done) {
-    console.log('inside frameworkFunc--------->>>>>')
     checkOrCreateFramework(function (error, response) {
         if (error) {
             return done(error);
@@ -214,32 +172,33 @@ let frameworkFunc = function (done) {
     });
 }
 
-let createHashmapOfFramework = function(res,next) {
-    console.log('inside createHashmapOfFramework--------->>>>>')
+let createHashmapOfFramework = function (res, next) {
+    console.log('inside createHashmapOfFramework--------->>>>>', res)
+    // return true;
     try {
-        if(res && res.result && res.result.framework) {
+        if (res && res.result && res.result.framework) {
             let categories = res.result.framework.categories || [];
             let count = categories.length;
-            if(categories && count > 0) {
-                for(let i=0; i<count;i++) {
+            if (categories && count > 0) {
+                for (let i = 0; i < count; i++) {
                     catHashmap.add(categories[i].name);
                     let term = categories[i].terms || [];
                     let termCount = term.length;
-                    if(term && termCount > 0) {    
-                        for(let j=0; j<termCount;j++) {
+                    if (term && termCount > 0) {
+                        for (let j = 0; j < termCount; j++) {
                             let termObj = term[j];
-                            let obj = {'identifier' : termObj.identifier.toString(),'category' : termObj.category}  
-                            if(termObj.category == 'subject') {
-                                subjectTermHashmap.set(termObj.code,obj);
+                            let obj = { 'identifier': termObj.identifier.toString(), 'category': termObj.category }
+                            if (termObj.category == 'subject') {
+                                subjectTermHashmap.set(termObj.code, obj);
                             } else {
-                                termHashmap.set(termObj.code,obj);
+                                termHashmap.set(termObj.code, obj);
                             }
-                            if(termObj.category == 'topic' && !_.isEmpty(termObj.translations) ) L1TrasalationHashmap.set(termObj.code,termObj.translations);
+                            if (termObj.category == 'topic' && !_.isEmpty(termObj.translations)) L1TrasalationHashmap.set(termObj.code, termObj.translations);
                         }
                     }
-                }   
+                }
             }
-            next();            
+            next();
         } else {
             next();
         }
@@ -248,35 +207,35 @@ let createHashmapOfFramework = function(res,next) {
     }
 }
 
-let hashmapOfTermAssociation = function(next) {
+let hashmapOfTermAssociation = function (next) {
     console.log('hashmapOfTermAssociation=============>')
     async.parallel([
-        function(callback) {
-            createAssociationHashmap(termHashmap,(err,res) => {  
-                if(err) return callback(err);
-                callback(null,res);
+        function (callback) {
+            createAssociationHashmap(termHashmap, (err, res) => {
+                if (err) return callback(err);
+                callback(null, res);
             });
         },
-        function(callback) {
-            createAssociationHashmap(subjectTermHashmap,(err,res) => {  
-                if(err) return callback(err);
-                callback(null,res);
+        function (callback) {
+            createAssociationHashmap(subjectTermHashmap, (err, res) => {
+                if (err) return callback(err);
+                callback(null, res);
             });
         }
     ],
-    function(err, results) {
-        if(err) return next(err);
-        next();
-    });
+        function (err, results) {
+            if (err) return next(err);
+            next();
+        });
 
 }
 
-let createAssociationHashmap = async (termHasmapArray,cb) => {
-    
-    try { 
+let createAssociationHashmap = async (termHasmapArray, cb) => {
+
+    try {
         let hashmapSize = termHasmapArray.size;
-        if(hashmapSize && hashmapSize > 0) {
-            for(const [key, value] of termHasmapArray) {
+        if (hashmapSize && hashmapSize > 0) {
+            for (const [key, value] of termHasmapArray) {
                 let code = key;
                 let category = value.category;
                 let identifier = value.identifier;
@@ -286,28 +245,28 @@ let createAssociationHashmap = async (termHasmapArray,cb) => {
                     try {
                         var arr = res.result.term.associationswith;
                         arr = arr.map(obj => {
-                            return {'identifier' : obj.identifier};
+                            return { 'identifier': obj.identifier };
                         });
- 
-                        if(category == 'subject') {
-                            subjectAssHashmap.set(code,arr);
+
+                        if (category == 'subject') {
+                            subjectAssHashmap.set(code, arr);
                         } else {
-                            termAssHashmap.set(code,arr);
+                            termAssHashmap.set(code, arr);
                         }
 
                     } catch (error) {
-                         logger.error("Associationswith Hashmap :: " + code + " does not have associationwith" );
-                    } 
+                        logger.error("Associationswith Hashmap :: " + code + " does not have associationwith");
+                    }
 
-                },(err) => {
+                }, (err) => {
                     return cb(err);
                 });
             };
-            cb(null,'DONE'); 
+            cb(null, 'DONE');
         } else {
-            cb(null,'DONE');
+            cb(null, 'DONE');
         }
-        
+
     } catch (err) {
         return cb(err);
     }
@@ -356,7 +315,7 @@ let termAndAssociationFunc = function (data, done) {
 let checkOrCreateFramework = function (callback) {
     var options = {
         method: 'GET',
-        url: _constants.api_base_url + 'framework/v1/read/' + _constants.framework_id,
+        url: _constants.api_base_url + 'framework/v1/read/' + frameworkId,
         headers: {
             'content-type': 'application/json',
             'Authorization': 'Bearer ' + _constants.apiAuthToken,
@@ -366,8 +325,8 @@ let checkOrCreateFramework = function (callback) {
     }
     var startTime = performance.now();
     request(options, function (error, response, body) {
-        console.log(error, response, body);
-        
+        // console.log('err, res, body=======>',error, response, body);
+
         if (!error && body) {
             try {
                 if (body.responseCode === 'OK') {
@@ -396,6 +355,57 @@ let checkOrCreateFramework = function (callback) {
     });
 }
 
+let publishcaller = function (done) {
+    publishFrameworkFunc(function (error, response) {
+        if (error) {
+            return done(error);
+        }
+        done(null, response);
+    });
+}
+
+
+let publishFrameworkFunc = function (callback) {
+    var options = {
+        method: 'POST',
+        url: _constants.api_base_url + 'framework/v1/publish/' + frameworkId,
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + _constants.apiAuthToken,
+            'user-id': 'content Editor',
+            'X-Channel-Id': orgId
+        },
+        json: true
+    }
+    var startTime = performance.now();
+    request(options, function (error, response, body) {
+        // console.log('publish framework func ===  body=======>', body);
+
+        if (!error && body) {
+            try {
+                if (body.responseCode === 'OK') {
+                    // console.log('in response OK', body);
+                    // console.log('ROW NO >  ' + index + '  > READ FRAMEWORK : REQUEST : ' + JSON.stringify(options) + ' RESPONSE : ' + JSON.stringify(body));
+                    callback(null, body);
+                } else if (body.responseCode == 'SERVER_ERROR') {
+                    // console.log('in response server-err', body);
+                    // logger.error('ROW NO >  ' + index + '  > READ FRAMEWORK ERROR :' + error);
+                    callback(new Error('SERVER ERROR'), false);
+                } else {
+                    // console.log('in response err', body);
+                    callback(error, false);
+                 
+                }
+            } catch (error) {
+                logger.error('ROW NO >  ' + index + '  > FRAMEWORK ERROR :' + error);
+            }
+        } else {
+            callback(error, false);
+        }
+
+    });
+}
+
 /**
  * This function is used for create a framework
  * 
@@ -413,17 +423,17 @@ let createFramework = function (callback) {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + _constants.apiAuthToken,
             'user-id': 'content Editor',
-            'X-Channel-Id': '0127032704394117120'
+            'X-Channel-Id': orgId
         },
         body: {
             "request": {
                 "framework": {
-                    "name": _constants.framework_name,
-                    "description": _constants.framework_name,
-                    "code": _constants.framework_id,
-                    "owner": _constants.rootOrghashId,
+                    "name": frameworkname,
+                    "description": frameworkname,
+                    "code": frameworkId,
+                    "owner": orgId,
                     "channels": [{
-                        "identifier": _constants.rootOrghashId
+                        "identifier": orgId
                     }],
                     "type": "K-12" // fixed
                 }
@@ -432,7 +442,7 @@ let createFramework = function (callback) {
         json: true
     }
     var startTime = performance.now();
-    request(options, function (error, response, body) {       
+    request(options, function (error, response, body) {
         // return true;
         if (!error && body && body.responseCode === 'OK') {
             callback(null, body);
@@ -458,18 +468,18 @@ let createFramework = function (callback) {
 let findOrCreateCategory = function (callback) {
     async.eachSeries(_constants.framework_category, function (item, next) {
 
-        if(catHashmap.has(item.name)) {
+        if (catHashmap.has(item.name)) {
             console.log(item.name + ' category already created');
-           return next();
+            return next();
         }
         var options = {
             method: 'GET',
-            url: _constants.api_base_url + _constants.framework_url.api_framework_category_read + item.name + '?framework=' + _constants.framework_id,
+            url: _constants.api_base_url + _constants.framework_url.api_framework_category_read + item.name + '?framework=' + frameworkId,
             headers: {
                 'content-type': 'application/json',
                 'Authorization': 'Bearer ' + _constants.apiAuthToken,
                 'user-id': 'content Editor',
-                'X-Channel-Id': 'in.ekstep'
+                'X-Channel-Id': orgId
             },
             json: true
         }
@@ -505,7 +515,7 @@ let findOrCreateCategory = function (callback) {
         });
     }, function (error) {
         if (error) return callback(error);
-        callback(null,'DONE');
+        callback(null, 'DONE');
     });
 }
 
@@ -521,12 +531,12 @@ let findOrCreateCategory = function (callback) {
 let createCategory = function (item, callback) {
     var options = {
         method: 'POST',
-        url: _constants.api_base_url + _constants.framework_url.api_framework_category_create + '=' + _constants.framework_id,
+        url: _constants.api_base_url + _constants.framework_url.api_framework_category_create + '=' + frameworkId,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + _constants.apiAuthToken,
             'user-id': 'Vaibhav',
-            'X-Channel-Id': 'in.ekstep'
+            'X-Channel-Id': orgId
         },
         body: {
             "request": {
@@ -661,22 +671,22 @@ var startTermAndAssociations = function (row, outerCallback) {
 
 function boardFunction(board, category, callback) {
     console.log("Board value  :: " + board);
-    if (board != '' ) {
-        if(termHashmap.has(board)) {
+    if (board != '') {
+        if (termHashmap.has(board)) {
             let identifier = termHashmap.get(board);
-            let obj = processTermResponse(identifier,true);
-            callback(null,obj);
+            let obj = processTermResponse(identifier, true);
+            callback(null, obj);
         } else {
             var termPromise = createTerm(board, category, boardValue);
             termPromise.then(function (result) {
-                let obj = processTermResponse(result); 
-                termHashmap.set(board,obj);
+                let obj = processTermResponse(result);
+                termHashmap.set(board, obj);
                 callback(null, obj);
             }, function (err) {
                 logger.error('BOARD FUNCTION ERROR :' + err);
                 callback(err);
             });
-        }   
+        }
     } else {
         logger.error('Borad function - Somthing went wrong!!');
     }
@@ -699,15 +709,15 @@ function mediumFunction(medium, category, boardRes, callback) {
     if (medium != '') {
         console.log("Medium value :: " + medium);
         identifierArray.push(boardRes);
-        if(termHashmap.has(medium)) {
+        if (termHashmap.has(medium)) {
             let identifier = termHashmap.get(medium);
-            let obj = processTermResponse(identifier,true);
+            let obj = processTermResponse(identifier, true);
             let arr = termAssHashmap.get(medium);
             var associationArray = checkIfObjectExist(arr, identifierArray);
             if (associationArray != false) {
                 var associationsPromise = associationsWithTerm(medium, category, associationArray);
                 associationsPromise.then(function (response) {
-                    termAssHashmap.set(medium,associationArray);
+                    termAssHashmap.set(medium, associationArray);
                     callback(null, obj);
                 }, function (err) {
                     logger.error('MEDIUM ASSOCIATION FUNCTION ERROR :' + err);
@@ -720,20 +730,20 @@ function mediumFunction(medium, category, boardRes, callback) {
             var createTermPromise = createTerm(medium, category, mediumValue);
             createTermPromise.then(function (result) {
                 let obj = processTermResponse(result);
-                termHashmap.set(medium,obj);
+                termHashmap.set(medium, obj);
                 var associationsPromise = associationsWithTerm(medium, category);
-                    associationsPromise.then(function (response) {
-                        termAssHashmap.set(medium,identifierArray);
-                        callback(null, obj);
-                    }, function (err) {
-                        logger.error('MEDIUM ASSOCIATION FUNCTION ERROR :' + err);
-                        callback(err);
-                    });
+                associationsPromise.then(function (response) {
+                    termAssHashmap.set(medium, identifierArray);
+                    callback(null, obj);
+                }, function (err) {
+                    logger.error('MEDIUM ASSOCIATION FUNCTION ERROR :' + err);
+                    callback(err);
+                });
             }, function (err) {
                 logger.error('MEDIUM FUNCTION ERROR :' + err);
                 callback(err);
             });
-        } 
+        }
 
     } else {
         logger.error('Medium function - Something went wrong!!');
@@ -753,19 +763,19 @@ function mediumFunction(medium, category, boardRes, callback) {
  */
 
 function gradeFunction(grade, category, mediumRes, callback) {
-    
+
     if (grade != '') {
         console.log("Grade Value :: " + grade);
         identifierArray.push(mediumRes);
-        if(termHashmap.has(grade)) {
+        if (termHashmap.has(grade)) {
             let identifier = termHashmap.get(grade);
-            let obj = processTermResponse(identifier,true);
+            let obj = processTermResponse(identifier, true);
             let arr = termAssHashmap.get(grade);
             var associationArray = checkIfObjectExist(arr, identifierArray);
             if (associationArray != false) {
                 var associationsPromise = associationsWithTerm(grade, category, associationArray);
                 associationsPromise.then(function (response) {
-                    termAssHashmap.set(grade,associationArray);
+                    termAssHashmap.set(grade, associationArray);
                     callback(null, obj);
                 }, function (err) {
                     logger.error('GRADE ASSOCIATION FUNCTION ERROR :' + err);
@@ -778,20 +788,20 @@ function gradeFunction(grade, category, mediumRes, callback) {
             var createTermPromise = createTerm(grade, category, gradeValue);
             createTermPromise.then(function (result) {
                 let obj = processTermResponse(result);
-                termHashmap.set(grade,obj);
+                termHashmap.set(grade, obj);
                 var associationsPromise = associationsWithTerm(grade, category);
-                    associationsPromise.then(function (response) {
-                        termAssHashmap.set(grade,identifierArray);
-                        callback(null, obj);
-                    }, function (err) {
-                        logger.error('GRADE ASSOCIATION FUNCTION ERROR :' + err);
-                        callback(err);
-                    });
+                associationsPromise.then(function (response) {
+                    termAssHashmap.set(grade, identifierArray);
+                    callback(null, obj);
+                }, function (err) {
+                    logger.error('GRADE ASSOCIATION FUNCTION ERROR :' + err);
+                    callback(err);
+                });
             }, function (err) {
                 logger.error('GRADE FUNCTION ERROR :' + err);
                 callback(err);
             });
-        } 
+        }
 
     } else {
         logger.error('Grade Function - Something went wrong!!')
@@ -811,19 +821,19 @@ function gradeFunction(grade, category, mediumRes, callback) {
  */
 
 function subjectFunction(subject, category, gradeRes, callback) {
-    
+
     if (subject != '') {
         console.log("Subject value :: " + subject);
         identifierArray.push(gradeRes);
-        if(subjectTermHashmap.has(subject)) {
+        if (subjectTermHashmap.has(subject)) {
             let identifier = subjectTermHashmap.get(subject);
-            let obj = processTermResponse(identifier,true);
+            let obj = processTermResponse(identifier, true);
             let arr = subjectAssHashmap.get(subject);
             var associationArray = checkIfObjectExist(arr, identifierArray);
             if (associationArray != false) {
                 var associationsPromise = associationsWithTerm(subject, category, associationArray);
                 associationsPromise.then(function (response) {
-                    subjectAssHashmap.set(subject,associationArray);
+                    subjectAssHashmap.set(subject, associationArray);
                     callback(null, obj);
                 }, function (err) {
                     logger.error('SUBJECT ASSOCIATION FUNCTION ERROR :' + err);
@@ -836,20 +846,20 @@ function subjectFunction(subject, category, gradeRes, callback) {
             var createTermPromise = createTerm(subject, category, subjectValue);
             createTermPromise.then(function (result) {
                 let obj = processTermResponse(result);
-                subjectTermHashmap.set(subject,obj);
+                subjectTermHashmap.set(subject, obj);
                 var associationsPromise = associationsWithTerm(subject, category);
-                    associationsPromise.then(function (response) {
-                        subjectAssHashmap.set(subject,identifierArray);
-                        callback(null, obj);
-                    }, function (err) {
-                        logger.error('SUBJECT ASSOCIATION FUNCTION ERROR :' + err);
-                        callback(err);
-                    });
+                associationsPromise.then(function (response) {
+                    subjectAssHashmap.set(subject, identifierArray);
+                    callback(null, obj);
+                }, function (err) {
+                    logger.error('SUBJECT ASSOCIATION FUNCTION ERROR :' + err);
+                    callback(err);
+                });
             }, function (err) {
                 logger.error('SUJECT FUNCTION ERROR :' + err);
                 callback(err);
             });
-        } 
+        }
     } else {
         logger.error('Subject function - Something went wrong');
     }
@@ -874,16 +884,16 @@ function L1TopicFunction(L1concept, category, subjectRes, callback) {
     if (L1concept != '') {
         console.log("L1Topic Value :: " + L1concept);
         identifierArray.push(subjectRes);
-        if(termHashmap.has(L1concept)) {
+        if (termHashmap.has(L1concept)) {
             checkL1Transalations(L1concept, category, L1Trasalation);
             let identifier = termHashmap.get(L1concept);
-            let obj = processTermResponse(identifier,true);
+            let obj = processTermResponse(identifier, true);
             let arr = termAssHashmap.get(L1concept);
             var associationArray = checkIfObjectExist(arr, identifierArray);
             if (associationArray != false) {
                 var associationsPromise = associationsWithTerm(L1concept, category, associationArray);
                 associationsPromise.then(function (response) {
-                    termAssHashmap.set(L1concept,associationArray);
+                    termAssHashmap.set(L1concept, associationArray);
                     callback(null, obj);
                 }, function (err) {
                     logger.error('L1CONCEPT ASSOCIATION FUNCTION ERROR :' + err);
@@ -893,25 +903,25 @@ function L1TopicFunction(L1concept, category, subjectRes, callback) {
                 callback(null, obj);
             }
         } else {
-            var createTermPromise = createTerm(L1concept, category, L1conceptValue,L1Trasalation);
+            var createTermPromise = createTerm(L1concept, category, L1conceptValue, L1Trasalation);
             createTermPromise.then(function (result) {
                 let obj = processTermResponse(result);
-                termHashmap.set(L1concept,obj);
+                termHashmap.set(L1concept, obj);
                 var associationsPromise = associationsWithTerm(L1concept, category);
-                    associationsPromise.then(function (response) {
-                        termAssHashmap.set(L1concept,identifierArray);
-                        callback(null, obj);
-                    }, function (err) {
-                        logger.error('L1CONCEPT ASSOCIATION FUNCTION ERROR :' + err);
-                        callback(err);
-                    });
+                associationsPromise.then(function (response) {
+                    termAssHashmap.set(L1concept, identifierArray);
+                    callback(null, obj);
+                }, function (err) {
+                    logger.error('L1CONCEPT ASSOCIATION FUNCTION ERROR :' + err);
+                    callback(err);
+                });
             }, function (err) {
                 logger.error('L1CONCEPT FUNCTION ERROR :' + err);
                 callback(err);
             });
-        } 
+        }
     } else {
-        callback(null,true);
+        callback(null, true);
     }
 }
 
@@ -1001,12 +1011,12 @@ function L3TopicFunction(L3concept, category, L2conceptRes, callback) {
 let checkOrCreateTerm = function (term, category, termValue, termTraslationValue) {
     var options = {
         method: 'GET',
-        url: _constants.api_base_url + _constants.framework_url.api_framework_category_term_read + term + '?framework=' + _constants.framework_id + '&category=' + category,
+        url: _constants.api_base_url + _constants.framework_url.api_framework_category_term_read + term + '?framework=' + frameworkId + '&category=' + category,
         headers: {
             'content-type': 'application/json',
             'Authorization': 'Bearer ' + _constants.apiAuthToken,
             'user-id': 'nuih',
-            'X-Channel-Id': '0127032704394117120'
+            'X-Channel-Id': orgId
         },
         json: true
     }
@@ -1047,7 +1057,7 @@ let checkOrCreateTerm = function (term, category, termValue, termTraslationValue
  */
 
 let createTerm = function (term, category, termValue, termTraslationValue = '') {
-console.log('term******=======>',term, 'category=======>', category, 'termValue=======>', termValue )
+    console.log('term******=======>', term, 'category=======>', category, 'termValue=======>', termValue)
     var body = {
         "request": {
             "term": {
@@ -1067,18 +1077,18 @@ console.log('term******=======>',term, 'category=======>', category, 'termValue=
     }
 
     if (isTopicTerm) {
-        console.log('isisTopicTerm==============>', isTopicTerm, '',)
+        console.log('isisTopicTerm==============>', isTopicTerm, '', )
         body.request.term.parents = topicIdentifierArray;
     }
 
     var options = {
         method: 'POST',
-        url: _constants.api_base_url + _constants.framework_url.api_framework_category_term_create + '=' + _constants.framework_id + '&category=' + category,
+        url: _constants.api_base_url + _constants.framework_url.api_framework_category_term_create + '=' + frameworkId + '&category=' + category,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + _constants.apiAuthToken,
             'user-id': 'Vaibhav',
-            'X-Channel-Id': _constants.rootOrghashId
+            'X-Channel-Id': orgId
         },
         body: body,
         json: true
@@ -1086,7 +1096,7 @@ console.log('term******=======>',term, 'category=======>', category, 'termValue=
 
     return new Promise(function (resolve, reject) {
         var startTime = performance.now();
-      
+
         request(options, function (error, response, body) {
             console.log('Term============>', error, 'body=====>', body)
             console.log("TERM RES :: " + JSON.stringify(options));
@@ -1101,7 +1111,7 @@ console.log('term******=======>',term, 'category=======>', category, 'termValue=
                 reject(err);
             }
             var endTime = performance.now();
-            console.log('ROW NO > ' + index + ' > CREATE TERM ' + category +' : Took', (endTime - startTime).toFixed(4), 'milliseconds');
+            console.log('ROW NO > ' + index + ' > CREATE TERM ' + category + ' : Took', (endTime - startTime).toFixed(4), 'milliseconds');
         });
     });
 }
@@ -1139,12 +1149,12 @@ let associationsWithTerm = function (term, category, identifier = '') {
 
     var options = {
         method: 'PATCH',
-        url: _constants.api_base_url + _constants.framework_url.api_framework_category_term_update + term + '?framework=' + _constants.framework_id + '&category=' + category,
+        url: _constants.api_base_url + _constants.framework_url.api_framework_category_term_update + term + '?framework=' + frameworkId + '&category=' + category,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + _constants.apiAuthToken,
             //   'user-id': 'Vaibhav',
-            'X-Channel-Id': _constants.rootOrghashId
+            'X-Channel-Id': orgId
         },
         body: body,
         json: true
@@ -1196,12 +1206,12 @@ let updateTermTransaltions = function (term, category, transaltionObj) {
 
     var options = {
         method: 'PATCH',
-        url: _constants.api_base_url + _constants.framework_url.api_framework_category_term_update + term + '?framework=' + _constants.framework_id + '&category=' + category,
+        url: _constants.api_base_url + _constants.framework_url.api_framework_category_term_update + term + '?framework=' + frameworkId + '&category=' + category,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + _constants.apiAuthToken,
             'user-id': 'Vaibhav',
-            'X-Channel-Id': _constants.rootOrghashId
+            'X-Channel-Id': orgId
         },
         body: body,
         json: true
@@ -1238,15 +1248,15 @@ let updateTermTransaltions = function (term, category, transaltionObj) {
 
 
 function checkIfObjectExist(arr, identifierArray) {
-     let found = false;
-    _.forEach(identifierArray, function(value, key) {
-         let index = _.findIndex(arr,value);
-         if(index == -1) {
-             found = true;
-             arr.push(value);
-         }
+    let found = false;
+    _.forEach(identifierArray, function (value, key) {
+        let index = _.findIndex(arr, value);
+        if (index == -1) {
+            found = true;
+            arr.push(value);
+        }
     });
-    if(found) {
+    if (found) {
         return arr;
     } else {
         return false;
@@ -1255,8 +1265,8 @@ function checkIfObjectExist(arr, identifierArray) {
 
 // filter the response data
 
-function processTermResponse(response,flag = false) {
-    if(flag) {
+function processTermResponse(response, flag = false) {
+    if (flag) {
         return {
             'identifier': response.identifier
         };
@@ -1276,13 +1286,12 @@ function processTermResponse(response,flag = false) {
 }
 
 function checkTransalations(res, term, category, termTransalation) {
-    if(!isTranslation || termTransalation == 'NA') {
+    if (!isTranslation || termTransalation == 'NA') {
         return false;
-    } 
-    
+    }
+
     if (res.result && res.result.term) { // termTransalation != '' If term transalation value is empty
-        if(!res.result.term.translations)
-        {
+        if (!res.result.term.translations) {
             var obj = {
                 "translations": {
                     [translationsCode]: termTransalation
@@ -1296,11 +1305,11 @@ function checkTransalations(res, term, category, termTransalation) {
             });
         } else if (res.result.term.translations && !res.result.term.translations.hasOwnProperty(translationsCode)) {
             var existingTransalation = res.result.term.translations;
-            existingTransalation[translationsCode]  = termTransalation; 
+            existingTransalation[translationsCode] = termTransalation;
             var obj = {
-                'translations' : existingTransalation
-            }      
-            var transalationPromis = updateTermTransaltions(term, category,obj);
+                'translations': existingTransalation
+            }
+            var transalationPromis = updateTermTransaltions(term, category, obj);
             transalationPromis.then(function (response) {
                 return true;
             }, function (err) {
@@ -1315,21 +1324,21 @@ function checkTransalations(res, term, category, termTransalation) {
 
 
 function checkL1Transalations(term, category, termTransalation) {
-   
-    if(!isTranslation || termTransalation == 'NA') {
+
+    if (!isTranslation || termTransalation == 'NA') {
         return false;
     }
 
-    if(L1TrasalationHashmap.has(term)) {
+    if (L1TrasalationHashmap.has(term)) {
         let l1Trasalation = L1TrasalationHashmap.get(term);
         l1Trasalation = JSON.parse(l1Trasalation);
-        if(!_.has(l1Trasalation,translationsCode)) {
+        if (!_.has(l1Trasalation, translationsCode)) {
             var existingTransalation = l1Trasalation;
-            existingTransalation[translationsCode]  = termTransalation; 
+            existingTransalation[translationsCode] = termTransalation;
             var obj = {
-                'translations' : existingTransalation
-            }      
-            var transalationPromis = updateTermTransaltions(term, category,obj);
+                'translations': existingTransalation
+            }
+            var transalationPromis = updateTermTransaltions(term, category, obj);
             transalationPromis.then(function (response) {
                 console.log('L1 Transalation updated');
             }, function (err) {
@@ -1349,9 +1358,139 @@ function checkL1Transalations(term, category, termTransalation) {
             console.log('L1 Transalation updated');
         }, function (err) {
             logger.error('checkL1Transalations function error2');
-            throw new Error('checkL1Transalations function error1');            
+            throw new Error('checkL1Transalations function error1');
         });
     }
 }
 
-module.exports = initFramework;
+function sendErrorResponse(res, id, message, httpCode = HttpStatus.BAD_REQUEST) {
+    let responseCode = (httpCode)
+
+    res.status(httpCode)
+    res.send({
+        'id': id,
+        'ver': '1.0',
+        'ts': dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss:lo', true),
+        'params': {
+            'resmsgid': uuidv1(),
+            'msgid': null,
+            'status': 'failed',
+            'err': '',
+            'errmsg': message
+        },
+        'responseCode': responseCode,
+        'result': {}
+    })
+    res.end()
+}
+
+function sendSuccessResponse(res, id, result, code = HttpStatus.OK) {
+    res.status(code)
+    res.send({
+        'id': 'api.framework.create',
+        'ver': '1.0',
+        'ts': dateFormat(new Date(), 'yyyy-mm-dd HH:MM:ss:lo', true),
+        'params': {
+            'resmsgid': uuidv1(),
+            'msgid': null,
+            'status': 'successful',
+            'err': '',
+            'errmsg': ''
+        },
+        'responseCode': 'OK',
+        'result': result
+    })
+    res.end()
+}
+
+
+module.exports = function (req, res) {
+    router.post('/getframework', function (req, res) {
+
+        return upload(req, res, function (r, q) {
+
+
+            console.log('Init framework ==============*************>>>>>>>>>>>>')
+            console.log("Init Framework reqbody======>", req.body);
+
+            console.log("Framework req.file.path:: " + req.file.path);
+
+            var excelData = readExcelFile(req.file.path);
+
+
+            global.frameworkId = req.body.id;
+            global.frameworkname = req.body.frameworkname;
+            global.orgId = req.body.orgId;
+            console.log('frameworkId------------->', frameworkId);
+            console.log('frameworkname------------->', frameworkname);
+            console.log('global.orgId------------->', orgId);
+
+
+
+            excelData.then(function (data) {
+                console.log("converted excel file to json successfully!");
+                var startTime = performance.now();
+
+                async.waterfall([
+                    frameworkFunc,
+                    createHashmapOfFramework,
+                    hashmapOfTermAssociation,
+                    categoryFunc,
+                    async.apply(termAndAssociationFunc, data),
+                ], function (err, result) {
+                    if (err) {
+                        sendErrorResponse(res, '', err.message, err.status)
+                        console.log('error of sendErrorrsponse========>', err);
+
+                    } else {
+
+                        if (req.body.publishFramework) {
+                            console.log('called publish');
+                            // console.log('res outside=========>', res);
+                            publishcaller((err, response) => {
+                                if (err) {
+                                    sendErrorResponse(res, '', err.message, err.status)
+                                    console.log('error in caller', err)
+                                }
+                                else {
+                                    console.log('succ in caller', response)
+                                    if (response.responseCode === 'OK') {
+                                        console.log('response-----:::::::::>', response);
+                                        sendSuccessResponse(res, 'api.publish.framework', response.result.publishStatus, HttpStatus.OK)
+                                        clearGlobals();
+                                    }
+                                }
+                            })
+                        } else {
+                            sendSuccessResponse(res, 'api.framework.create', '', HttpStatus.OK);
+                            clearGlobals();
+                        }
+                    }
+                    var endTime = performance.now();
+                    console.log('TOTAL FRAMEWORK TIME : Took', (endTime - startTime).toFixed(4), 'milliseconds');
+                    console.log('Successfully bulk data uplaod process done!!!');
+
+
+                });
+            }, function (error) {
+                res.json(error);
+            });
+
+            const path =  req.file.path;
+
+            fs.unlink(path, (err) => {
+                if (err) {
+                    console.log('Error in deleting the excel file',err)
+                    return
+                }
+                console.log('file successfully deleted');
+            })
+        });
+        // }
+    })
+
+
+
+
+    return router
+}

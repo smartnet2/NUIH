@@ -226,7 +226,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   }
 
 
- 
+
   private parseChildContent() {
     const model = new TreeModel();
     const mimeTypeCount = {};
@@ -353,7 +353,14 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     const eid = event.detail.telemetryData.eid;
     if (eid === 'END') {
       this.showRatingModal = true;
+      setTimeout(() => {
+        // const totalScore =  window.PI.totalScore;
+        // console.log('totalScore', totalScore);
+        localStorage.getItem('totalScore');
+        console.log('totalScore=======>', localStorage.getItem('totalScore'));
+      }, 10);
     }
+
     if (this.batchId && this.enrolledBatchInfo && this.enrolledBatchInfo.status === 1) {
       const request: any = {
         userId: this.userService.userid,

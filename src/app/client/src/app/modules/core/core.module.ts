@@ -1,3 +1,4 @@
+
 import { PermissionDirective } from './directives';
 import { RouterModule } from '@angular/router';
 import { NgModule, ModuleWithProviders } from '@angular/core';
@@ -9,7 +10,7 @@ import {
   UserService, LearnerService, PermissionService, AnnouncementService, ConceptPickerService,
   BadgesService, ContentService, DiscussionService, CoursesService, PageApiService,
   TenantService, FrameworkService, FormService, PlayerService, SearchService,
-  CopyContentService, BreadcrumbsService, OrgDetailsService
+  CopyContentService, BreadcrumbsService, OrgDetailsService, FrameworkCreateService
 } from './services';
 import {
   MainHeaderComponent, MainMenuComponent, SearchComponent, ConceptPickerComponent, DataDrivenFilterComponent,
@@ -44,7 +45,7 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [LearnerService, UserService, TenantService, SearchService, CopyContentService,
         PermissionService, AnnouncementService, BadgesService, ContentService, DiscussionService, CoursesService, PageApiService,
-        AuthGuard, FrameworkService, FormService, CacheService,
+        AuthGuard, FrameworkService, FormService, CacheService, FrameworkCreateService,
         ConceptPickerService, BreadcrumbsService, PlayerService, OrgDetailsService]
     };
   }

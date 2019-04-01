@@ -460,6 +460,28 @@
         "preferredLanguage": "preferredLanguage",
         "contactDetail": "contactDetail"
       }
+    ],
+    "SAMPLE_FRAMEWORK_CSV": [
+      {
+        "State": "State/Center",	
+        "Type": "Type",
+        "Board": "Board",
+        "Grade": "Grade",
+        "Subject": "Subject",
+        "Medium": "Medium",
+        "Textbook_Name": "Textbook Name (in medium of textbook)",
+        "Chapter_Name": "Chapter Name (in medium of textbook)",
+        "Chapter_Concept_Name": "Chapter - Concept Name (in medium of textbook)",	
+        "Chapter_Concept_Name_in_English": "Chapter- Concept Name in English (in case language is other than English)",	
+        "Topic_Name": "Topic Name (in medium of textbook)",
+        "Topic_Concept_in_medium": "Topic Concept in medium",
+        "Topic_Concept_Name_in_English": "Topic- Concept Name in English (in case language is other than English)",
+        "Sub-Topic": "Sub-Topic (in medium of textbook)",	
+        "Sub-Topic_in_English": "Sub-Topic in English (in case language is other than English)",
+        "Keywords": "Keywords (in medium of textbook)",
+        "Keywords_in_English": "Keywords in English (in case language is other than English)"
+
+      }
     ]
   },
   "contentCreateType": {

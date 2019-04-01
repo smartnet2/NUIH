@@ -1,0 +1,57 @@
+<div class="ui grid" *ngIf="showLoader">
+ 
+  <div class="twelve wide column">
+    <app-loader></app-loader>
+  </div>
+</div>
+
+<div class="ui segment">
+  <div  [class.active]="showLoader"  class="ui loader"></div>
+ 
+
+
+<div class="twelve wide column" >
+  <div class="eight wide column">
+    <div class="margin-top-20 ui raised segment">
+      <form [formGroup]="frameworkForm" class="ui form frameworkForm" id="frameworkForm">
+        <div class="ui dividing header margin-top-15 "></div>
+
+        <div class="two fields">
+          <div class="field required">
+            <label>Enter Framework name</label>
+            <input type="text" name="frameworkname" formControlName="frameworkname" required>
+          </div>
+          <div class="field required">
+            <label>Framework Id(should be unique)</label>
+            <input type="text" name="frameworkId" formControlName="frameworkId" required>
+          </div>
+        </div>
+        <!-- <div class="margin-top-0 margin-bottom-10 ui pointing red basic label below">
+          {{resourceService?.messages?.stmsg?.m0063}}
+        </div> -->
+        <div class="two fields">
+          <div class="field required">
+            <label>rootOrghashId</label>
+            <input type="text" name="rootOrghashId" formControlName="rootOrghashId" required>
+          </div>
+          <div class="field required">
+            <label>Upload excel file</label>
+            <input type="file" id="xlfile" name="xlfile" accept=".xlsx" (change)="fileEvent($event)" title="Choose a file" autocomplete="off"
+              required />
+          </div>
+        </div>
+        <div>
+          <button class="ui left floated button" (click)="downloadSample()">{{resourceService?.frmelmnts?.btn?.smplcsv}}</button>
+        </div>
+
+        <button class="ui right floated button" [ngClass]="{disabled:!frameworkForm.valid || !fileSelected }" (click)="createFramework()"
+          class="ui primary button">Create</button>
+
+          <button class="ui right floated button" [ngClass]="{disabled:!frameworkForm.valid || !fileSelected }" (click)="createFramework(true)"
+          class="ui primary button">Create and Publish</button>
+        <div class="ui error message">
+        </div>
+      </form>      
+    </div>
+  </div>
+</div>

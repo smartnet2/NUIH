@@ -14,6 +14,11 @@
     "TENANT_PREFIX": "/v1/tenant",
     "RESOURCEBUNDLES_PREFIX": "resourcebundles/v1",
     "PAGE_PREFIX": "data/v1/page/assemble",
+    "FRAMEWORK_PREFIX": "framework/v1",
+    "FRAMEWORK_CREATE" : {
+      "CREATE": "/getframework",
+      "PUBLISH": "/getframework/publish"
+    },
     "RESOURCEBUNDLES": {
       "ENG": "/read"
     },
@@ -124,7 +129,8 @@
       "READ": "channel/v1/read"
     },
     "FRAMEWORK": {
-      "READ": "framework/v1/read"
+      "READ": "framework/v1/read",
+      "CREATE": "/create"     
     },
     "dataDrivenForms": {
       "READ": "data/v1/form/read"

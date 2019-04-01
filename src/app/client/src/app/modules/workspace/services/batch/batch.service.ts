@@ -1,11 +1,16 @@
 
+
+
+
 import {of as observableOf,  Observable } from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, catchError} from 'rxjs/operators';
 import { Injectable, Input, EventEmitter } from '@angular/core';
 import { ConfigService, ServerResponse } from '@sunbird/shared';
 import { SearchService, SearchParam, LearnerService, UserService } from '@sunbird/core';
 import { Ibatch } from './../../interfaces';
 import * as _ from 'lodash';
+import { DiscussionService } from '../../../discussion';
+import { FrameworkCreateService } from './../framework-create/frameworkcreate.service';
 /**
  * Service for batch
  */
@@ -29,7 +34,9 @@ export class BatchService {
   batchDetails: any;
 
   defaultUserList: any;
+  public discussionService: DiscussionService;
 
+  public frameworkCreateService: FrameworkCreateService;
   public updateEvent = new EventEmitter();
 
   /**
@@ -41,10 +48,13 @@ export class BatchService {
    * @param {LearnerService} LearnerService learner service reference
    */
   constructor(userService: UserService,
-    configService: ConfigService, learnerService: LearnerService) {
+    configService: ConfigService, learnerService: LearnerService, discussionService: DiscussionService,
+     frameworkCreateService: FrameworkCreateService) {
     this.userService = userService;
     this.configService = configService;
     this.learnerService = learnerService;
+    this.discussionService = discussionService;
+    this.frameworkCreateService = frameworkCreateService;
   }
   getUserList(requestParam: SearchParam = {}): Observable<ServerResponse> {
     if (_.isEmpty(requestParam) && this.defaultUserList) {
@@ -131,6 +141,23 @@ export class BatchService {
         return date.result.response;
       }));
     }
+  }
+  uploadFile(file, id, name, orgId, publishFramework) {
+    const formData = new FormData();
+    formData.append('files', file);
+    formData.append('id', id);
+    formData.append('frameworkname', name);
+    formData.append('orgId', orgId);
+    formData.append('publishFramework', publishFramework);
+
+    console.log('formData', formData);
+    const channelOptions = {
+      url:  this.configService.urlConFig.URLS.FRAMEWORK_CREATE.CREATE,
+      data: formData
+    };
+    return this.frameworkCreateService.post(channelOptions).pipe(map((res: ServerResponse) => {
+      return res;
+    }));
   }
 }
 

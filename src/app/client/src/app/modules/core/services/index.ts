@@ -1,3 +1,4 @@
+export * from './../../workspace/services/framework-create/frameworkcreate.service';
 export * from './user/user.service';
 export * from './content/content.service';
 export * from './learner/learner.service';
@@ -19,3 +20,4 @@ export * from './copy-content/copy-content.service';
 export * from './org-details/org-details.service';
 export *  from './public-data/public-data.service';
 export * from './discussions/discussions.service';
+
