@@ -1,4 +1,6 @@
+import { FrameworkreadComponent } from './components/frameworkread/frameworkread.component';
 import { FrameworkUtiliyComponent } from './components/frameworkutility/frameworkutility.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {
@@ -214,7 +216,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'framework-utility', component: FrameworkUtiliyComponent, 
+        path: 'framework-utility', component: FrameworkUtiliyComponent,
         data: {
           telemetry: {
             env: telemetryEnv, pageid: 'framework-create', uri: '/workspace/getframework',
@@ -222,7 +224,18 @@ const routes: Routes = [
           }, roles: 'bulkUpload',
           breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
         }
+      },
+      {
+        path: 'framework-read', component: FrameworkreadComponent,
+        data: {
+          telemetry: {
+            env: telemetryEnv, pageid: 'framework-create', uri: '/workspace/readframework',
+            type: 'view', mode: 'create', object: { type: objectType, ver: '1.0' }
+          }, roles: 'bulkUpload',
+          breadcrumbs: [{ label: 'Home', url: '/home' }, { label: 'Profile', url: '/profile' }, { label: 'My Workspace', url: '' }]
+        }
       }
+      
       // { path: '**', redirectTo: 'create' }
     ]
   },

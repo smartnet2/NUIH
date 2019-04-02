@@ -52,4 +52,8 @@
     [class.active]="router.isActive('/workspace/content/framework-utility')">
    framework utility
   </a>
+  <a class="item" *ngIf='permissionService.permissionAvailable' appPermission [permission]='allContentRole' [routerLink]="['/workspace/content/framework-read']"
+  [class.active]="router.isActive('/workspace/content/framework-read')">
+ framework read
+</a>
 </div>

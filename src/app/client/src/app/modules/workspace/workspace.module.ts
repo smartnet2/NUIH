@@ -20,6 +20,7 @@ import {
 import { NgInviewModule } from 'angular-inport';
 import { TelemetryModule } from '@sunbird/telemetry';
 import { FrameworkUtiliyComponent } from './components/frameworkutility/frameworkutility.component';
+import { FrameworkreadComponent } from './components/frameworkread/frameworkread.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -46,7 +47,8 @@ import { FrameworkUtiliyComponent } from './components/frameworkutility/framewor
     AllContentComponent,
     FlagReviewerComponent,
     AllMyContentFilterComponent,
-    FrameworkUtiliyComponent
+    FrameworkUtiliyComponent,
+    FrameworkreadComponent
   ],
   providers: [WorkSpaceService, EditorService, BatchService]
 })

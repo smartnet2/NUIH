@@ -1,0 +1,39 @@
+<!-- <div class="ui grid" *ngIf="showLoader">
+ 
+  <div class="twelve wide column">
+    <app-loader></app-loader>
+  </div>
+</div> -->
+
+<div class="ui segment">
+  <div  [class.active]="showLoader"  class="ui loader"></div>
+ 
+
+
+<div class="twelve wide column" >
+  <div class="eight wide column">
+    <div class="margin-top-20 ui raised segment">
+      <form [formGroup]="frameworkreadForm" class="ui form frameworkreadForm" id="frameworkreadForm">
+        <div class="ui dividing header margin-top-15 "></div>
+
+        <div class="two fields">
+          
+          <div class="field required">
+            <label>Framework Id(Enter existing framework)</label>
+            <input type="text" name="frameworkId" formControlName="frameworkId" required>
+          </div>
+        </div>
+     
+        <!-- <div>
+          <button class="ui left floated button" (click)="downloadSample()">{{resourceService?.frmelmnts?.btn?.smplcsv}}</button>
+        </div> -->
+
+        <button class="ui right floated button" 
+          class="ui primary button" [ngClass]="{disabled:!frameworkreadForm.valid}" (click)="readFramework()">Read framework</button>
+
+        <div class="ui error message">
+        </div>
+      </form>      
+    </div>
+  </div>
+</div>
