@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { CourseDiscussService } from '../../services/course-discuss/course-discuss.service';
 import { DiscussionService } from '../../services/discussions/discussions.service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
@@ -11,7 +11,7 @@ import * as _ from 'lodash';
   templateUrl: './discussion.component.html',
   styleUrls: ['./discussion.component.css']
 })
-export class DiscussionComponent implements OnInit {
+export class DiscussionComponent implements OnInit, OnChanges {
   // #NUIH change:
   public nestedComments: any = [];
   public postBtnText: string = "Post";
@@ -90,6 +90,7 @@ export class DiscussionComponent implements OnInit {
     });
     // #NUIH change:
   }
+  ngOnChanges() { }
   postComment() {
     const req = {
       'title': 'Discussion for batch' + '-' + this.batchId,
@@ -139,6 +140,7 @@ export class DiscussionComponent implements OnInit {
   }
   postCancel() {
     this.editorContent = '';
+    this.uploadedFile = null;
     this.editorContentForModal = '';
     this.replyPostNumber = null;
     this.postBtnText = "Post";
@@ -163,24 +165,40 @@ export class DiscussionComponent implements OnInit {
     console.log(this.nestedComments);
   }
   replyToThreadFromModal() {
-
+    this.editorContent = this.editorContentForModal;
+    this.replyToThread();
+  }
+  getPostNumberfromTree(postNumber) {
+    this.replyPostNumber = postNumber;
+    console.log("=========================");
+    console.log(this.replyPostNumber);
   }
   replyToThread() {
     const body = {
-      'body': this.uploadedFile ? this.editorContent + this.uploadedFile + '  ' : '' + this.editorContent,
+      'body': this.uploadedFile ? this.uploadedFile + '  ' : '' + this.editorContent,
       'threadId': this.threadId,
       'replyPostNumber': this.replyPostNumber
     };
     this.courseDiscussionsService.replyToThread(body).subscribe((res) => {
       this.editorContent = '';
+      this.editorContentForModal = '';
+      this.uploadedFile = null;
       this.replyPostNumber = null;
       this.postBtnText = "Post";
+      $(".close").click();
       this.retreiveThread(this.batchId);
       this.getReplies(this.threadId);
     });
   }
   isDisabled() {
     if (this.editorContent && this.editorContent !== '' && this.editorContent.length >= 15) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  isDisabledforModal() {
+    if (this.editorContentForModal && this.editorContentForModal !== '' && this.editorContentForModal.length >= 15) {
       return false;
     } else {
       return true;
@@ -216,7 +234,23 @@ export class DiscussionComponent implements OnInit {
       if (res && res.result.response) {
         const url = res.result.response.url;
         const fileName = res.result.response.original_filename;
-        this.uploadedFile = '<a class="attachment" href=' + url + '>' + fileName + '</a>';
+        this.uploadedFile = this.editorContent + '<p><a class="attachment" href=' + url + '>' + fileName + '</a></p>';
+        console.log('uploadedFile', this.uploadedFile);
+      }
+    });
+    // this.challengeService.batchUpload(file).subscribe((result: any) => {
+    //   if (this.utils.validatorMessage(result, KRONOS.MESSAGES.FILE_UPLOAD_SUCCESSFULLY)) {
+    //     this.getAllUsersByOrg();
+    //   }
+    // });
+  }
+  fileEventforModal(event) {
+    const file = event.target.files[0];
+    this.courseDiscussionsService.uploadFile(file).subscribe((res: any) => {
+      if (res && res.result.response) {
+        const url = res.result.response.url;
+        const fileName = res.result.response.original_filename;
+        this.uploadedFile = this.editorContentForModal + '<p><a class="attachment" href=' + url + '>' + fileName + '</a></p>';
         console.log('uploadedFile', this.uploadedFile);
       }
     });

@@ -163,7 +163,8 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <tree-view-menu [replyList]="nestedComments">Loading...</tree-view-menu>
+                    <tree-view-menu [replyList]="nestedComments"
+                        (getPostNumberfromTree)="getPostNumberfromTree($event)">Loading...</tree-view-menu>
                 </div>
                 <div class="row">
                     <div class="col-md-11 ml-5">
@@ -181,12 +182,12 @@
                             <div class="pull-left">
                                 <label class="ui green button" for="myFile">Choose file</label>
                                 <input type="file" style="display:none" id="myFile" name="myFile" accept=".pdf"
-                                    (change)="fileEvent($event)" title="Choose a file" autocomplete="off" />
+                                    (change)="fileEventforModal($event)" title="Choose a file" autocomplete="off" />
                             </div>
                             <div class="post_buttom">
                                 <button class="ui blue button" style="margin-right: 5px"
-                                    [ngClass]="{'disabled_cursor': isDisabled()}" [disabled]="isDisabled()"
-                                    (click)="replyToThreadFromModal()">{{postBtnText}}</button>
+                                    [ngClass]="{'disabled_cursor': isDisabledforModal()}"
+                                    [disabled]="isDisabledforModal()" (click)="replyToThreadFromModal()">Reply</button>
                                 <button class="ui basic button" (click)="postCancel()">cancel</button>
                             </div>
                         </div>
