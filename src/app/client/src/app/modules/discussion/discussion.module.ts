@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { QuillEditorModule } from 'ngx-quill-editor';
 import { TreeViewComponent } from './shared/tree-view.component';
 import { TreeView } from './shared/tree-view.directory';
+import { TreeViewService } from './shared/tree-view.service';
 // #NUIH change:
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { TreeView } from './shared/tree-view.directory';
     FormsModule,
     QuillEditorModule
   ],
-  providers: [CourseDiscussService, DiscussionService],
+  providers: [CourseDiscussService, DiscussionService, TreeViewService],
   exports: [DiscussionComponent],
   declarations: [DiscussionComponent, TreeViewComponent, TreeView]
 })

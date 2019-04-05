@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
+import { TreeViewService } from './tree-view.service';
 @Component({
     selector: 'tree-view',
     templateUrl: './tree-view.html',
@@ -6,9 +7,8 @@ import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core
 })
 export class TreeView implements OnChanges {
     @Input() replyList: any;
-    @Output() getPostNumberfromDirective = new EventEmitter();
-    public postNumber: number;
     ngOnChanges() { }
+    constructor(public treeViewService: TreeViewService) { }
     parseBody(body) {
         if (body.includes('</a>')) {
             return true;
@@ -17,8 +17,6 @@ export class TreeView implements OnChanges {
         }
     }
     getPostNumber(postNumber) {
-        this.postNumber = postNumber;
-        console.log("Post Number from Directive", this.postNumber);
-        this.getPostNumberfromDirective.emit(this.postNumber);
+        this.treeViewService.setPostNumber(postNumber);
     }
 }

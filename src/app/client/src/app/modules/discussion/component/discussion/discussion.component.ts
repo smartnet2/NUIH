@@ -6,6 +6,7 @@ import { combineLatest, Subscription, Subject } from 'rxjs';
 import { takeUntil, first, mergeMap, map } from 'rxjs/operators';
 import { CourseConsumptionService, CourseBatchService } from '../../../learn/services'
 import * as _ from 'lodash';
+import { TreeViewService } from '../../shared/tree-view.service';
 @Component({
   selector: 'app-discussion',
   templateUrl: './discussion.component.html',
@@ -55,7 +56,7 @@ export class DiscussionComponent implements OnInit, OnChanges {
   };
 
   constructor(
-    discussionService: DiscussionService, private activatedRoute: ActivatedRoute,
+    discussionService: DiscussionService, public treeViewService: TreeViewService, private activatedRoute: ActivatedRoute,
     public courseDiscussionsService: CourseDiscussService, private courseConsumptionService: CourseConsumptionService,
     public courseBatchService: CourseBatchService) {
     this.discussionService = discussionService;
@@ -166,12 +167,8 @@ export class DiscussionComponent implements OnInit, OnChanges {
   }
   replyToThreadFromModal() {
     this.editorContent = this.editorContentForModal;
+    this.replyPostNumber = this.treeViewService.getPostNumber();
     this.replyToThread();
-  }
-  getPostNumberfromTree(postNumber) {
-    this.replyPostNumber = postNumber;
-    console.log("=========================");
-    console.log(this.replyPostNumber);
   }
   replyToThread() {
     const body = {
@@ -235,7 +232,6 @@ export class DiscussionComponent implements OnInit, OnChanges {
         const url = res.result.response.url;
         const fileName = res.result.response.original_filename;
         this.uploadedFile = this.editorContent + '<p><a class="attachment" href=' + url + '>' + fileName + '</a></p>';
-        console.log('uploadedFile', this.uploadedFile);
       }
     });
     // this.challengeService.batchUpload(file).subscribe((result: any) => {
@@ -251,7 +247,6 @@ export class DiscussionComponent implements OnInit, OnChanges {
         const url = res.result.response.url;
         const fileName = res.result.response.original_filename;
         this.uploadedFile = this.editorContentForModal + '<p><a class="attachment" href=' + url + '>' + fileName + '</a></p>';
-        console.log('uploadedFile', this.uploadedFile);
       }
     });
     // this.challengeService.batchUpload(file).subscribe((result: any) => {
