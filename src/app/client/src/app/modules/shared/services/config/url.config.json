@@ -64,6 +64,9 @@
       "COURSE_PROGRESS": "dashboard/v1/progress/course",
       "COURSE_CONSUMPTION": "dashboard/v1/consumption/course"
     },
+    "EMAIL":{
+      "EMAIL_POST":"custom/v1/write/email"
+    },
     "NOTES": {
       "SEARCH": "notes/v1/search",
       "CREATE": "notes/v1/create",

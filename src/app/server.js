@@ -21,6 +21,8 @@ const publicServicehelper = require('./helpers/publicServiceHelper.js')
 const userHelper = require('./helpers/userHelper.js')
 const proxyUtils = require('./proxy/proxyUtils.js')
 const healthService = require('./helpers/healthCheckService.js')
+//add email service
+const customServiceHelper = require('./helpers/custom/customServiceHelper.js')
 const fs = require('fs')
 const port = envHelper.PORTAL_PORT
 const learnerURL = envHelper.LEARNER_URL
@@ -99,6 +101,8 @@ app.all(['/server.js', '/helpers/*.js', '/helpers/**/*.js'], function (req, res)
   res.sendStatus(404);
 })
 
+app.post('/custom/v1/write/email', bodyParser.urlencoded({ extended: false }),
+bodyParser.json({ limit: '10mb' }),customServiceHelper.verifyAndStoreEmail)
 
 // this line should be above middleware please don't change
 app.get('/public/service/orgs', publicServicehelper.getOrgs)
@@ -207,6 +211,8 @@ app.all('/lms', indexPage)
 app.all('/innovate', indexPage)
 app.all('/smartgov', indexPage)
 app.all('/iudx', indexPage)
+app.all('/aboutus', indexPage)
+app.all('/comingsoon', indexPage)
 app.all(['/groups', '/groups/*'], keycloak.protect(), indexPage)
 app.all('/play/*', indexPage)
 

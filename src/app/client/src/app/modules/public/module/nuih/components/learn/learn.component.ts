@@ -291,7 +291,6 @@ export class LearnComponent implements OnInit, OnDestroy {
       }
     });
     //Testimonials carousel Ends here
-
   }
 
   prepareVisits(event) {
@@ -366,7 +365,9 @@ export class LearnComponent implements OnInit, OnDestroy {
         }
       );
   }
-
+  redirectToUrl(path) {
+    this.router.navigate([path]);
+  }
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

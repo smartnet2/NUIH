@@ -432,7 +432,7 @@ div:focus {
 
 /*semantic ui modal form field changes*/
 
-.ui.form input[type=text],
+/* .ui.form input[type=text],
 .ui.form input[type=text]:focus,
 .ui.form input[type=email],
 .ui.form input[type=number],
@@ -446,7 +446,7 @@ div:focus {
   border-radius: 0;
   padding: 0.8em 0 0.8em 1em;
   font-family: Roboto, sans-serif;
-}
+} */
 
 
 

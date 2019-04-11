@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { takeUntil, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterNavigationService, ResourceService, ToasterService, ServerResponse } from '@sunbird/shared';
@@ -12,7 +12,10 @@ import { Subject, combineLatest } from 'rxjs';
 @Component({
   selector: 'app-create-batch',
   templateUrl: './create-batch.component.html',
-  styleUrls: ['./create-batch.component.css']
+  styleUrls: ['./create-batch.component.css'],
+  /* #NUIH change: Starts here */
+  encapsulation: ViewEncapsulation.None
+  /* #NUIH change: Ends here*/
 })
 export class CreateBatchComponent implements OnInit, OnDestroy {
 
@@ -71,8 +74,8 @@ export class CreateBatchComponent implements OnInit, OnDestroy {
   */
   private toasterService: ToasterService;
   /**
-	 * telemetryImpression object for create batch page
-	*/
+   * telemetryImpression object for create batch page
+  */
   telemetryImpression: IImpressionEventInput;
 
   public unsubscribe = new Subject<void>();
@@ -84,8 +87,8 @@ export class CreateBatchComponent implements OnInit, OnDestroy {
   pickerMinDateForEndDate = new Date(this.pickerMinDate.getTime() + (24 * 60 * 60 * 1000));
 
   /**
-	 * Constructor to create injected service(s) object
-	 * @param {RouterNavigationService} routerNavigationService Reference of routerNavigationService
+   * Constructor to create injected service(s) object
+   * @param {RouterNavigationService} routerNavigationService Reference of routerNavigationService
    * @param {Router} router Reference of Router
    * @param {ActivatedRoute} activatedRoute Reference of ActivatedRoute
    * @param {UserService} UserService Reference of UserService

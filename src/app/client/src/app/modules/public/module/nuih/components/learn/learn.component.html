@@ -1,24 +1,22 @@
 <div [appTelemetryImpression]="telemetryImpression">
-    <header id="header">
+      <header id="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-                <div class="container"> <a class="navbar-brand js-scroll-trigger" href="#page-top"><img
+                <div class="container"> <a class="navbar-brand js-scroll-trigger" href="javascript:"><img
                             src="./assets/nuih/img/nuih-logo.jpg" width="100%" height="100%" alt=""></a>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/nuis"
-                                    style="white-space:nowrap">Home</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/nuis">Home</a>
+                            </li>
                             <li class="nav-item"> <a class="nav-link js-scroll-trigger nav-active" href="/lms">Learn</a>
                             </li>
                             <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/innovate">Innovate</a>
                             </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/iudx"
-                                    style="white-space:nowrap">Data</a> </li>
-                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/smartgov"
-                                    style="white-space:nowrap">Smart
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/iudx">Data</a> </li>
+                            <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="/smartgov">Smart
                                     Governance</a> </li>
                             <li class="nav-item"> <a class="btn btn-primary" href="/learn">Sign In/Up</a></li>
                         </ul>
@@ -36,9 +34,7 @@
         <div class="learn-content">
             <div class="container text-center">
                 <h2>NATIONAL URBAN LEARNING PLATFORM </h2>
-                 <p>A platform that helps cities and industries to accelerate innovation by peer to peer<br>
-                    learning among cities, an eco-system of knowledge sharing & consumption between <br>
-                    government, industries , academia & citizens
+                <p>Let's build smart cities together
                 </p>
             </div>
         </div>
@@ -73,9 +69,10 @@
                 <div class="row">
                     <div class="col-lg-2 content">
                         <h2 class="border-btm">Popular Courses</h2>
-                        <p>Access the latest knowledge on issues of urban importance</p>
-                        <div class="pull-left viewall"><a href="#" class="view">View All</a> <i
-                                class="fa fa-long-arrow-right" aria-hidden="true"></i></div>
+                        <p>Access the latest knowledge on various sectors under urban domain</p>
+                        <div class="pull-left viewall"><a href="javascript:" (click)="redirectToUrl('comingsoon')"
+                                class="view">View All</a> <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        </div>
                     </div>
                     <div class="col-lg-10">
                         <div class="container">
@@ -373,8 +370,10 @@
             <div class="container grow-your-network-container">
                 <div class="section-header grow">
                     <div class="col-md-7 col-lg-7 pull-left">
-                        <h2 class="grow-hd">LEARN AND GET RECOGNISED</h2>
-                        <p>Enroll in courses from your area of interest and get certified from prestigious universities from around the world.</p>
+                        <h2 class="grow-hd color-white" >LEARN AND GET RECOGNISED</h2>
+						
+                        <p>Enroll in courses from your area of interest and get certified from prestigious universities
+                            from around the world.</p>
                     </div>
                     <div class="col-md-2 col-lg-2"></div>
                     <div class="col-md-3 col-lg-3 pull-left">
@@ -389,7 +388,7 @@
                             <div class="counter gr-ctn">
                                 <h2 class="timer count-title count-number text-align-left grn-color " data-to="100"
                                     data-speed="1500">200</h2>
-                                <p class="count-text ">Recognised Institutions</p>
+                                <p class="count-text ">Recognized Institutions</p>
                             </div>
                         </div>
                     </div>
@@ -503,22 +502,14 @@
             style="visibility: visible; animation-name: fadeInUp;">
             <div class="container">
                 <div class="section-header text-center">
-                    <h2>Browse our content providers</h2>
+                    <h2>Our content providers</h2>
                     <p>Enroll in courses from your area of interest & explore contents from the<br>
-                        best universities, institutions & organisations</p>
+                        best universities, institutions & organizations</p>
                 </div>
-                <div class="owl-carousel testimonials-carousel">
-                    <div class="testimonial-item imc">
-                        <div class="col-md-12 col-lg-12">
-                            <img src="./assets/nuih/img/flogo.jpg" width="884" height="57" alt="" />
-                        </div>
+                <div class="row">
+                    <div class="col-md-10 col-lg-10 margin-left-11">
+                        <img src="./assets/nuih/img/flogo1.jpg" width="100%" alt="" />
                     </div>
-                    <div class="testimonial-item imc">
-                        <div class="col-md-12 col-lg-12">
-                            <img src="./assets/nuih/img/flogo1.jpg" width="884" height="57" alt="" />
-                        </div>
-                    </div>
-
                 </div>
                 <!-- <div class="owl-carousel testimonials-carousel owl-loaded owl-drag">
 
@@ -559,7 +550,7 @@
             </div>
         </section>
 
-        <section id="testimonials" class="wow fadeInUp">
+        <section id="testimonials" class="wow fadeInUp learn-testimonial-footer-bg">
             <div class="container">
                 <div class="section-header text-center">
                     <h2>TESTIMONIALS</h2>
@@ -572,11 +563,10 @@
                             <br>
                             <br>
 
-                            <h5>Ravi Sharma</h5>
-                            <p> CEO, Future Food </p>
-                            <p>"Through NUIS, we got our first investment ever. Until then, no one had belived in us.Now
-                                in the Food Waste Alliance, we have a community of support ,were accepted to the Food-X
-                                Accelerator and are scaling our operations and inpact."</p>
+                            <h5>Ronit Verma</h5>
+                            <p> Citizen</p>
+                            <p>"NUIS has given me a unique opportunity to  to keep in touch with the latest e-learning materials related to urban affairs and it's relevant sectors.<br>
+The NULP micro-site has enabled me and my fellow citizens become more aware about how our city can be transformed by making it more resilient to urban challenges."</p>
                         </div>
                     </div>
                     <div class="testimonial-item imc"> <img src="./assets/nuih/img/s1.png" class=" pro-img" alt=""
@@ -585,10 +575,9 @@
                             <br>
                             <br>
 
-                            <h5>Naman Jain</h5>
-                            <p> CEO, Future Cities </p>
-                            <p>"NUIS has given me the much needed opportunity to showcase my product. 
-                                I can now finally apply my knowledge in the field to real life problems affecting city civic issues."</p>
+                            <h5>Rishabh Singhania</h5>
+                            <p> City Official </p>
+                            <p>"As a Smart City official, I'm tasked with accelerating innovation and building capacity in the urban ecosystem. NUIS gives me that opportunity by connecting Communities, Industry, Academia and Government. It enables the development of cities across India and creates an ecosystem of learning, sharing and collaboration for the urban transformation of India."</p>
                         </div>
                     </div>
                     <div class="testimonial-item imc"> <img src="./assets/nuih/img/s2.png" class=" pro-img" alt=""
@@ -597,9 +586,10 @@
                             <br>
                             <br>
 
-                            <h5>Shazia Husain</h5>
-                            <p> CEO, Future Technology </p>
-                            <p>"NUIS gave me the opportunity to leverage my technical skills and develop practical solutions to issues currently affecting cities"</p>
+                            <h5>Megha Jain</h5>
+                            <p> MD, Infonet Services Corporation</p>
+                            <p>"Showcasing my product catalogue was never this easy. Thanks to NUIS I am now able to connect directly to Smart City CEOs & other interested stakeholders of my domain.<br>
+Going forward I suggest all my fellow Innovators to come on board to NUIS. You also can solve city civic issues at scale & speed."</p>
                         </div>
                     </div>
 
@@ -610,26 +600,29 @@
         <!--==========================
                     Contact Section
                   ============================-->
-        <!-- <section id="contact" class="wow fadeInUp">
+        <section id="contact" class="wow fadeInUp">
             <div class="container">
-                <div class="section-header text-center row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 pull-left blue-color">
+                <div class="section-header text-center row email">
+                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 pull-left blue-color">
                         <h3>Never miss a good Opportunity</h3>
-                        <p class="text-align-left">Get our most important updates delivered straight to your inbox </p>
+                        <p class="text-align-left">Get our most important updates delivered<br> straight to your inbox
+                        </p>
                     </div>
 
-                    <div class="col-lg-6 col-md-6 col-sm-6 pull-left">
-                        <div class="search">
+                    <div class="col-lg-5 col-md-5 col-sm-5 pull-left">
+                        <!-- <div class="search">
                             <input type="text" class="form-control input-sm" maxlength="64" placeholder="Search" />
                             <button type="submit" class="btn2 btn-primary btn-sm">Search</button>
-                        </div>
+                        </div> -->
+                        <app-email-input></app-email-input>
                     </div>
 
 
 
                 </div>
             </div>
-        </section> -->
+        </section>
         <!-- #contact -->
 
     </main>
@@ -645,20 +638,21 @@
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-                    <div class="collapse navbar-collapse blue" id="navbarResponsive">
+                    <div class="blue" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item ft"> <a href="http://smartcities.gov.in/content/"><img src="./assets/nuih/img/smrt.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"> <a href="http://amrut.gov.in/"><img src="./assets/nuih/img/amrut.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"> <a href="https://www.hridayindia.in/"><img src="./assets/nuih/img/hri.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"> <a href="https://swachhbharatmission.gov.in/sbmcms/index.htm"><img src="./assets/nuih/img/bhrt.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"><a href="https://pmaymis.gov.in/"><img src="./assets/nuih/img/m.png" width="90px"
-                                        height="auto" alt="" /></a> </li>
-                            <li class="nav-item ft"><a href="https://nulm.gov.in/"><img src="./assets/nuih/img/day.png" width="90px" height="auto" alt="" /></a> </li>
-																		 
+                            <li class="nav-item ft"> <a href="http://smartcities.gov.in/content/" target="_blank"><img
+                                        src="./assets/nuih/img/smrt.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="http://amrut.gov.in/" target="_blank"><img
+                                        src="./assets/nuih/img/amrut.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="https://www.hridayindia.in/"  target="_blank"><img
+                                        src="./assets/nuih/img/hri.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"> <a href="https://swachhbharatmission.gov.in/sbmcms/index.htm" target="_blank"><img
+                                        src="./assets/nuih/img/bhrt.png" width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"><a href="https://pmaymis.gov.in/" target="_blank"><img src="./assets/nuih/img/m.png"
+                                        width="90px" height="auto" alt="" /></a> </li>
+                            <li class="nav-item ft"><a href="https://nulm.gov.in/" target="_blank"><img src="./assets/nuih/img/day.png"
+                                        width="90px" height="auto" alt="" /></a> </li>
+
 
                         </ul>
                     </div>

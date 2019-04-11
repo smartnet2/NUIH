@@ -15,12 +15,14 @@ import { WebExtensionsConfig, PluginModules } from './framework.config';
 import { CacheService } from 'ng2-cache-service';
 import { CacheStorageAbstract } from 'ng2-cache-service/dist/src/services/storage/cache-storage-abstract.service';
 import { CacheSessionStorage } from 'ng2-cache-service/dist/src/services/storage/session-storage/cache-session-storage.service';
+import {DiscussionModule} from '../app/modules/discussion/discussion.module';
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     CoreModule.forRoot(),
+    DiscussionModule,
     CommonModule,
     BrowserModule,
     HttpClientModule,

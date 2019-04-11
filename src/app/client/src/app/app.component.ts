@@ -112,7 +112,10 @@ export class AppComponent implements OnInit {
       || _.indexOf(_.split(window.location.href, '/'), 'lms') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'innovate') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'iudx') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'smartgov') > -1 ?
+      || _.indexOf(_.split(window.location.href, '/'), 'smartgov') > -1
+      || _.indexOf(_.split(window.location.href, '/'), 'aboutus') > -1
+      || _.indexOf(_.split(window.location.href, '/'), 'signup') > -1
+      || _.indexOf(_.split(window.location.href, '/'), 'comingsoon') > -1 ?
       false : true;
   }
   initializeLogedInsession() {
@@ -214,7 +217,8 @@ export class AppComponent implements OnInit {
     this.tenantService.tenantData$.subscribe(
       data => {
         if (data && !data.err) {
-          document.title = this.userService.rootOrgName || data.tenantData.titleName;
+          /*document.title = this.userService.rootOrgName || data.tenantData.titleName;*/
+          document.title = "NUIS";
           document.querySelector('link[rel*=\'icon\']').setAttribute('href', data.tenantData.favicon);
         }
       }

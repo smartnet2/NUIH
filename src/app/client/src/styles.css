@@ -24,16 +24,16 @@
 
 /*cards fonts*/
 .cardsHeading {
-  font-family: 'sunbirdboldfont';
+  font-family: "Raleway",sans-serif!important;
   font-size: 1.25em;
 }
 .cardsSubHeading {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway",sans-serif!important;
   font-size: 1.125em;
   color: #007AFF;
 }
 .cardsDescription {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway",sans-serif !important;
   font-size: 1.0625em;
   font-weight: 400;
   line-height: 1.4;
@@ -42,46 +42,46 @@
 
 /* font used for view all and read more*/
 .cardsKnowMore {
-  font-family: 'sunbirdboldfont';
+  font-family: "Raleway",sans-serif !important;
   font-size: 1em;
   color: #007AFF;
 }
 /* cards used in slider fonts*/
 /* #NUIH change: */
 .sliderCardHeading {
-  font-family: "Raleway", sans-serif;
+  font-family: "Raleway", sans-serif !important;
   font-size: 13px;
   float: left;
   padding-left: 10px;
   font-weight: 600;
 }
 .sliderCardDesc {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 1em;
   color: #7c7b7b;
 }
 .sliderCardSubDesc {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 0.875em;
   color: grey;
 }
 /* segment card fonts*/
 .segmentCardHeading {
-  font-family: 'sunbirdboldfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 1.313em;
 }
 .segmentAvatarDesc {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 1.0625em;
   color: rgba(0, 0, 0, 0.85);
 }
 .segmentAvatarSubDesc {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 0.9375em;
   color: #7c7b7b;
 }
 .segmentCardSubDesc {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 1.0625em;
 }
 /*course structure page fonts*/
@@ -148,23 +148,23 @@
   font-size: 1.4em;
 }
 .dashBoardMenuItem {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 0.9375em;
   color: #007AFF;
 }
 .ui.cards > .card .meta.dashBoardCardText {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 1.1em;
   color: #7c7b7b;
 }
 .ui.cards > .card > .content > .description.dashboardCardSubText {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 1.6em;
   color: #333333;
 }
 /*note card font*/
 .batch-card-desc {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 0.8em;
 }
 /*terms and condition fonts*/
@@ -523,7 +523,9 @@ a:hover {
 .ui.secondary.pointing.menu .active.item {
   border-color: #007AFF;
   color: #333333;
-  font-family: 'sunbirdmediumfont';
+  /* #NUIH changes for styles*/
+  font-family: "Raleway", sans-serif !important;
+  /* #NUIH changes for styles*/
 }
 .ui.secondary.pointing.menu {
   background: #fdfdfd;
@@ -977,7 +979,7 @@ i.large.icon.limitedPublishingLinkIcon {
 }
 /*semantic ui modal form field changes*/
 
-.ui.form input[type=text],
+/* .ui.form input[type=text],
 .ui.form input[type=text]:focus,
 .ui.form input[type=email],
 .ui.form input[type=number],
@@ -991,13 +993,13 @@ i.large.icon.limitedPublishingLinkIcon {
   border-radius: 0;
   padding: 0.8em 0 0.8em 1em;
   font-family: Roboto, sans-serif;
-}
+} */
 
-.ui.selection.dropdown {
+/* .ui.selection.dropdown {
   border: 0;
   border-bottom: 1px solid #333333;
   border-radius: 0;
-}
+} */
 .ui.dropdown.genderSelectionDropDown {
   border: 0;
   border-bottom: 1px solid #333333;
@@ -1012,7 +1014,7 @@ i.large.icon.limitedPublishingLinkIcon {
 }
 .field > label {
   color: #333333;
-  font-weight: bold;
+  /* font-weight: bold; */
   line-height: 14px;
 }
 .inline.fields > label {
@@ -1029,6 +1031,9 @@ i.large.icon.limitedPublishingLinkIcon {
 .ui.modal .scrolling.content {
   max-height: calc(70vh);
   overflow: auto;
+}
+.ui.modal{
+  bottom: auto !important;
 }
 /*concept selector pop up */
 .ui.tree-picker.modal .header .ui.menu {
@@ -1094,13 +1099,13 @@ i.large.icon.limitedPublishingLinkIcon {
   width: 85%;
 }
 .profileUpdateCardSubDesc {
-  font-family: 'sunbirdregularfont';
+  font-family: "Raleway", sans-serif !important;
   font-size: 0.875em;
   color: grey;
 }
 .profileUpdateCardHeading {
   margin-top: -10px;
-  font-family: 'sunbirdboldfont';
+  font-family:"Raleway", sans-serif !important;
   font-size: 1.3em;
   line-height: 1.2;
 }
@@ -1132,7 +1137,7 @@ i.large.icon.limitedPublishingLinkIcon {
 @media screen and (max-width: 1280px) and (min-width: 1200px) {
   .profileUpdateCardHeading {
     margin-top: -10px;
-    font-family: 'sunbirdboldfont';
+    font-family: "Raleway", sans-serif !important;
     font-size: 1.2em;
     line-height: 1.2;
   }
@@ -1570,6 +1575,7 @@ span.fancytree-title {
   padding: 0;
   border-radius: 0;
   border: 0;
+  width: 100%;
 }
 .tocplayer.ui.grid {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
