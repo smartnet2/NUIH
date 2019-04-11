@@ -473,6 +473,15 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         batchId: this.batchId,
         status: eid === 'END' ? 2 : 1
       };
+      if( eid === 'END' ){
+        setTimeout(() => {	
+        localStorage.getItem('totalScore');	
+        console.log('totalScore=======>', localStorage.getItem('totalScore'));	 
+      }, 10);	     
+        if(localStorage.getItem('totalScore') !== '') {
+         this.courseBatchService.scoredMarks(localStorage.getItem('totalScore'), localStorage.getItem('maxScore'));
+      }
+      }
       this.updateContentsStateSubscription = this.courseConsumptionService.updateContentsState(request)
         .subscribe((updatedRes) => {
           this.contentStatus = updatedRes.content;
