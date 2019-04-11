@@ -14,12 +14,15 @@ import {
 import {
   MainHeaderComponent, MainMenuComponent, SearchComponent, ConceptPickerComponent, DataDrivenFilterComponent,
   ErrorPageComponent, SortByComponent, FlagContentComponent, ContentPlayerMetadataComponent,
-  BreadcrumbsComponent, LanguageDropdownComponent, ProminentFilterComponent
+  BreadcrumbsComponent, LanguageDropdownComponent, ProminentFilterComponent,
 } from './components';
 import { AuthGuard } from './guard/auth-gard.service';
 import { CacheService } from 'ng2-cache-service';
 import { WebExtensionModule } from 'sunbird-web-extension';
 import { TelemetryModule } from '@sunbird/telemetry';
+import { NewNavbarComponent } from './components/new-navbar/new-navbar.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -33,10 +36,10 @@ import { TelemetryModule } from '@sunbird/telemetry';
   ],
   declarations: [MainHeaderComponent, MainMenuComponent, SearchComponent, PermissionDirective, ConceptPickerComponent,
     DataDrivenFilterComponent, BreadcrumbsComponent, SortByComponent, ErrorPageComponent, FlagContentComponent,
-    ContentPlayerMetadataComponent, LanguageDropdownComponent, ProminentFilterComponent],
+    ContentPlayerMetadataComponent, LanguageDropdownComponent, ProminentFilterComponent, NewNavbarComponent, ],
   exports: [MainHeaderComponent, PermissionDirective, ConceptPickerComponent, DataDrivenFilterComponent,
     SortByComponent, BreadcrumbsComponent, FlagContentComponent, ContentPlayerMetadataComponent,
-    TelemetryModule, LanguageDropdownComponent, ProminentFilterComponent]
+    TelemetryModule, LanguageDropdownComponent, ProminentFilterComponent,NewNavbarComponent]
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders {

@@ -979,7 +979,7 @@ i.large.icon.limitedPublishingLinkIcon {
 }
 /*semantic ui modal form field changes*/
 
-/* .ui.form input[type=text],
+.ui.form input[type=text],
 .ui.form input[type=text]:focus,
 .ui.form input[type=email],
 .ui.form input[type=number],
@@ -993,13 +993,13 @@ i.large.icon.limitedPublishingLinkIcon {
   border-radius: 0;
   padding: 0.8em 0 0.8em 1em;
   font-family: Roboto, sans-serif;
-} */
+}
 
-/* .ui.selection.dropdown {
+.ui.selection.dropdown {
   border: 0;
   border-bottom: 1px solid #333333;
   border-radius: 0;
-} */
+}
 .ui.dropdown.genderSelectionDropDown {
   border: 0;
   border-bottom: 1px solid #333333;
@@ -1014,7 +1014,7 @@ i.large.icon.limitedPublishingLinkIcon {
 }
 .field > label {
   color: #333333;
-  /* font-weight: bold; */
+  font-weight: bold;
   line-height: 14px;
 }
 .inline.fields > label {
@@ -1413,10 +1413,10 @@ body ::-webkit-scrollbar {
 ul {
   list-style: none;
 }
-ul li {
+/* ul li {
   margin-bottom: 29px;
   position: relative;
-}
+} */
 ul li span.text {
   margin-right: 43%;
 }
@@ -2819,4 +2819,8 @@ iframe.iziModal-iframe {
   border-radius: 100%;
   left: 0;
   outline: none;
+}
+
+#mainNav {
+  height: 95px;
 }

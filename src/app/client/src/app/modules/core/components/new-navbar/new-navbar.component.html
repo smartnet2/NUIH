@@ -1,0 +1,93 @@
+ 
+ <!-- Main navigation -->
+  <nav class="navbar navbar-expand-md navbar-dark">
+      <div class="container">
+
+          <!-- Company name shown on mobile -->
+          <a class="navbar-brand" href="#">
+   <img class="card-img-top" src="assets/images/nuih-logo.jpg" alt="Card image cap">
+  
+  </a>
+
+          <!-- Mobile menu toggle -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Main navigation items -->
+          <div class="collapse navbar-collapse h-100" id="mainNavbar">
+                <ul class="navbar-nav mr-auto justify-content-end">
+                                        
+                
+                    <li class="nav-item active">
+                             <a class="item nav-link" [class.active]="router.isActive('/search/Courses') || router.isActive('/learn')" routerLink="/learn">
+                        {{resourceService?.frmelmnts?.tab?.courses}}
+                    </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                            <a class="item nav-link" [class.active]="router.isActive('/search/Challenge') || router.isActive('/challenge')" routerLink="/challenge">
+                        {{resourceService?.frmelmnts?.tab?.challenge}}   
+                                                    
+                    </a>
+                    </li>
+
+                    <li class="nav-item">
+                             <a class="item nav-link" routerLink="profile">{{resourceService.frmelmnts?.lnk?.profile}}</a> 
+                    </li>
+
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bell" aria-hidden="true"></i>
+            </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"><span class="label label-warning">4:00 AM</span>Favourites Snippet</a></li>
+                    <li><a href="#"><span class="label label-warning">4:30 AM</span>Email marketing</a></li>
+                    <li><a href="#"><span class="label label-warning">5:00 AM</span>Subscriber focused email
+                        design</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" class="text-center">View All</a></li>
+                </ul>
+            </li>
+                       <li>
+                           
+                           
+                               <ul class="nav navbar-nav navbar-right">
+            
+            
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user" aria-hidden="true"></i><b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                     <li><a class="menuItems" routerLink="profile">{{resourceService.frmelmnts?.lnk?.profile}}</a></li>
+                      <li><a class="menuItems" *ngIf='permissionService.permissionAvailable' appPermission [permission]='adminDashboard' routerLink="orgDashboard">{{resourceService.frmelmnts?.lnk?.dashboard}}</a></li>
+                      <li><a class="menuItems" *ngIf='permissionService.permissionAvailable' appPermission [permission]='announcementRole' routerLink="announcement/outbox/1">{{resourceService.frmelmnts?.lnk?.announcement}}</a></li>
+                      <li><a class="menuItems" style="color: black;" *ngIf='permissionService.permissionAvailable' appPermission [permission]='workSpaceRole' (click)="navigateToWorkspace()">{{resourceService.frmelmnts?.lnk?.workSpace}}</a></li>
+                      <li><a class="menuItems" *ngIf='permissionService.permissionAvailable' appPermission [permission]='myActivityRole' routerLink="myActivity">{{resourceService.frmelmnts?.lnk?.myactivity}}</a></li>
+                      <li><a class="menuItems" *ngIf='permissionService.permissionAvailable' appPermission [permission]='orgSetupRole' routerLink="orgType">{{resourceService.frmelmnts?.lbl?.orgtypes}}</a></li>
+                      <li><a class="menuItems" *ngIf='permissionService.permissionAvailable' appPermission [permission]='workSpaceRole' routerLink="grafana">{{resourceService.frmelmnts?.lnk?.dashbord}}</a></li>
+
+              <li class="divider"></li>
+              <li><a class="menuItems" style="color: black;" (click)="logout()">{{resourceService.frmelmnts?.lnk?.logout}}</a></li>
+                </ul>
+            </li>
+        </ul>
+                           
+                                </li>
+                                  <li>
+                                        <div class="search" *ngIf="userService.userid">
+                                                <app-search></app-search>
+                                            </div>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+        </div>
+    </nav>
+
+  <div *ngIf="showQrmodal">
+        <app-qr-code-modal (closeQrModal)="closeQrModalEvent($event)"></app-qr-code-modal>
+    </div>
+    
