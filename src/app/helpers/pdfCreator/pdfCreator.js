@@ -153,6 +153,7 @@ function createPDF (data, filePath, callback) {
     var instructor = data.instructor || certificateInstructor
     var courseCompletionDate = getCertificateDate(data.createdDate || new Date())
     var courseName = data.courseName
+    var marksScored = data.marks.scoredMarks + ' / ' +  data.marks.maxMarks
 
     var doc = new PDFDocument({ autoFirstPage: false })
 
@@ -166,8 +167,10 @@ function createPDF (data, filePath, callback) {
       width: 700
     })
 
-    doc.font('Helvetica-Bold').fontSize(15).text(title + ' ' + name, 200, 293, { align: 'center' })
-    doc.font('Helvetica-Bold').fontSize(15).text(courseName, 200, 376, { align: 'center' })
+    doc.font('Helvetica-Bold').fontSize(15).text(title + ' ' + name, 200, 275, { align: 'center' })
+    doc.font('Helvetica-Bold').fontSize(15).text(courseName, 200, 347, { align: 'center' })
+    doc.font('Helvetica-Bold').fontSize(15).text(marksScored, 230, 398, { align: 'center' })
+    
     if(platformName) {
       doc.font('Helvetica').fontSize(15).text(platformName, 200, 416, { align: 'center' })
     }
@@ -204,17 +207,18 @@ function createCertificate (req, res) {
     rspObj.responseCode = 'CLIENT_ERROR'
     return res.status(400).send(errorResponse(rspObj))
   }
-
+console.log('data in pdfCreator===>', data);
   const userId = data.userId
   const courseId = data.courseId
   const courseName = data.courseName
+  const marks = data.marks
   // Create file name with course name and courseId and courseName date
   const fileName = courseName + '-' + userId + '-' + courseId + '.pdf'
   // Create local file path
    const filePath = path.join(__dirname, fileName)
   //const filePath = path.join('C:\projects\Tarento\pdfdoc', fileName)
   // Create destination path (Azure bucket path)
-  var destPath = path.join('course_certificate', fileName)
+  var destPath = path.join('course_certificates', fileName)
   async.waterfall([
     function (CB) {
       
@@ -223,10 +227,12 @@ function createCertificate (req, res) {
           console.log('err to download file, Now create pdf and upload', JSON.stringify(err))
           CB()
         } else {
-          console.log('User have certificate')
+         
+
           rspObj.result = { fileUrl: envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath }
+           console.log('User have certificate', rspObj)
           return res.status(200).send(successResponse(rspObj))
-        }
+        }        
       })
     },
     function (CB) {
@@ -239,9 +245,6 @@ function createCertificate (req, res) {
           return res.status(500).send(errorResponse(rspObj))
         } else {
           console.log(filePath)
-    //       rspObj.result = { fileUrl: filePath }
-    // //   
-    //         return res.status(200).send(successResponse(rspObj))
           CB()
         }
       })

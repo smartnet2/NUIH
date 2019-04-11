@@ -354,11 +354,11 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     if (eid === 'END') {
       this.showRatingModal = true;
       setTimeout(() => {
-        // const totalScore =  window.PI.totalScore;
-        // console.log('totalScore', totalScore);
-        localStorage.getItem('totalScore');
         console.log('totalScore=======>', localStorage.getItem('totalScore'));
       }, 10);
+      if(localStorage.getItem('totalScore') !== '') {
+         this.courseBatchService.scoredMarks(localStorage.getItem('totalScore'), localStorage.getItem('maxScore'));
+      }
     }
 
     if (this.batchId && this.enrolledBatchInfo && this.enrolledBatchInfo.status === 1) {

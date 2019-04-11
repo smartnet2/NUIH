@@ -52,6 +52,7 @@ Plugin.extend({
             window.org.ekstep.totalScore = totalScore;
             window.org.ekstep.maxScore = maxScore; // Store
             localStorage.setItem("totalScore", totalScore);
+            localStorage.setItem("maxScore", maxScore);
         } 
     }
 });
