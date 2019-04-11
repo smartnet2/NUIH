@@ -351,7 +351,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   }
   public contentProgressEvent(event) {
     const eid = event.detail.telemetryData.eid;
-    if (eid === 'END') {
+    if (eid === 'END' && this.nextPlaylistItem === undefined) {
       this.showRatingModal = true;
       setTimeout(() => {
         console.log('totalScore=======>', localStorage.getItem('totalScore'));
