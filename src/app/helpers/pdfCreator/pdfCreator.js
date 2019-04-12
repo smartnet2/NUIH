@@ -153,7 +153,8 @@ function createPDF (data, filePath, callback) {
     var instructor = data.instructor || certificateInstructor
     var courseCompletionDate = getCertificateDate(data.createdDate || new Date())
     var courseName = data.courseName
-    var marksScored = const marks = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : ''
+    // var marksScored = const marks = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : ''
+    var marksScored = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : '';
 
     var doc = new PDFDocument({ autoFirstPage: false })
 
@@ -219,17 +220,19 @@ function createCertificate (req, res) {
   var destPath = path.join('course_certificate', fileName)
   async.waterfall([
     function (CB) {
-      
-      uploadUtil.checkFileExist(destPath, function (err, downloadFileData) {
-        if (err) {
-          console.log('err to download file, Now create pdf and upload', JSON.stringify(err))
-          CB()
-        } else {
-          console.log('User have certificate')
           rspObj.result = { fileUrl: envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath }
           return res.status(200).send(successResponse(rspObj))
-        }
-      })
+      
+      // uploadUtil.checkFileExist(destPath, function (err, downloadFileData) {
+      //   if (err) {
+      //     console.log('err to download file, Now create pdf and upload', JSON.stringify(err))
+      //     CB()
+      //   } else {
+      //     console.log('User have certificate')
+      //     rspObj.result = { fileUrl: envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath }
+      //     return res.status(200).send(successResponse(rspObj))
+      //   }
+      // })
     },
     function (CB) {
       createPDF(data, filePath, function (err, result) {
