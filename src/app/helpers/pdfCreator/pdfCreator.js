@@ -153,7 +153,7 @@ function createPDF (data, filePath, callback) {
     var instructor = data.instructor || certificateInstructor
     var courseCompletionDate = getCertificateDate(data.createdDate || new Date())
     var courseName = data.courseName
-    var marksScored = const marks = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : ''
+    var marksScored = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : ''
 
     var doc = new PDFDocument({ autoFirstPage: false })
 
