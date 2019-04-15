@@ -8,14 +8,15 @@ export class CertificateDownloadService {
 
   constructor(private http:HttpClient) { }
 
-  public downloadAsPdf(title:string, userName:string, userId, courseId, courseName) {
+  public downloadAsPdf(title:string, userName:string, userId, courseId, courseName, marks) {
     return this.http.post('/certificate/v1/course/download',{
       "request":{
         "title":' ',
       "name":userName,
       "courseName":courseName,
       "userId": userId,
-      "courseId": courseId
+      "courseId": courseId,
+       "marks": marks
       } 
     })
   }
