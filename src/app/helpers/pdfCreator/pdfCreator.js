@@ -153,7 +153,6 @@ function createPDF (data, filePath, callback) {
     var instructor = data.instructor || certificateInstructor
     var courseCompletionDate = getCertificateDate(data.createdDate || new Date())
     var courseName = data.courseName
-    var marksScored = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : ''
 
     var doc = new PDFDocument({ autoFirstPage: false })
 
@@ -169,7 +168,6 @@ function createPDF (data, filePath, callback) {
 
     doc.font('Helvetica-Bold').fontSize(15).text(title + ' ' + name, 200, 293, { align: 'center' })
     doc.font('Helvetica-Bold').fontSize(15).text(courseName, 200, 376, { align: 'center' })
-    doc.font('Helvetica-Bold').fontSize(15).text(marksScored, 230, 398, { align: 'center' })
     if(platformName) {
       doc.font('Helvetica').fontSize(15).text(platformName, 200, 416, { align: 'center' })
     }

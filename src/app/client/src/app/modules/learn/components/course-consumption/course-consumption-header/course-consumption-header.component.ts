@@ -12,7 +12,6 @@ import {
 } from '@sunbird/shared';
 import { IInteractEventObject, IInteractEventEdata } from '@sunbird/telemetry';
 import { CertificateDownloadService } from './../../../../core/services/certificate/certificate-download.service';
-import { CourseBatchService } from './../../../services/course-batch/course-batch.service';
 import { ConfigService, IUserProfile, IUserData } from '@sunbird/shared';
 import { Subscription } from 'rxjs';
 @Component({
@@ -64,11 +63,10 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
     public resourceService: ResourceService, private router: Router, public permissionService: PermissionService,
     public toasterService: ToasterService, public copyContentService: CopyContentService, private changeDetectorRef: ChangeDetectorRef,
     private courseProgressService: CourseProgressService, public contentUtilsServiceService: ContentUtilsServiceService,
-    public externalUrlPreviewService: ExternalUrlPreviewService, public coursesService: CoursesService, private userService: UserService,
-     private certificateDownloadService: CertificateDownloadService, public courseBatchService: CourseBatchService) {
-      this.userName  =  this.userService.userProfile.userName;
-    this.userId = this.userService.userid;
-
+    public externalUrlPreviewService: ExternalUrlPreviewService, public coursesService: CoursesService, private userService: UserService, private certificateDownloadService: CertificateDownloadService) {
+      if(this.userService.userProfile)
+        this.userName  =  this.userService.userProfile.userName;
+        this.userId = this.userService.userid;
   }
 
   ngOnInit() {
@@ -182,8 +180,7 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
     this.unsubscribe.complete();
   }
   downloadCertificate () {
-    const marks = this.courseBatchService.returnMarks();
-    this.certificateDownloadService.downloadAsPdf(this.title, this.fullName, this.userId, this.courseId, this.courseHierarchy.name, marks).subscribe((res:Response)=>{ 
+    this.certificateDownloadService.downloadAsPdf(this.title, this.fullName, this.userId, this.courseId, this.courseHierarchy.name).subscribe((res:Response)=>{ 
       
       this.fileUrl = res['result']['fileUrl'];
       console.log(this.fileUrl)
