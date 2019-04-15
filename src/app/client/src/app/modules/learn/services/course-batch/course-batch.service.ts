@@ -134,15 +134,4 @@ export class CourseBatchService {
       }));
     }
   }
-  private marksData = {};  
-
-   scoredMarks(scoredMarks, maxMarks){
-    this.marksData= {
-      'scoredMarks' : scoredMarks,
-      'maxMarks': maxMarks       
-  }
-  }
-  returnMarks(){
-    return this.marksData;
-  }
 }
