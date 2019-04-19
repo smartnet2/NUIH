@@ -223,14 +223,14 @@ function createCertificate (req, res) {
       
       uploadUtil.checkFileExist(destPath, function (err, downloadFileData) {
         CB()
-        // if (err) {
-        //   console.log('err to download file, Now create pdf and upload', JSON.stringify(err))
-        // } 
-        // else {
-        //   console.log('User have certificate')
-        //   rspObj.result = { fileUrl: envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath }
-        //   return res.status(200).send(successResponse(rspObj))
-        // }
+        if (err) {
+          console.log('err to download file, Now create pdf and upload', JSON.stringify(err))
+        } 
+        else {
+          console.log('User have certificate')
+          rspObj.result = { fileUrl: envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath }
+          return res.status(200).send(successResponse(rspObj))
+        }
       })
     },
     function (CB) {
