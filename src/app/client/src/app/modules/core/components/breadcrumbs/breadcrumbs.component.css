@@ -1,18 +1,23 @@
+
+*{
+  font-family: "Raleway",sans-serif;
+}
+
 .breadcrumb-bg-color {
-    background-color: #fff;
+    background-color: lightgrey;
   }
 .ui.breadcrumb a.breadcrumb-font {
-    color: #007AFF;
-    font-family: 'sunbirdboldfont';
-    font-size: 0.9375em;
-    line-height: 17px;
+  color:black;
+  font-size: 1.0em;
+  line-height: 17px;
+  font-weight:bold;
   }
   .ui.breadcrumb .active.section {
-    color: #007AFF;
-    font-family: 'sunbirdboldfont';
-    font-size: 0.9375em;
+    color:black;
+    font-size: 1.0em;
     line-height: 17px;
+    font-weight:bold;
   }
   .ui.breadcrumb .divider {
-    color: #007AFF;
+    color: black;
   }

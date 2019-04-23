@@ -9,6 +9,12 @@ import {
 } from './components';
 import { SignupGuard, LandingpageGuard } from './services';
 import { NuihComponent, LearnComponent, InnovateComponent, DataExchangeComponent, SmartGovComponent, AboutusComponent, ComingSoonComponent } from './module/nuih';
+import { AboutComponent } from './module/fep/components/about/about.component';
+import { FaqComponent } from './module/fep/components/faq/faq.component';
+import { FepComponent } from './module/fep/components/fep/fep.component';
+import { ContactusComponent } from './module/fep/components/contactus/contactus.component';
+import { AddInformationComponent } from './module/fep/components/add-information/add-information.component';
+import { FepCourseComponent } from './module/fep/components/fep-course/fep-course.component';
 
 const routes: Routes = [
   {
@@ -112,7 +118,54 @@ const routes: Routes = [
         env: 'public', pageid: 'comingsoon', type: 'view', subtype: 'paginate'
       }
     }
+  },
+  //For Fep Module
+
+  {
+    path: 'fep', component: FepComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'fep', type: 'view', subtype: 'paginate'
+      }
+    }
+    },
+ 
+  {
+    path: 'about', component: AboutComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'about', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: 'faq', component: FaqComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'faq', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: 'contactus', component: ContactusComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'contactus', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: 'information', component: AddInformationComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'information', type: 'view', subtype: 'paginate'
+      }
+    }
+  },
+  {
+    path: 'fepcourse', component: FepCourseComponent, data: {
+      telemetry: {
+        env: 'public', pageid: 'fepcourse', type: 'view', subtype: 'paginate'
+      }
+    }
   }
+
+
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

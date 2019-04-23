@@ -1,0 +1,33 @@
+
+
+.ui.footer.segment {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+}
+.footer-icon-brder
+{
+    height: 99px;
+    width: 210px;
+    background-color: white;
+    margin-left: 64em;
+    margin-top: -6em;
+}
+.icon-circle
+{
+    height: 50px;
+    width: 50px;
+    background-color: black;
+    border-radius: 50%;margin-left:1em;margin-top:1em;
+}
+@media screen and (max-width:1200px) and (min-width: 600px){
+    .footer-icon-brder{
+        height: 99px;
+        width: 210px;
+        background-color: white;
+        margin-left: 25em;
+        margin-top: -8em;
+    }
+    
+}

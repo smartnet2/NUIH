@@ -43,7 +43,7 @@ describe('CollectionTreeComponent', () => {
       fileIcon: 'fa fa-file-o fa-lg',
       customFileIcon: {
         'video': 'fa fa-file-video-o fa-lg',
-        'pdf': 'fa fa-file-pdf-o fa-lg',
+        'pdf': 'fa  fa-lg',
         'youtube': 'fa fa-youtube fa-lg',
         'H5P': 'fa fa-html5 fa-lg',
         'audio': 'fa fa-file-audio-o fa-lg',

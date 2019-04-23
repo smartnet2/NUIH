@@ -17,6 +17,7 @@ import { CoreModule } from '@sunbird/core';
 import { NotesModule } from '@sunbird/notes';
 import { DashboardModule } from '@sunbird/dashboard';
 import { DiscussionModule } from '@sunbird/discussion';
+import { FepModule } from '../public/module/fep';
 
 
 @NgModule({
@@ -34,11 +35,14 @@ import { DiscussionModule } from '@sunbird/discussion';
     TelemetryModule,
     QuillEditorModule,
     NgInviewModule,
-    DiscussionModule
+    DiscussionModule,
+    FepModule
+    
   ],
   providers: [CourseConsumptionService, CourseBatchService, CourseProgressService, CourseDiscussionsService],
   declarations: [LearnPageComponent, CoursePlayerComponent, CourseConsumptionHeaderComponent,
     CourseConsumptionPageComponent, BatchDetailsComponent, EnrollBatchComponent, CreateBatchComponent,
-    UpdateCourseBatchComponent, CarriculumCardComponent]
+    UpdateCourseBatchComponent, CarriculumCardComponent],
+    exports: [LearnPageComponent]
 })
 export class LearnModule { }

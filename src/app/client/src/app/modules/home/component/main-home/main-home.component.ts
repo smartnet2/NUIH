@@ -79,6 +79,7 @@ public configService: ConfigService;
    * any data
    */
   showLoader = true;
+  showfepHeader = false;
   /**
   * Slider setting to display number of cards on the slider.
   */
@@ -191,6 +192,13 @@ public configService: ConfigService;
         subtype: this.activatedRoute.snapshot.data.telemetry.subtype
       }
     };
+//For Fep Module
+    if(_.indexOf(_.split(window.location.href, '/'), 'fep') > -1
+|| _.indexOf(_.split(window.location.href, '/'), 'home') > -1
+|| _.indexOf(_.split(window.location.href, '/'), 'search/All') > -1)
+  {
+    this.showfepHeader = true;
+  }
   }
   /**
    *ngOnDestroy unsubscribe the subscription

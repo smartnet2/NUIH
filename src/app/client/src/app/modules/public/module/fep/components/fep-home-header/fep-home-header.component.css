@@ -1,0 +1,21 @@
+/* *{
+    font-family: "Raleway",sans-serif;
+} */
+
+.ui.secondary.pointing.menu .ui.item.text-upper-case {
+    text-transform: uppercase;
+} 
+
+.anon-consumption-sec-menu {
+    border-bottom: 2px solid rgba(34,36,38,.15);   
+}
+
+.ui.grid>.header-height-before-login {
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+}
+.txt-fep-home
+        {
+        font-weight: bold;font-style: italic;font-size:350%;display:inline;padding:1px;color:white;
+        }

@@ -56,6 +56,7 @@ export class ProfilePageComponent implements OnInit {
       (user: IUserData) => {
         if (user && !user.err) {
           this.userProfile = user.userProfile;
+          console.log("user Profile:",this.userProfile)
           this.getMyContent();
         }
       });

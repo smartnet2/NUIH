@@ -60,6 +60,9 @@ export class AppComponent implements OnInit {
   public showMainHeader = false;
   private orgDetails: any;
   public version: string;
+
+  public showfepHeader =false;
+  public landingHeader = true;
   /**
    * constructor
    */
@@ -107,6 +110,31 @@ export class AppComponent implements OnInit {
         });
       });
     }
+
+    //for fep url
+  if(_.indexOf(_.split(window.location.href, '/'), 'home') > -1
+|| _.indexOf(_.split(window.location.href, '/'), 'search/All') > -1
+|| _.indexOf(_.split(window.location.href, '/'), 'learn') > -1
+|| (_.indexOf(_.split(window.location.href, '/'), 'search/Library') > -1
+|| _.indexOf(_.split(window.location.href, '/'), 'resources') > -1)
+|| _.indexOf(_.split(window.location.href, '/'), 'search/Courses') > -1
+|| _.indexOf(_.split(window.location.href, '/'), 'profile') > -1
+|| _.indexOf(_.split(window.location.href, '/'), 'workspace') > -1
+
+)
+
+
+  {
+    console.log("In location :",window.location.href)
+    this.showfepHeader = true;
+  }
+  else if(_.indexOf(_.split(window.location.href, '/'), 'fep') > -1 || _.indexOf(_.split(window.location.href, '/'), 'faq') > -1
+ || _.indexOf(_.split(window.location.href, '/'), 'about') > -1 || _.indexOf(_.split(window.location.href, '/'), 'contactus') > -1
+ || _.indexOf(_.split(window.location.href, '/'), 'information') > -1 || _.indexOf(_.split(window.location.href, '/'), 'fepcourse') > -1)
+ 
+  {
+    this.landingHeader = false;
+  }
     // #NUIH change: Hide main header for Nuih Page
     this.showMainHeader = _.indexOf(_.split(window.location.href, '/'), 'nuis') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'lms') > -1
@@ -114,7 +142,6 @@ export class AppComponent implements OnInit {
       || _.indexOf(_.split(window.location.href, '/'), 'iudx') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'smartgov') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'aboutus') > -1
-      || _.indexOf(_.split(window.location.href, '/'), 'signup') > -1
       || _.indexOf(_.split(window.location.href, '/'), 'comingsoon') > -1 ?
       false : true;
   }
@@ -218,7 +245,8 @@ export class AppComponent implements OnInit {
       data => {
         if (data && !data.err) {
           /*document.title = this.userService.rootOrgName || data.tenantData.titleName;*/
-          document.title = "NUIS";
+          //document.title = "NUIS";
+          document.title = "UDAY";
           document.querySelector('link[rel*=\'icon\']').setAttribute('href', data.tenantData.favicon);
         }
       }

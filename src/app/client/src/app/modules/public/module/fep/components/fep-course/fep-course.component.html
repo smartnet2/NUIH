@@ -1,0 +1,46 @@
+<div class="six wide tablet computer only column padding-top-1rem" style="background-color:lightgrey;">
+  <div class="course-logo"><a href="" style="color:black">UDAY</a></div>
+</div>
+<div style="width:100%;height:100%;">
+    <section id="" class="wow fadeInUp">
+        <div class="container popular-courses-container">
+            <div class="row">
+                <!-- <div class="col-lg-2 content">
+                    <h2 class="border-btm">Popular Courses</h2>
+                    <p>Access the latest knowledge on various sectors under urban domain</p>
+                    <div class="pull-left viewall"><a href="javascript:" (click)="redirectToUrl('comingsoon')"
+                            class="view">View All</a> <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                    </div>
+                </div> -->
+                <div class="col-lg-10">
+                    <div class="container">
+                        <!-- <div class="ui grid margin-bottom-0 hidden-section">
+                            <div class="twelve wide column">
+                                <app-prominent-filter appTelemetryInteract
+                                    [telemetryInteractEdata]="filterIntractEdata" *ngIf="filterType"
+                                    [filterEnv]="filterType" [ignoreQuery]="['key', 'language']"
+                                    [redirectUrl]="redirectUrl" [accordionDefaultOpen]=true [isShowFilterLabel]=true
+                                    [showSearchedParam]=true [isShowFilterLabel]=true [hashTagId]="hashTagId">
+                                </app-prominent-filter>
+                            </div>
+                        </div> -->
+
+                        <div *ngFor="let section of booksCarouselData">
+                            <app-page-section (visits)="prepareVisits($event)" (playEvent)="playContent($event)"
+                                [section]="section"></app-page-section>
+                        </div>
+                        <div class="twelve wide column" *ngIf="showLoader">
+                            <app-loader [data]='loaderMessage'></app-loader>
+                        </div>
+                        <div *ngIf="noResult && !showLoader">
+                            <app-no-result [data]="noResultMessage"></app-no-result>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<app-fep-footer></app-fep-footer>

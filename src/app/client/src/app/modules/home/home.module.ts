@@ -16,6 +16,8 @@ import {
 import { HomeAnnouncementService } from './service/index';
 import { NgInviewModule } from 'angular-inport';
 import { TelemetryModule } from '@sunbird/telemetry';
+import { LearnModule } from '../learn/learn.module';
+import { FepModule } from '../public/module/fep';
 @NgModule({
   imports: [
     SuiModule,
@@ -27,7 +29,9 @@ import { TelemetryModule } from '@sunbird/telemetry';
     SharedModule,
     CoreModule,
     NgInviewModule,
-    TelemetryModule
+    TelemetryModule,
+    LearnModule,
+    FepModule
   ],
   declarations: [
     ProfileCardComponent,

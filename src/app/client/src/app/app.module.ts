@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '@sunbird/core';
 import { SharedModule } from '@sunbird/shared';
 import { Ng2IziToastModule } from 'ng2-izitoast';
-import { PublicModule } from '@sunbird/public';
+
 import { TelemetryModule } from '@sunbird/telemetry';
 import { BootstrapFramework, WebExtensionModule } from 'sunbird-web-extension';
 import { WebExtensionsConfig, PluginModules } from './framework.config';
@@ -16,6 +16,8 @@ import { CacheService } from 'ng2-cache-service';
 import { CacheStorageAbstract } from 'ng2-cache-service/dist/src/services/storage/cache-storage-abstract.service';
 import { CacheSessionStorage } from 'ng2-cache-service/dist/src/services/storage/session-storage/cache-session-storage.service';
 import {DiscussionModule} from '../app/modules/discussion/discussion.module';
+import { PublicModule } from './modules/public/public.module';
+import { FepModule } from './modules/public/module/fep/fep.module';
 @NgModule({
   declarations: [
     AppComponent
@@ -34,7 +36,8 @@ import {DiscussionModule} from '../app/modules/discussion/discussion.module';
     TelemetryModule.forRoot(),
     PublicModule,
     ...PluginModules,
-    AppRoutingModule // don't add any module below this because it is having wildcard route
+    AppRoutingModule,
+    FepModule // don't add any module below this because it is having wildcard route
   ],
   entryComponents: [AppComponent],
   bootstrap: [AppComponent],

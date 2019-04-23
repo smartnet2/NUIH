@@ -43,6 +43,7 @@ export class ProfileHeaderComponent implements OnInit {
       (user: IUserData) => {
         if (user && !user.err) {
           this.userProfile = user.userProfile;
+          console.log("user profile in profile header :",this.userProfile)
         }
       });
   }

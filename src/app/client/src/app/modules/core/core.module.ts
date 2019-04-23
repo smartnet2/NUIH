@@ -36,7 +36,7 @@ import { TelemetryModule } from '@sunbird/telemetry';
     ContentPlayerMetadataComponent, LanguageDropdownComponent, ProminentFilterComponent],
   exports: [MainHeaderComponent, PermissionDirective, ConceptPickerComponent, DataDrivenFilterComponent,
     SortByComponent, BreadcrumbsComponent, FlagContentComponent, ContentPlayerMetadataComponent,
-    TelemetryModule, LanguageDropdownComponent, ProminentFilterComponent]
+    TelemetryModule, LanguageDropdownComponent, ProminentFilterComponent,MainMenuComponent,SearchComponent]
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders {
