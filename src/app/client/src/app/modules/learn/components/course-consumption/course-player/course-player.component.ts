@@ -16,7 +16,7 @@ import { CourseConsumptionService, CourseBatchService } from './../../../service
 import { INoteData } from '@sunbird/notes';
 import { DiscussionModule } from './../../../../discussion/discussion.module';
 import {
-  IImpressionEventInput, IEndEventInput, IStartEventInput, IInteractEventObject, IInteractEventEdata,  IFeedbackObject, IFeedbackEdata
+  IImpressionEventInput, IEndEventInput, IStartEventInput, IInteractEventObject, IInteractEventEdata
 } from '@sunbird/telemetry';
 
 @Component({
@@ -124,10 +124,17 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
   showExtContentMsg = false;
 
   show = false;
+  //logo for partner
+  showLogoFintech = false;
+  showLogoTechFintech = false;
+  showLogoBanking = false;
+  showLogoPayment = false;
+  showLogoLending = false;
+  showLogoSecurity = false;
+  showLogo = false;
+  showDuration: any;
+  showDurationFlag = false;
 
-  feedbackModal: false;
-  showRatingModal: true;
-  telemetryFeedbackObject: IFeedbackObject;
 
   public loaderMessage: ILoaderMessage = {
     headerMessage: 'Please wait...',
@@ -222,11 +229,70 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         this.loader = false;
         this.toasterService.error(this.resourceService.messages.emsg.m0005); // need to change message
       });
+    // for (let chil = 0; chil < this.courseHierarchy.children.length; chil++) {
+    //   console.log("this.courseHierarchy :", this.courseHierarchy.attributions)
+    //   for (let secChild = 0; secChild < this.courseHierarchy.children[chil].children.length; secChild++) {
+    //     console.log("this.courseHierarchy :", this.courseHierarchy.children[chil].children[secChild].attributions)
+    //     this.showDuration = this.courseHierarchy.children[chil].children[secChild].attributions;
+    //     this.showDurationFlag = true;
+    //   }
+
+    // }
+    console.log("this.courseHierarchy",this.courseHierarchy)
+      if(this.courseHierarchy.attributions)
+      {
+        console.log("this.courseHierarchy.attributions",this.courseHierarchy.attributions)
+        this.showDuration = this.courseHierarchy.attributions;
+        this.showDurationFlag = true;
+      }
+   
+    //For logo partner
+
+    if (_.indexOf(_.split(window.location.href, '/'), 'do_21270230270465638411059') > -1) {
+      this.showLogoFintech = true;
+      this.showLogo = true;
+      console.log("In Fintech")
+    }
+    else if (_.indexOf(_.split(window.location.href, '/'), 'do_2126924808816394241217') > -1) {
+      this.showLogoTechFintech = true;
+      this.showLogo = true;
+      console.log("In Tech Fintech")
+    }
+    else if (_.indexOf(_.split(window.location.href, '/'), 'do_21272856809340928011422') > -1) {
+      this.showLogoBanking = true;
+      this.showLogo = true;
+      console.log("In banking")
+    }
+    else if (_.indexOf(_.split(window.location.href, '/'), 'do_2126929864427438081243') > -1) {
+      this.showLogoPayment = true;
+      this.showLogo = true;
+      console.log("In Payment")
+    }
+    else if (_.indexOf(_.split(window.location.href, '/'), 'do_21272858875408384011446') > -1) {
+      this.showLogoLending = true;
+      this.showLogo = true;
+      console.log("In Lending")
+    }
+    else if (_.indexOf(_.split(window.location.href, '/'), 'do_21270233850287718411079') > -1) {
+      this.showLogoSecurity = true;
+      this.showLogo = true;
+      console.log("In Security")
+    }
+
+
+
 
   }
+  // ngAfterViewInit()
+  // {
+  //   let urlAboutCourse=window.location.href.split('?')[1];
+  //     //window.location.href=urlAboutCourse;
+  //     window.location.href.substring(0);
+  //     console.log("url", window.location.href.split('?')[0]);
+
+  // }
 
 
- 
   private parseChildContent() {
     const model = new TreeModel();
     const mimeTypeCount = {};
@@ -245,6 +311,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     _.forEach(mimeTypeCount, (value, key) => {
       this.curriculum.push({ mimeType: key, count: value });
     });
+    console.log("In parseChildContent")
   }
   private getContentState() {
     const req = {
@@ -260,6 +327,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       }, (err) => {
         console.log(err, 'content read api failed');
       });
+    console.log("In getContentState")
   }
   private subscribeToQueryParam() {
     this.queryParamSubscription = this.activatedRoute.queryParams.subscribe((queryParams) => {
@@ -277,6 +345,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         this.closeContentPlayer();
       }
     });
+    console.log("In subscribeToQueryParam")
   }
   private findContentById(id: string) {
     return this.treeModel.first((node) => {
@@ -288,6 +357,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       this.enrolledBatchInfo.status > 0) || this.courseStatus === 'Unlisted'
       || this.permissionService.checkRolesPermissions(['COURSE_MENTOR', 'CONTENT_REVIEWER'])
       || this.courseHierarchy.createdBy === this.userService.userid)) {
+
       this.contentId = content.id;
       this.setTelemetryContentImpression();
       this.setContentNavigators();
@@ -296,7 +366,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
       this.closeContentPlayer();
     }
   }
-
+  
   private setContentNavigators() {
     const index = _.findIndex(this.contentDetails, ['id', this.contentId]);
     this.prevPlaylistItem = this.contentDetails[index - 1];
@@ -350,11 +420,8 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
     }
   }
   public contentProgressEvent(event) {
-    const eid = event.detail.telemetryData.eid;
-    if (eid === 'END' && this.nextPlaylistItem === undefined) {
-      this.showRatingModal = true;
-    }
     if (this.batchId && this.enrolledBatchInfo && this.enrolledBatchInfo.status === 1) {
+      const eid = event.detail.telemetryData.eid;
       const request: any = {
         userId: this.userService.userid,
         contentId: this.contentId,
@@ -362,15 +429,6 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         batchId: this.batchId,
         status: eid === 'END' ? 2 : 1
       };
-      if( eid === 'END' ){
-        setTimeout(() => {	
-        localStorage.getItem('totalScore');	
-        console.log('totalScore=======>', localStorage.getItem('totalScore'));	 
-      }, 10);	     
-        if(localStorage.getItem('totalScore') !== '') {
-         this.courseBatchService.scoredMarks(localStorage.getItem('totalScore'), localStorage.getItem('maxScore'));
-      }
-      }
       this.updateContentsStateSubscription = this.courseConsumptionService.updateContentsState(request)
         .subscribe((updatedRes) => {
           this.contentStatus = updatedRes.content;
@@ -439,11 +497,7 @@ export class CoursePlayerComponent implements OnInit, OnDestroy {
         mode: 'play'
       }
     };
-    this.telemetryFeedbackObject = {
-      id: this.courseId,
-      type:'course',
-      ver: '1.0'
-    };
+    console.log("In setTelemetryStartEndData")
   }
   private setTelemetryCourseImpression() {
     this.telemetryCourseImpression = {

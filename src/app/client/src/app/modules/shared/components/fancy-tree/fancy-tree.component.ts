@@ -16,6 +16,7 @@ import { IFancytreeOptions } from '../../interfaces';
       background-color: #007Aff;
       color: #fff;
   }
+
   ::ng-deep span.fancytree-icon {
     vertical-align: middle;
   }
@@ -53,5 +54,7 @@ export class FancyTreeComponent implements AfterViewInit {
     if (this.options.showConnectors) {
       $('.fancytree-container').addClass('fancytree-connectors');
     }
+    $('.fancytree-custom-icon').hide();
   }
+ 
 }

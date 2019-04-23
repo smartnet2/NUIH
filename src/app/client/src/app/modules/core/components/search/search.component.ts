@@ -3,6 +3,7 @@ import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ResourceService, ConfigService } from '@sunbird/shared';
+import * as _ from 'lodash';
 
 /**
  * Main menu component
@@ -96,6 +97,7 @@ export class SearchComponent implements OnInit {
   setFilters() {
     this.search = this.config.dropDownConfig.FILTER.SEARCH.search;
     this.searchUrl = this.config.dropDownConfig.FILTER.SEARCH.searchUrl;
+    
     this.activatedRoute.queryParams.subscribe(queryParams => {
       this.queryParam = { ...queryParams };
       this.key = this.queryParam['key'];
@@ -105,6 +107,7 @@ export class SearchComponent implements OnInit {
         const currUrl = this.route.url.split('?');
         this.value = currUrl[0].split('/', 3);
         const searchEnabledStates = this.config.dropDownConfig.FILTER.SEARCH.searchEnabled;
+        
         if (this.searchUrl[this.value[1]] && searchEnabledStates.includes(this.value[1])) {
           this.selectedOption = this.searchUrl[this.value[1]];
           this.showInput = true;
@@ -115,6 +118,10 @@ export class SearchComponent implements OnInit {
           this.selectedOption = 'All';
           this.showInput = false;
         }
+        if (_.indexOf(_.split(window.location.href, '/'), 'workspace') > -1) {
+          
+          this.showInput = true;
+        }
       });
   }
   /**
@@ -123,5 +130,6 @@ export class SearchComponent implements OnInit {
    */
   ngOnInit() {
     this.setFilters();
+
   }
 }

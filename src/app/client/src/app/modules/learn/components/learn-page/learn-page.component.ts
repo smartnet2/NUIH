@@ -87,12 +87,14 @@ export class LearnPageComponent implements OnInit, OnDestroy {
   content: any;
   public unsubscribe = new Subject<void>();
   courseDataSubscription: Subscription;
+  showfepHeader = false;
   /**
 	 * Constructor to create injected service(s) object
    * @param {ResourceService} resourceService Reference of ResourceService
    * @param {ToasterService} toasterService Reference of ToasterService
    * @param {PageApiService} pageSectionService Reference of pageSectionService.
    * @param {CoursesService} courseService  Reference of courseService.
+   * 
 	 */
   constructor(pageSectionService: PageApiService, coursesService: CoursesService,
     toasterService: ToasterService, resourceService: ResourceService, router: Router, private playerService: PlayerService,
@@ -254,6 +256,15 @@ export class LearnPageComponent implements OnInit, OnDestroy {
       type: 'click',
       pageid: 'course-page'
     };
+
+    //For Fep Module
+    
+   
+    if(_.indexOf(_.split(window.location.href, '/'), 'search/Courses') > -1
+    || _.indexOf(_.split(window.location.href, '/'), 'learn') > -1)
+{
+  this.showfepHeader = true;
+}
   }
   prepareVisits(event) {
     _.forEach(event, (inview, index) => {
@@ -321,4 +332,6 @@ export class LearnPageComponent implements OnInit, OnDestroy {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
+
+  
 }

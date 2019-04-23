@@ -4,7 +4,7 @@
         <a>
             <sui-select (selectedOptionChange)="getAllBatchDetails()" class="batchCardDropDown" [(ngModel)]="batchStatus" [options]="statusOptions"
                 valueField="value" labelField="name" #batchStatusSelect>
-                <sui-select-option *ngFor="let option of batchStatusSelect.filteredOptions" [value]="option">
+                <sui-select-option *ngFor="let option of batchStatusSelect.filteredOptions" [value]="option" style="font-family:Raleway,sans-serif;">
                 </sui-select-option>
             </sui-select>
         </a>
@@ -58,10 +58,10 @@
     </div>
     <div class="selectedBatchContent extra content">
         <span class="right floated">
-            {{enrolledBatchInfo?.participant?.length}} {{resourceService.frmelmnts.lbl.learners}}
+            {{enrolledBatchInfo.participant.length}} {{resourceService.frmelmnts.lbl.learners}}
         </span>
         <span>
-            {{enrolledBatchInfo?.mentors?.length}} {{resourceService.frmelmnts.lbl.mentors}}
+            {{enrolledBatchInfo.mentors.length}} {{resourceService.frmelmnts.lbl.mentors}}
         </span>
     </div>
 </div>

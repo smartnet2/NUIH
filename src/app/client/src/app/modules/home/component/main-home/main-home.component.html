@@ -1,4 +1,4 @@
-<div class="ui grid">
+<div class="ui grid" *ngIf="!showfepHeader">
   <div class="one wide column"></div>
   <div class="ten wide column">
     <div class="row">
@@ -60,3 +60,10 @@
   <div class="one wide column"></div>
 </div>
 <app-browser-compatibility></app-browser-compatibility>
+
+<!-- for FEP module-->
+  <!-- <app-fep-home-header *ngIf="showfepHeader"></app-fep-home-header> -->
+  <div>
+    <app-learn-page *ngIf="showfepHeader" ></app-learn-page>
+  </div>
+  <!-- <app-fep-footer *ngIf="showfepHeader"></app-fep-footer> -->

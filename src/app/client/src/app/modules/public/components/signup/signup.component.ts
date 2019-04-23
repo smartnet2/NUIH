@@ -78,22 +78,29 @@ export class SignupComponent implements OnInit, OnDestroy {
   onSubmitForm() {
     this.showLoader = true;
     this.signupService.signup(this.signUpForm.value).pipe(
-      takeUntil(this.unsubscribe$))
-      .subscribe(res => {
-        // this.modal.approve();
+    takeUntil(this.unsubscribe$))
+    .subscribe(res => {
+      this.modal.approve();
+      this.showLoader = false;
+      this.toasterService.success(this.resourceService.messages.smsg.m0039);
+      this.router.navigate(['']);
+      this.closeSignupPage();
+
+    },
+      err => {
         this.showLoader = false;
-        this.toasterService.success(this.resourceService.messages.smsg.m0039);
-        this.router.navigate(['home']);
-      },
-        err => {
-          this.showLoader = false;
-          this.toasterService.error(err.error.params.errmsg);
-        });
+        this.toasterService.error(err.error.params.errmsg);
+      });
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  closeSignupPage()
+  {
+    window.location.href="";
   }
 
 }

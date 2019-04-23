@@ -1,4 +1,11 @@
 <!-- #NUIH change: Hided the main header for nuih module -->
-<app-header *ngIf="showMainHeader"></app-header>
+<!-- <app-header *ngIf="showMainHeader"></app-header>
+<app-breadcrumbs *ngIf="userService.loggedIn"></app-breadcrumbs>
+<router-outlet *ngIf="initApp"></router-outlet> -->
+
+<!-- For Fep Module -->
+<app-header *ngIf="!showfepHeader && landingHeader"></app-header>
+ <app-fep-home-header *ngIf="showfepHeader"></app-fep-home-header>
 <app-breadcrumbs *ngIf="userService.loggedIn"></app-breadcrumbs>
 <router-outlet *ngIf="initApp"></router-outlet>
+<app-fep-footer *ngIf="showfepHeader"></app-fep-footer>

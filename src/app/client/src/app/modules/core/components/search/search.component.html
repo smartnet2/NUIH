@@ -1,10 +1,10 @@
 <div class="ui fluid icon input left action" id="search-input-container" [ngClass]="{ 'disabled': !showInput }">
-    <div class="searchdropdown ui basic floating dropdown button" id="headerSearch">
-        <sui-select [(ngModel)]="selectedOption" (ngModelChange)="onChange()" [isDisabled]="!showInput">
+    <div class="searchdropdown ui basic floating dropdown button" id="headerSearch" style="font-weight:bold;font-size:112%;color:black!important;">
+        <sui-select [(ngModel)]="selectedOption" (ngModelChange)="onChange()" [isDisabled]="!showInput" style="font-family: Raleway,sans-serif;">
             <sui-select-option value="All"></sui-select-option>
             <sui-select-option value="Courses"></sui-select-option>
             <sui-select-option value="Library"></sui-select-option>
-            <sui-select-option value="Challenge"></sui-select-option>
+            <!-- <sui-select-option value="Challenge"></sui-select-option> -->
             <sui-select-option value="Users"></sui-select-option>
             <sui-select-option value="Organisations"></sui-select-option>
         </sui-select>
@@ -12,7 +12,7 @@
     <div class="searchfilterinput ui search">
         <div class="searchicon ui icon input ">
             <input type="text" id="keyword" name="filter_search" title="Search" placeholder="{{resourceService?.frmelmnts?.prmpt?.search}}"
-                class="searchinput" [(ngModel)]="key" (keyup.enter)="onEnter(key)" [disabled]="!showInput" />
+                class="searchinput" [(ngModel)]="key" (keyup.enter)="onEnter(key)" [disabled]="!showInput" style="background: rgba(58, 3, 3, 0);color: white;font-size:100%;font-weight:bold;"/>
             <i class="circular search link icon" [ngClass]="{ 'disableIcon': !showInput }" (click)="onEnter(key)"></i>
         </div>
     </div>

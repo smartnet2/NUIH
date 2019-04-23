@@ -6,31 +6,50 @@
                 <div class="ui stackable grid">
                     <div class="row">
                         <div class='nine wide column'>
+                            <!-- For partner logo -->
+                            <div *ngIf="showLogo" class="" style="font-size: 1.3em;font-weight: bold;display: inline-block;">Our Partner</div>
+                            <div *ngIf="showLogo" style="width: 150px;height: 53px;margin-left:-1em;">
+                            <div *ngIf="showLogoFintech || showLogoSecurity" style="background-image: url('assets/fep/images/pwc.png');" class="partner-logo-img"></div>
+                            <div *ngIf="showLogoBanking" style="background-image: url('assets/fep/images/kotak.png');margin-left: 1em;" class="partner-logo-img"></div>
+                            <div *ngIf="showLogoTechFintech" style="background-image: url('assets/fep/images/icici.png');" class="partner-logo-img"></div>
+                            <div *ngIf="showLogoLending" style="background-image: url('assets/fep/images/Flexiloans.png');" class="partner-logo-img"></div>
+                            <div *ngIf="showLogoPayment" style="background-image: url('assets/fep/images/NPCI-Logo.png');" class="partner-logo-img"></div>
+                            <div *ngIf="showLogoTechFintech" style="background-image: url('assets/fep/images/amazon-web-services-logo.jpg');margin-top: -8em;margin-left: 14em;" class="partner-logo-img"></div>
+                            </div>
+
+                            <!-- For partner logo -->
+                            <!-- For Duration -->
+                            <div *ngIf="showDurationFlag" style="margin-top:1em;margin-bottom:-2em;">
+                            <div  class="" style="font-size: 1.3em;font-weight: bold;display: inline-block;">Duration :</div>
+                            <div style="font-size: 1.3em;font-weight: bold; display:inline-block;margin: 1em;">{{showDuration}}</div>
+                            </div>
+                            <!-- For Duration -->
                             <div class="ui header">
-                                <span class="content courseStructureHeading">
+                                <span class="content courseStructureHeading" style="font-family:Raleway,sans-serif;">
                                     {{resourceService.frmelmnts.lbl.aboutthecourse}}
                                 </span>
                                 <div *ngIf="courseHierarchy.description" class="margin-top-10">
-                                        <p *ngIf="!readMore" class="courseStructureDesc"> {{ courseHierarchy.description |
+                                        <p *ngIf="!readMore" class="courseStructureDesc" style="font-family:Raleway,sans-serif;"> {{ courseHierarchy.description |
                                                 slice:0:200 }}&nbsp;
                                         <span class="ui cardsKnowMore mouse-pointer" *ngIf="courseHierarchy.description && courseHierarchy.description.length > 200 && readMore === false"
-                                            (click)="readMore = !readMore;">{{resourceService.frmelmnts.lbl.readmore}}</span>
+                                            (click)="readMore = !readMore;" style="font-family:Raleway,sans-serif;">{{resourceService.frmelmnts.lbl.readmore}}</span>
                                     </p>
-                                    <p *ngIf="readMore" class="courseStructureDesc"> {{ 
+                                    <p *ngIf="readMore" class="courseStructureDesc" style="font-family:Raleway,sans-serif;"> {{ 
                                         courseHierarchy.description}}&nbsp;
-                                        <span class="ui cardsKnowMore mouse-pointer" (click)="readMore = false;">{{resourceService.frmelmnts.lbl.readless}}</span>
+                                        <span class="ui cardsKnowMore mouse-pointer" (click)="readMore = false;" style="font-family:Raleway,sans-serif;">{{resourceService.frmelmnts.lbl.readless}}</span>
                                     </p>
                                 </div>
                             </div>
                             <div class="ui header">
-                                <b class="content courseStructureHeading">
+                                <b class="content courseStructureHeading" style="font-family:Raleway,sans-serif;">
                                     {{resourceService.frmelmnts.lbl.coursestructure}}
                                 </b>
                             </div>
                             <app-collection-tree (contentSelect)="navigateToContent($event)" [nodes]="collectionTreeNodes"
                                 [options]="collectionTreeOptions" [contentStatus]="contentStatus"></app-collection-tree>
                             <div>
-                            </div> 
+                                <!-- <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".pdf,.doc,.docx"> -->
+                            </div>
                             <app-discussion></app-discussion>
                         </div>
                         <div class='three wide column'>
@@ -50,7 +69,7 @@
                                 </div>
                             </div>
                             <br>
-                            <app-carriculum-card *ngIf="curriculum && curriculum.length > 0" [curriculum]="curriculum"></app-carriculum-card>
+                            <!-- <app-carriculum-card *ngIf="curriculum && curriculum.length > 0" [curriculum]="curriculum"></app-carriculum-card> -->
                             <br>
                             <div class="courseupdate">
                                 <b>{{resourceService.frmelmnts.lbl.coursecreatedon}}: {{courseHierarchy.createdOn |
@@ -72,7 +91,7 @@
                             <div class="twelve wide column">
                                 <div class="ui grid" id="app-player-collection-renderer">
                                     <div class="twelve wide column">
-                                        <span class="ui HomeAccordianHeading left floated header">{{contentTitle}}</span>
+                                        <span class="ui HomeAccordianHeading left floated header" style="font-family:Raleway,sans-serif;">{{contentTitle}}</span>
                                         <h5 appTelemetryInteract [telemetryInteractEdata]="closeContentIntractEdata"
                                         [telemetryInteractObject]="contentInteractObject" class="ui right floated basic icon circular button margin-auto mouse-pointer"
                                         (click)="closeContentPlayer()">
@@ -109,7 +128,7 @@
                                             <app-popup-editor *ngIf="showNoteEditor" [mode]="'create'" [ids]="{contentId:contentId, courseId:courseId}"
                                             (exitModal)="showNoteEditor=false" (createEventEmitter)="createEventEmitter($event)"></app-popup-editor>
                                         <img src="{{'assets/images/takenote.png' |  cdnprefixurl}}">
-                                        <span>{{resourceService?.frmelmnts?.lbl?.takenote}}</span>
+                                        <span style="font-family:Raleway,sans-serif;">{{resourceService?.frmelmnts?.lbl?.takenote}}</span>
                                     </a>
                                 </h2>
                             </div>
@@ -150,6 +169,4 @@
         </div>
     </div>
 </div>
-
-<app-content-rating *ngIf='showRatingModal'[feedbackObject]='telemetryFeedbackObject' ></app-content-rating>
 <router-outlet></router-outlet>

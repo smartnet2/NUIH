@@ -21,8 +21,6 @@ const publicServicehelper = require('./helpers/publicServiceHelper.js')
 const userHelper = require('./helpers/userHelper.js')
 const proxyUtils = require('./proxy/proxyUtils.js')
 const healthService = require('./helpers/healthCheckService.js')
-//add email service
-const customServiceHelper = require('./helpers/custom/customServiceHelper.js')
 const fs = require('fs')
 const port = envHelper.PORTAL_PORT
 const learnerURL = envHelper.LEARNER_URL
@@ -101,8 +99,6 @@ app.all(['/server.js', '/helpers/*.js', '/helpers/**/*.js'], function (req, res)
   res.sendStatus(404);
 })
 
-app.post('/custom/v1/write/email', bodyParser.urlencoded({ extended: false }),
-bodyParser.json({ limit: '10mb' }),customServiceHelper.verifyAndStoreEmail)
 
 // this line should be above middleware please don't change
 app.get('/public/service/orgs', publicServicehelper.getOrgs)
@@ -151,6 +147,7 @@ function getLocals(req) {
 
 function indexPage(req, res) {
   if (defaultTenant && req.path === '/') {
+    console.log("In If :",req.path)
     tenantId = defaultTenant
     renderTenantPage(req, res)
   } else {
@@ -213,8 +210,15 @@ app.all('/smartgov', indexPage)
 app.all('/iudx', indexPage)
 app.all('/aboutus', indexPage)
 app.all('/comingsoon', indexPage)
+app.all('/helloWrld', indexPage)
 app.all(['/groups', '/groups/*'], keycloak.protect(), indexPage)
 app.all('/play/*', indexPage)
+//app.all('/fep', indexPage)
+app.all('/faq', indexPage)
+app.all('/about', indexPage)
+app.all('/contactus', indexPage)
+app.all('/information', indexPage)
+app.all('/fepcourse', indexPage)
 
 // Mobile redirection to app
 require('./helpers/mobileAppHelper.js')(app)

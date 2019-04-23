@@ -71,6 +71,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
             .subscribe(event => {
                 this.breadCrumbsData = [];
                 let currentRoute = this.activatedRoute.root;
+                console.log("current Route :",this.activatedRoute.root)
                 while (currentRoute.children.length > 0) {
                     const child: ActivatedRoute[] = currentRoute.children;
                     let breadCrumbLabel: any = [];
@@ -79,6 +80,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
                         breadCrumbLabel = route.snapshot.data;
                         if (route.snapshot.data.breadcrumbs) {
                             this.breadCrumbsData = [...route.snapshot.data.breadcrumbs];
+                            console.log("breadCrumbsData :",this.breadCrumbsData)
                         }
                     });
                 }
@@ -107,6 +109,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
      * @param url The url returned by breadcrumb data.
      */
     openLink(url) {
+        console.log("url",url)
         this.router.navigateByUrl(url);
     }
 

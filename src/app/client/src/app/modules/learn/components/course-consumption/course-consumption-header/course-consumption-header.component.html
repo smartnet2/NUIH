@@ -6,25 +6,26 @@
         <div class="one wide column"></div>
         <div class="ten wide column padding-top-none">
             <div class="ui grid">
-                <div class="nine wide column padding-top-none">
-                    <div class="courseStructureHeaderText courseStructureSectionHeading">{{courseHierarchy.name}}</div>
+                <div class="nine wide column padding-top-1rem">
+                    <div class="courseStructureHeaderText courseStructureSectionHeading" style="font-family:Raleway,sans-serif;">{{courseHierarchy.name}}</div>
                     <br>
-                    <sui-rating *ngIf="courseStatus !== 'Unlisted'" class="courseHeader-rating ui star rating course-header-divider" [isReadonly]="true"
-                        [ngModel]="courseHierarchy.me_averageRating || 0" [maximum]="5"></sui-rating>&nbsp;&nbsp;
+                    <!-- <sui-rating *ngIf="courseStatus !== 'Unlisted'" class="courseHeader-rating ui star rating course-header-divider" [isReadonly]="true"
+                        [ngModel]="courseHierarchy.me_averageRating || 0" [maximum]="5"></sui-rating> -->
+                        <!-- &nbsp;&nbsp;
                     <a (click)="onShareLink();sharelinkModal=true;">
                         <i class="cursor-pointer large blue share alternate icon"></i>
-                    </a>
-                    <span *ngIf="permissionService.permissionAvailable && courseStatus !== 'Unlisted'" appPermission [permission]="['CONTENT_CREATOR', 'CONTENT_REVIEWER']"
+                    </a> -->
+                    <!-- <span *ngIf="permissionService.permissionAvailable && courseStatus !== 'Unlisted'" appPermission [permission]="['CONTENT_CREATOR', 'CONTENT_REVIEWER']"
                         (click)="copyContent(courseHierarchy)" class="ui mouse-pointer content-font margin-left-10 ng-isolate-scope"
                         title="Copy content">
                         <i class="ui large blue clone outline icon"></i>
-                    </span>
+                    </span> -->
                     <h6 class="ui small negative message" *ngIf="courseHierarchy.status === 'Flagged'">{{resourceService?.messages?.imsg?.m0001}}</h6>
                 </div>
                 <div class="three wide column">
-                    <div *ngIf="enrolledCourse" class="margin-top-Negative30">
+                    <div *ngIf="enrolledCourse" class="margin-top-Negative13">
                         <span>
-                            <p class="text-align-center">{{resourceService?.messages?.stmsg?.m0108}} {{ progress }}%</p>
+                            <p class="text-align-center" style="font-weight:bold;" >{{resourceService?.messages?.stmsg?.m0108}} {{ progress }}%</p>
                         </span>
                         <button appTelemetryInteract [telemetryInteractEdata]="resumeIntractEdata" [telemetryInteractObject]="courseInteractObject"
                             class="fluid blue right floated  ui button courseHeaderButton margin-top-0" [disabled]="showResumeCourse"
@@ -39,8 +40,8 @@
                 </div>
             </div>
             <div class="ui grid">
-                <div *ngIf="showCertificateBtn" class="eleven wide column padding-top-none">
-                    <button  class="ui primary right floated button" (click)="downloadCertificate()">
+                <div *ngIf="showCertificateBtn" class="twelve wide column padding-top-none">
+                    <button  class="ui primary right floated button" (click)="downloadCertificate()" style="padding: 0.785714em 4.3em;">
                         Download Certificate
                       </button>
                 </div>

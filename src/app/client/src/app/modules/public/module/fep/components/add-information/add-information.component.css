@@ -1,0 +1,72 @@
+
+/* *{
+    font-family: "Raleway",sans-serif;
+} */
+.about-logo
+{
+    font-style: italic;
+    font-size: 350%;
+    color: rgba(0.9, 0.8, 0.5, 0.8);
+    margin-left: 2em;
+    font-weight:bold;
+    
+}
+.further-div {
+    height: 65px;
+    width: 69px;
+    margin-left: 11em;
+    
+}
+.learn-div {
+    height: 65px;
+    width: 69px;
+    margin-left: 28em;
+}
+.things-div {
+    height: 65px;
+    width: 69px;
+    margin-left: 26em;
+}
+
+
+.further-span
+{
+    font-size: 160%;
+    margin-left: 5em;
+    color: black;
+    font-weight: bold;
+}
+.further-span:hover
+{
+    font-size: 160%;
+    margin-left: 5em;
+    color:#ff9933;
+    font-weight: bold;
+}
+.about-span
+{
+    font-size: 160%;
+    margin-left: 15em;
+    color: black;
+    font-weight: bold;
+}
+.about-span:hover
+{
+    font-size: 160%;
+    margin-left: 15em;
+    color:#ff9933;
+    font-weight: bold;
+}
+.heading-text
+{
+    margin: 1em;color: black;font-size: 120%;font-weight: bold;
+}
+.sub-heading-text
+{
+    margin: 1em;
+    font-weight: bold;
+    font-size: 115%;
+    color: black;
+    margin-left:3em;
+}
+

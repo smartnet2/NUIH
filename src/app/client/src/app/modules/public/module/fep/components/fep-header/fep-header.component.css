@@ -1,0 +1,36 @@
+
+
+ .logo-img
+ {
+ height: 100px;width: 100px;margin-left: 80px;
+ }
+ .top-bar
+ {
+ margin-right: -28px;
+ }
+
+ #topbar
+    {
+        height: 46px;
+        padding: 20px 60PX;
+        font-size: 14px;
+        clear: both;
+        width: 100%;
+        background-color: #E5E8E8;
+        background-image: -webkit-linear-gradient(top, #2C3E50 0%, #2C3E50 100%);
+        background-image: -o-linear-gradient(top, #2C3E50 0%, #2C3E50 100%);
+        background-image: linear-gradient(to left, #5D6D7E 0%, #E5E8E8 100%);
+        background-repeat: repeat-x;
+        border-color: #2C3E50;
+    }
+@media screen and (max-width:1147px) and (min-width: 1050px){
+
+.logo-img
+{
+height: 100px;width: 100px;margin-left: 6px;
+}
+.top-bar
+{
+margin-right: 86px;
+}
+}

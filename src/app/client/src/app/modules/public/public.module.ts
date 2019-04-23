@@ -20,6 +20,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { BadgingModule } from '@sunbird/badge';
 // #NUIH change: Imported NuihModule
 import { NuihModule } from './module/nuih';
+import { FepModule } from './module/fep/fep.module';
+import { FepRoutingModule } from './module/fep/fep-routing.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +36,10 @@ import { NuihModule } from './module/nuih';
     DeviceDetectorModule,
     BadgingModule,
     // #NUIH change: Imported NuihModule
-    NuihModule
+    NuihModule,
+    FepModule,
+    FepRoutingModule
+    
   ],
   declarations: [LandingPageComponent, SignupComponent, GetComponent, DialCodeComponent,
     PublicFooterComponent, PublicContentPlayerComponent, PublicCollectionPlayerComponent],

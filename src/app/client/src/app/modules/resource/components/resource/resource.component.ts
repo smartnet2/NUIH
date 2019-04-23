@@ -144,6 +144,7 @@ export class ResourceComponent implements OnInit {
   /**
  *This method calls the populatePageData
  */
+showfepHeader = false;
   ngOnInit() {
     this.filterType = this.config.appConfig.library.filterType;
     this.redirectUrl = this.config.appConfig.library.inPageredirectUrl;
@@ -169,6 +170,11 @@ export class ResourceComponent implements OnInit {
       type: 'click',
       pageid: 'resource-page'
     };
+    if(_.indexOf(_.split(window.location.href, '/'), 'search/Library') > -1
+          || _.indexOf(_.split(window.location.href, '/'), 'resources') > -1)
+      {
+        this.showfepHeader = true;
+      }
   }
   prepareVisits(event) {
     _.forEach(event, (inview, index) => {

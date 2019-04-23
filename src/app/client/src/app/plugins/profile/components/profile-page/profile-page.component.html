@@ -75,8 +75,8 @@
                                         <div appTelemetryInteract [telemetryInteractObject]="telemetryInteractObject" [telemetryInteractEdata]="myContributionsInteractEdata" class="content" (click)="onClickOfMyContributions(item)">
                                             <a class=" header ">{{item.name}}</a>
                                             <div class="metadata ">
-                                                <sui-rating *ngIf="item.me_averageRating" class="courseHeader-rating ui star rating" [isReadonly]="true" [ngModel]="item.me_averageRating"
-                                                    [maximum]="5"></sui-rating>
+                                                <!-- <sui-rating *ngIf="item.me_averageRating" class="courseHeader-rating ui star rating" [isReadonly]="true" [ngModel]="item.me_averageRating"
+                                                    [maximum]="5"></sui-rating> -->
                                                 <span *ngIf="!item.me_averageRating" class="date">{{item.createdOn | dateFormat}}</span>
                                             </div>
                                         </div>
@@ -85,7 +85,7 @@
                             </div>
                         </div>
 
-                        <div class="twelve wide column">
+                        <!-- <div class="twelve wide column">
                             <div class="ui raised segment blur-content">
                                 <div class="header">
                                     <span class="segment-heading">Member of</span>
@@ -126,9 +126,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="twelve wide column blur-content">
+                        <!-- <div class="twelve wide column blur-content">
                             <div class="ui raised segment ">
                                 <div class="header">
                                     <span class="segment-heading">Member of</span>
@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

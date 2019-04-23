@@ -12,6 +12,7 @@ import { NotesModule } from '@sunbird/notes';
 import { BadgingModule } from '@sunbird/badge';
 import { NgInviewModule } from 'angular-inport';
 import { TelemetryModule } from '@sunbird/telemetry';
+import { FepModule } from '../public/module/fep';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +26,8 @@ import { TelemetryModule } from '@sunbird/telemetry';
     NotesModule,
     BadgingModule,
     TelemetryModule,
-    NgInviewModule
+    NgInviewModule,
+    FepModule
   ],
   declarations: [ResourceComponent, CollectionPlayerComponent, ContentPlayerComponent]
 })
