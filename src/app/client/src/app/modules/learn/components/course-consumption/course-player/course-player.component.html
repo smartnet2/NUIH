@@ -25,7 +25,7 @@
                             </div>
                             <!-- For Duration -->
                             <div class="ui header">
-                                <span class="content courseStructureHeading" style="font-family:Raleway,sans-serif;">
+                                <span class="content courseStructureHeading" style="font-family:Raleway,sans-serif;font-weight: bold;">
                                     {{resourceService.frmelmnts.lbl.aboutthecourse}}
                                 </span>
                                 <div *ngIf="courseHierarchy.description" class="margin-top-10">
@@ -91,7 +91,7 @@
                             <div class="twelve wide column">
                                 <div class="ui grid" id="app-player-collection-renderer">
                                     <div class="twelve wide column">
-                                        <span class="ui HomeAccordianHeading left floated header" style="font-family:Raleway,sans-serif;">{{contentTitle}}</span>
+                                        <span class="ui HomeAccordianHeading left floated header" style="font-family:Raleway,sans-serif;font-weight: bold;">{{contentTitle}}</span>
                                         <h5 appTelemetryInteract [telemetryInteractEdata]="closeContentIntractEdata"
                                         [telemetryInteractObject]="contentInteractObject" class="ui right floated basic icon circular button margin-auto mouse-pointer"
                                         (click)="closeContentPlayer()">

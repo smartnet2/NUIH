@@ -114,7 +114,7 @@ export class FepCourseComponent implements OnInit {
           if (apiResponse && apiResponse.sections) {
             let noResultCounter = 0;
             this.showLoader = false;
-            this.booksCarouselData = _.cloneDeep([apiResponse.sections]);
+            this.booksCarouselData = _.cloneDeep(apiResponse.sections);
             console.log("Page Section:",this.booksCarouselData)
             _.forEach(this.booksCarouselData, (value, index) => {
               if (this.booksCarouselData[index].contents && this.booksCarouselData[index].contents.length > 0) {
