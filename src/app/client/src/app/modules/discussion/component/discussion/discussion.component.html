@@ -1,7 +1,7 @@
 <div class="ui fitted divider margin-bottom-20 margin-top-30" *ngIf="batchId"></div>
 <div class="row" *ngIf="batchId">
     <div class="col-md-6">
-        <h3>Comments</h3>
+        <h4>Comments</h4>
     </div>
     <div class="col-md-6" *ngIf="discussionThread.length === 0">
         <button class="ui green button pull-right" (click)="startNewConversionClick()"><i class="fa fa-paper-plane"
@@ -12,10 +12,7 @@
 <div class="row MB30" *ngFor="let thread of discussionThread;let i=index">
     <div class="col-md-12">
         <div class="col-md-12 teamHeader MB30" (click)="collapse(i,thread.id)">
-                <div class="col-md-12 teamHeader MB30" (click)="collapse(i,thread.id)">
-                        <button class="ui primary right floated button" style="margin-right: 27em;"><span class="teamName" style="white-space: nowrap;">{{thread.title}}</span></button>
-                </div>
-            
+            <span class="teamName">{{thread.title}}</span>
         </div>
         <div class="row" *ngIf="thread.show">
             <div class="col-md-11">
