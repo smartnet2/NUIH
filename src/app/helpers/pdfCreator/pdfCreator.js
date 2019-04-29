@@ -154,9 +154,6 @@ function createPDF (data, filePath, callback) {
     var instructor = data.instructor || certificateInstructor
     var courseCompletionDate = getCertificateDate(data.createdDate || new Date())
     var courseName = data.courseName
-    if(data.marks.scoredMarks !== null) {
-      var marksScored = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : '';
-    }
     var doc = new PDFDocument({ autoFirstPage: false })
 
     var stream = doc.pipe(FileSystem.createWriteStream(filePath))
@@ -165,6 +162,7 @@ function createPDF (data, filePath, callback) {
       layout: 'landscape'
     })
     if(data.marks.scoredMarks !== null) {
+      var marksScored = data.marks ? data.marks.scoredMarks + ' / ' +  data.marks.maxMarks : '';
     doc.image(backgroundImgMarks, {
       width: 700
     })
@@ -228,11 +226,11 @@ function createCertificate (req, res) {
     function (CB) {
       
       uploadUtil.checkFileExist(destPath, function (err, downloadFileData) {
-        CB()
+      
         if (err) {
           console.log('err to download file, Now create pdf and upload', JSON.stringify(err))
-        } 
-        else {
+          CB()
+        } else {
           console.log('User have certificate')
           rspObj.result = { fileUrl: envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath }
           return res.status(200).send(successResponse(rspObj))
@@ -268,6 +266,7 @@ function createCertificate (req, res) {
           console.log('File uploaded successfully', envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath)
           rspObj.result = { fileUrl: envVariables.AZURE_STORAGE_URL + containerName + '/' + destPath }
           FileSystem.unlink(filePath, function () { })
+          // successResponse(rspObj);
           return res.status(200).send(successResponse(rspObj))
         }
       })
