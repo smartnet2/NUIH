@@ -23,14 +23,14 @@ import { Subscription } from 'rxjs';
 export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   userDataSubscription: Subscription;
   userProfile: IUserProfile;
-  fullName:any
+  fullName: any
   userName: string;
-  title:string = ""
+  title: string = ""
   userId: string;
   fileUrl: any;
   showAsPerRole: boolean;
-  config: ConfigService;  
-  showCertificateBtn:Boolean; 
+  config: ConfigService;
+  showCertificateBtn: Boolean;
   sharelinkModal: boolean;
   /**
    * contains link that can be shared
@@ -65,8 +65,8 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
     public toasterService: ToasterService, public copyContentService: CopyContentService, private changeDetectorRef: ChangeDetectorRef,
     private courseProgressService: CourseProgressService, public contentUtilsServiceService: ContentUtilsServiceService,
     public externalUrlPreviewService: ExternalUrlPreviewService, public coursesService: CoursesService, private userService: UserService,
-     private certificateDownloadService: CertificateDownloadService, public courseBatchService: CourseBatchService) {
-      this.userName  =  this.userService.userProfile.userName;
+    private certificateDownloadService: CertificateDownloadService, public courseBatchService: CourseBatchService) {
+    this.userName = this.userService.userProfile.userName;
     this.userId = this.userService.userid;
 
   }
@@ -97,15 +97,15 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
           this.enrolledCourse = true;
         }
       });
-      this.userDataSubscription = this.userService.userData$.subscribe(
-        (user: IUserData) => {
-          if (user && !user.err) {
-            this.userProfile = user.userProfile;
-             this.fullName = this.userProfile.firstName + " " + this.userProfile.lastName ;
-             console.log(this.fullName)
-          }
-          
-        });
+    this.userDataSubscription = this.userService.userData$.subscribe(
+      (user: IUserData) => {
+        if (user && !user.err) {
+          this.userProfile = user.userProfile;
+          this.fullName = this.userProfile.firstName + " " + this.userProfile.lastName;
+          console.log(this.fullName)
+        }
+
+      });
   }
   ngAfterViewInit() {
     this.courseProgressService.courseProgressData.pipe(
@@ -113,10 +113,13 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
       .subscribe((courseProgressData) => {
         this.enrolledCourse = true;
         this.progress = courseProgressData.progress ? Math.round(courseProgressData.progress) : 0;
-        if(this.batchId && this.progress === 100){
+        //for certificate condition
+        const marks = this.courseBatchService.returnMarks();
+        //if(this.batchId && this.progress === 100 )
+        if (this.batchId) {
           this.showCertificateBtn = true;
         }
-        this.showCertificateBtn = (this.progress === 100);
+        //this.showCertificateBtn = (this.progress === 100);
         this.lastPlayedContentId = courseProgressData.lastPlayedContentId;
         if (!this.flaggedCourse && this.onPageLoadResume &&
           !this.contentId && this.enrolledBatchInfo.status > 0 && this.lastPlayedContentId) {
@@ -181,13 +184,28 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-  downloadCertificate () {
+
+  downloadCertificate() {
     const marks = this.courseBatchService.returnMarks();
-    this.certificateDownloadService.downloadAsPdf(this.title, this.fullName, this.userId, this.courseId, this.courseHierarchy.name, marks).subscribe((res:Response)=>{ 
-      
-      this.fileUrl = res['result']['fileUrl'];
-      console.log(this.fileUrl)
-      window.open(this.fileUrl, '_blank');
-    })   
+    //   let totalMarks :any;
+    //   let maxMarks :any;
+    //   totalMarks=localStorage.getItem('totalScore');
+    //  maxMarks=localStorage.getItem('maxScore');
+    //   console.log("marks",localStorage.getItem('totalScore'));
+    //   console.log("maxScore",localStorage.getItem('maxScore'));
+    //   let markspercnt=(totalMarks/maxMarks)*100;
+    var dwnld = confirm("Have you gone through all six modules and completed your final assessment?");
+    if (dwnld == true) {
+      this.certificateDownloadService.downloadAsPdf(this.title, this.fullName, this.userId, this.courseId, this.courseHierarchy.name, marks).subscribe((res: Response) => {
+
+        this.fileUrl = res['result']['fileUrl'];
+        console.log(this.fileUrl)
+        window.open(this.fileUrl, '_blank');
+      })
+
+    } else {
+
+    }
+
   }
 }

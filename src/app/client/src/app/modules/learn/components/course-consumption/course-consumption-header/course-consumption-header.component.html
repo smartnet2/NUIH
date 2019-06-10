@@ -25,11 +25,11 @@
                 <div class="three wide column">
                     <div *ngIf="enrolledCourse" class="margin-top-Negative13">
                         <span>
-                            <p class="text-align-center" style="font-weight:bold;" >{{resourceService?.messages?.stmsg?.m0108}} {{ progress }}%</p>
+                            <p class="text-align-center" style="font-weight:bold;margin-right: 6.5em;" >{{resourceService?.messages?.stmsg?.m0108}} {{ progress }}%</p>
                         </span>
                         <button appTelemetryInteract [telemetryInteractEdata]="resumeIntractEdata" [telemetryInteractObject]="courseInteractObject"
                             class="fluid blue right floated  ui button courseHeaderButton margin-top-0" [disabled]="showResumeCourse"
-                            (click)="resumeCourse(true)">
+                            (click)="resumeCourse(true)" style="margin-right: 2.5em;">
                             {{resourceService?.frmelmnts?.btn?.resumecourse}}
                             <i class="caret right icon"></i>
                         </button>
@@ -41,8 +41,9 @@
             </div>
             <div class="ui grid">
                 <div *ngIf="showCertificateBtn" class="twelve wide column padding-top-none">
-                    <button  class="ui primary right floated button" (click)="downloadCertificate()" style="padding: 0.785714em 4.3em;">
+                    <button  class="ui primary right floated button" (click)="downloadCertificate()">
                         Download Certificate
+                        <div >(Click only if final assessment is complete)</div>
                       </button>
                 </div>
             </div>
