@@ -218,6 +218,7 @@ export class FepHomeHeaderComponent implements OnInit,OnDestroy {
     //let fepUrl=window.location.origin+'/fep';
     window.location.replace('/logoff');
     this.cacheService.removeAll();
+    localStorage.clear();
    // window.location.replace(fepUrl);
   }
   logoutForFep()

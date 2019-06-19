@@ -1,7 +1,8 @@
 
-/* *{
-    font-family: "Raleway",sans-serif;
-} */
+*{
+    font-family: sans-serif;
+} 
+
 .about-logo
 {
     font-style: italic;
@@ -69,4 +70,166 @@
     color: black;
     margin-left:3em;
 }
+
+.txt-fep-home
+        {
+        font-weight: bold;font-style: italic;font-size:350%;display:inline;padding:1px;color:white;
+        }
+
+.login-butn
+{
+width: 138px;
+font-weight: bold;
+margin-top: -0.5em;
+background-color: black;
+color: white;
+/* color: black; */
+margin-left: 4em;
+}
+.login-butn:hover
+{width: 138px;
+font-weight: bold;
+margin-top: -0.5em;
+background-color: black;
+color: white;
+/* color: black; */
+margin-left: 4em;
+}
+.register-butn:hover{
+  margin-top: -5.7em;
+  margin-left: 52em;
+  width: 202px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+}
+.register-butn{
+  margin-top: -5.7em;
+  margin-left: 52em;
+  width: 202px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+}
+
+.topnav {
+	overflow: hidden;
+	margin-left: -6em;
+    margin-top: -1em;
+	
+  }
+  
+  .contact-us
+  {
+    float: right;	
+	font-weight:bold;
+	text-align: center;
+	padding: 14px 16px;
+   font-size: 17px;
+   color:white;
+  }
+  .contact-us:hover
+  {
+    float: right;	
+	font-weight:bold;
+	text-align: center;
+	padding: 14px 16px;
+   font-size: 17px;
+   color: #5233FF;
+  border-bottom: 2px solid;
+  }
+  
+  .topnav-second
+  {
+    margin-top: -0.9em;
+	 margin-left: 16em;
+	
+  }
+  .topnav-second a {
+	float: left;
+	display: block;
+	font-weight:bold;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	color:white;
+	
+  }
+  .topnav-second a:hover {
+	float: left;
+	display: block;
+	font-weight:bold;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	color: #5233FF;
+  border-bottom: 2px solid;
+	
+  }
+  .active-link-header:hover{
+    color: #3333ff;
+    border-bottom: 2px solid;
+
+  }
+  #header-home {
+    padding: 20px 0;
+    height: 112px;
+    transition: all 0.5s;
+    z-index: 997;
+    background-color: #DCDCDC;  
+  }
+  .txt-fep-header
+	{
+	font-weight: bold;font-style: italic;font-size:274%;color:white;
+	}
+ .txt-edu-header{
+	font-weight: bold;font-style: italic;margin-top:-8px;font-size:130%;color:white;
+    }
+    
+    .footer-uday
+{
+    height: 20%;
+    position: relative;
+    bottom:0;
+    top: 25px;
+    display: flex;
+}
+
+.logo-img-footer
+{
+height: 140px;width: 201px;margin-left:1em;background-repeat: no-repeat;
+}
+.logo-img-homefooter
+{
+width: 80px;
+height: 58px;background-repeat: no-repeat;
+}
+.icon-border
+{
+	height: 50px;
+	width: 50px;
+	background-color: black;
+	border-radius: 50%;
+}
+.txt-fep
+	{
+	font-weight: bold;font-style: italic;font-size:274%;color:white;
+	}
+.txt-edu{
+	font-weight: bold;font-style: italic;font-size:130%;color:white;
+    }
+    
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 5px;
+      }
+      .row-footer {
+        content: "";
+        clear: both;
+        display: table;
+        margin-left: 5em;
+      }
 

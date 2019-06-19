@@ -19,3 +19,112 @@
         {
         font-weight: bold;font-style: italic;font-size:350%;display:inline;padding:1px;color:white;
         }
+
+.login-butn
+{
+width: 138px;
+font-weight: bold;
+margin-top: -0.5em;
+background-color: black;
+color: white;
+/* color: black; */
+margin-left: 4em;
+}
+.login-butn:hover
+{width: 138px;
+font-weight: bold;
+margin-top: -0.5em;
+background-color: black;
+color: white;
+/* color: black; */
+margin-left: 4em;
+}
+.register-butn:hover{
+  margin-top: -8.4em;
+  margin-left: 52em;
+  width: 202px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+}
+.register-butn{
+  margin-top: -8.4em;
+  margin-left: 52em;
+  width: 202px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+}
+
+.topnav {
+	overflow: hidden;
+	margin-left: -6em;
+    margin-top: -1em;
+	
+  }
+  .topnav a {
+	float: right;	
+	font-weight:bold;
+	text-align: center;
+	padding: 14px 16px;
+  font-size: 17px;
+  color:white;
+  }
+  
+  .topnav a:hover {
+	float: right;	
+	font-weight:bold;
+	text-align: center;
+	padding: 14px 16px;
+  font-size: 17px;
+  color: #5233FF;
+  border-bottom: 2px solid;
+  }
+  .topnav-second
+  {
+    margin-top: -0.9em;
+	 margin-left: 16em;
+	
+  }
+  .topnav-second a {
+	float: left;
+	display: block;
+	font-weight:bold;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	color:white;
+	
+  }
+  .topnav-second a:hover {
+	float: left;
+	display: block;
+	font-weight:bold;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	color: #5233FF;
+  border-bottom: 2px solid;
+	
+  }
+  .active-link-header:hover{
+    color: #3333ff;
+    border-bottom: 2px solid;
+
+  }
+  #header {
+    padding: 20px 0;
+    height: 112px;
+    transition: all 0.5s;
+    z-index: 997;
+    background-color: #DCDCDC;  
+  }
+  .txt-fep-header
+	{
+	font-weight: bold;font-style: italic;font-size:274%;color:white;
+	}
+ .txt-edu-header{
+	font-weight: bold;font-style: italic;margin-top:-8px;font-size:130%;color:white;
+	}
