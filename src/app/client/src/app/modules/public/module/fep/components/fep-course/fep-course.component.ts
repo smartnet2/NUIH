@@ -378,6 +378,11 @@ export class FepCourseComponent implements OnInit {
   redirectToUrl(path) {
     this.router.navigate([path]);
   }
+
+  onClickAlert()
+	{
+		alert("Thank you for your interest.Uday-Fintech education platform pilot has been closed and would be up for fresh registrations soon.");
+	}
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

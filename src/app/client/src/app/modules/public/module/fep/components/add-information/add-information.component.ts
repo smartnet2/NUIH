@@ -21,4 +21,9 @@ export class AddInformationComponent implements OnInit {
   things(){
     document.getElementById('things').scrollIntoView();
   }
+
+  onClickAlert()
+	{
+		alert("Thank you for your interest.Uday-Fintech education platform pilot has been closed and would be up for fresh registrations soon.");
+	}
 }
