@@ -26,6 +26,7 @@ background-color: black;
 color: white;
 /* color: black; */
 margin-left: 4em;
+cursor: pointer;
 }
 .login-butn:hover
 {width: 138px;
@@ -35,6 +36,7 @@ background-color: black;
 color: white;
 /* color: black; */
 margin-left: 4em;
+cursor: pointer;
 }
 .register-butn:hover{
   margin-top: -5.7em;
@@ -43,6 +45,7 @@ margin-left: 4em;
   font-weight: bold;
   background-color: black;
   color: white;
+  cursor: pointer;
 }
 .register-butn{
   margin-top: -5.7em;
@@ -51,6 +54,7 @@ margin-left: 4em;
   font-weight: bold;
   background-color: black;
   color: white;
+  cursor: pointer;
 }
 
 .topnav {
