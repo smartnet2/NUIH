@@ -52,7 +52,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       phone: new FormControl(null, [Validators.required, Validators.pattern('^\\d{10}$')]),
       email: new FormControl(null, [Validators.required,
       Validators.pattern(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$/)]),
-      language: new FormControl(null, [Validators.required])
+      language: new FormControl(null, [Validators.required]),
+      location:new FormControl(null, [Validators.required])
     });
     this.telemetryImpression = {
       context: {

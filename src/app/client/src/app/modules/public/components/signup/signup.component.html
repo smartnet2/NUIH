@@ -68,6 +68,14 @@
           </div>
         </div>
       </div>
+      <!-- add for institute -->
+      <div class="required field" [ngClass]="signUpForm.controls.location.invalid && signUpForm.controls['location'].errors.required && !signUpForm.controls['location'].pristine || (signUpForm.controls['location'].errors && signUpForm.controls['location'].errors.pattern) ? 'error' : ''">
+        <label>{{resourceService?.frmelmnts?.lbl?.location}}</label>
+        <input type="text" formControlName="location" placeholder="">
+        <div class="margin-bottom-10 ui pointing red basic label below" *ngIf="signUpForm.controls.location.invalid && signUpForm.controls['location'].errors.required && !signUpForm.controls['location'].pristine || (signUpForm.controls['location'].errors && signUpForm.controls['location'].errors.pattern)">
+          {{resourceService?.messages?.stmsg?.m0089}}
+        </div>
+      </div>
       <div class="required field" [ngClass]="signUpForm.controls.language.invalid && signUpForm.controls['language'].errors.required && !signUpForm.controls['language'].pristine ? 'error' : ''">
         <label>{{resourceService?.frmelmnts?.lbl?.lang}}</label>
         <div class="field">
