@@ -17,7 +17,7 @@
         </h5>
       </div>
 
-      <div class=" ui clearing segment" *ngIf="!showLoader && !noResult && config.appConfig.SEARCH.USER.DOWNLOAD_BUTTON_VISIBILITY === 'TRUE'">
+      <div class=" ui clearing segment" *ngIf="!showLoader && !noResult && userDownloadFlag">
         <div class="ui right floated primary button" (click)="downloadUser();">
           {{resourceService.frmelmnts?.btn?.download}}
         </div>

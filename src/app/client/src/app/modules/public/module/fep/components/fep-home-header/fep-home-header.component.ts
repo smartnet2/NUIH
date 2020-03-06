@@ -130,6 +130,9 @@ export class FepHomeHeaderComponent implements OnInit,OnDestroy {
       (user: IUserData) => {
         if (user && !user.err) {
           this.userProfile = user.userProfile;
+          console.log("user profile:",this.userProfile)
+          let userRole = this.userProfile.organisations[0].roles[0];
+          localStorage.setItem('userRole',userRole);
         }
       });
     this.setInteractEventData();

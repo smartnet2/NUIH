@@ -102,6 +102,8 @@ export class UserSearchComponent implements OnInit {
   rootOrgId: string;
   userProfile: any;
   inviewLogs: any = [];
+  //user Role
+  userDownloadFlag :boolean = false;
   /**
      * Constructor to create injected service(s) object
      * Default method of Draft Component class
@@ -141,7 +143,7 @@ export class UserSearchComponent implements OnInit {
         'location': this.queryParams.Location,
         'organisations.roles': this.queryParams.Roles
       },
-      limit: this.pageLimit,
+      //limit: this.pageLimit,
       pageNumber: this.pageNumber,
       query: this.queryParams.key
     };
@@ -273,6 +275,10 @@ export class UserSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    let isuserAdmin=localStorage.getItem('userRole');
+    if(isuserAdmin == 'CONTENT_REVIEWER'){
+      this.userDownloadFlag = true;
+    }
     this.user.userData$.subscribe(userdata => {
       if (userdata && !userdata.err) {
         this.userProfile = userdata.userProfile;

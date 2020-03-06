@@ -128,8 +128,14 @@ export class SearchComponent implements OnInit {
    * gets the current url,
    * and queryParams
    */
+  //dowld butn show
+  userDownloadFlag :boolean = false;
   ngOnInit() {
     this.setFilters();
+    let isuserAdmin=localStorage.getItem('userRole');
+    if(isuserAdmin == 'CONTENT_REVIEWER'){
+      this.userDownloadFlag = true;
+    }
 
   }
 }
