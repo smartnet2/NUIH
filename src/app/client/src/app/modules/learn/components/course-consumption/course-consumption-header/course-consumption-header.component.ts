@@ -194,7 +194,7 @@ export class CourseConsumptionHeaderComponent implements OnInit, AfterViewInit, 
     //   console.log("marks",localStorage.getItem('totalScore'));
     //   console.log("maxScore",localStorage.getItem('maxScore'));
     //   let markspercnt=(totalMarks/maxMarks)*100;
-    var dwnld = confirm("Have you gone through all six modules and completed your final assessment?");
+    var dwnld = confirm("Have you gone through all eight modules and completed your final assessment?");
     if (dwnld == true) {
       this.certificateDownloadService.downloadAsPdf(this.title, this.fullName, this.userId, this.courseId, this.courseHierarchy.name, marks).subscribe((res: Response) => {
 
